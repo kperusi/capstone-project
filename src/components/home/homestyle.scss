@@ -1,0 +1,157 @@
+.home-main {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+   z-index: -1;
+    width: 100%;
+    height: 500px;
+}
+.bg-header {
+
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.55), rgb(0, 0, 0, 0.55)),
+        url("../../Assets/images/jeshoots-com--2vD8lIhdnw-unsplash.jpg");
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: cover, cover;
+    justify-content: center;
+    align-items: center;
+}
+.cx-wrap{
+    // border: solid red;
+    width: 55%;
+}
+
+.home-title {
+    font-size: 2em;
+    color: #ffffff;
+}
+.home-p {
+    margin-top: 20px;
+    color: white;
+}
+.home-btn {
+    margin-top: 35px;
+    width: 120px;
+    height: 50px;
+    border-radius: 5px;
+    outline: none;
+    background-color: blue;
+    border: 0px solid;
+    color: white;
+}
+.section-two{
+    display: flex;
+    flex-direction: row;
+    margin-top: 100px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+.section-two h1{
+    margin-bottom: 20px;
+}
+
+.home-img1{
+    width: 500px;
+    height: 300px;
+    // border: solid red;
+    
+}
+.section-three{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 140px;
+    padding-right: 140px;
+}
+.section-three h1{
+    margin-bottom: 20px;
+    text-align: center;
+}
+.frame-cx{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // border: solid red;
+    width: 100%;
+}
+.section-four{
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    padding: 60px;
+    background-color: rgba(255, 237, 204, 0.5);
+
+}
+
+.home-img2{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+.section-four-content{
+    margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+}
+.section-four-content p{
+    margin-top: 20px;
+}
+.section-five{
+    padding: 80px;
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+
+}
+.section-five-image-cx{
+    display: flex;
+    flex-direction: row;
+}
+.section-five-img1{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit:cover;
+    // clip: auto;
+}
+
+.flex-rw{
+    display: flex;
+    flex-direction: row;
+}
+.flex-col{
+    display: flex;
+    flex-direction: column;
+}
+.just-center{
+    justify-content: center;
+    align-items: center;
+}
+.gap{
+    gap: 80px;
+}
+.section-five-content h1{
+    font-size: 2em;
+    line-height: 1.5em;
+    margin-bottom: 20px;
+}
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 60px;
+    background-color: rgba(255, 237, 204, 0.5);
+}
+.footer h1{
+    color: blue;
+}
+.footer div{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

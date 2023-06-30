@@ -1,0 +1,23 @@
+.frame-main {
+  font-size: 0.9em;
+  border: 1px solid black;
+  width: 260px;
+  border-radius: 5px;
+  margin-top: 50px;
+  padding: 10px 10px;
+}
+
+.frame-title {
+  margin-top: 20px;
+}
+
+.frame-para {
+  margin-top: 20px;
+}
+
+.frame-icon {
+  margin-top: 10px;
+  border-radius: 50%;
+  background-color: rgba(128, 128, 128, 0.5);
+  padding: 10px;
+}/*# sourceMappingURL=framestyle.css.map */

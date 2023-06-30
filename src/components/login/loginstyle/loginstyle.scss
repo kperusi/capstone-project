@@ -1,0 +1,159 @@
+.login-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    justify-content: center;
+    width: 100%;
+    // z-index: -1;
+    animation-name: motion2;
+    animation-duration: 1s;
+    transition: all ease-in;
+    transition-duration: 0.8s;
+    
+}
+.login-content-rw {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+   
+}
+.login-content-rw h1 {
+    margin-bottom: 20px;
+    margin-right: auto;
+}
+.login-section-1 {
+    display: flex;
+    flex-direction: row;
+    height: 600px;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+}
+.login-form-div {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.login-form-input{
+    border: 1.9px solid grey;
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    outline: none;
+}
+
+.login-form-btn {
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+}
+.login-form-btn:hover{
+    cursor: pointer;
+}
+.login-form:hover {
+    cursor: pointer;
+}
+
+.login-form-checked {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 0.8em;
+}
+.login-form-checked-cx {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    // border: solid;
+    gap: 6px;
+  
+}
+
+.login-form-checked-cx input[type="checkbox"] {
+    height: 18px;
+    
+}
+
+.signup-btn-cx {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin: 5px;
+    border-radius: 20px;
+    padding: 5px 40px;
+    gap: 10px;
+    // border:1px solid;
+}
+.signup-btn-cx:hover {
+    cursor: pointer;
+}
+.login-section-rw-2{
+    display: flex;
+    flex-direction: row;
+    // height: 6px;
+    // background-color: grey;
+    // border:solid grey;
+    width: 100%;
+}
+.login-loading{
+    display: flex;
+    flex-direction: row;
+    height: 6px;
+    background-color: grey;
+    // border:solid grey;
+    width: 100%;
+    // height: 2px;
+   
+}
+.login-loading span{
+    background-color: blue;
+    width: 20%;
+    animation-name: motionLoading;
+    animation-duration: 3s;
+    transition: all ease-in;
+    animation-iteration-count: infinite;
+    // transition-duration: 0.8s;
+
+}
+
+
+
+
+@keyframes motion2 {
+    from {
+        margin-top: -40px;
+       
+    }
+    to {
+        margin-top: 0px;
+     
+    }
+}
+
+@keyframes motionLoading {
+    from {
+        margin-left: 0px;
+       
+    }
+    to {
+        margin-left: 100%;
+    }
+
+}

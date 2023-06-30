@@ -1,0 +1,77 @@
+.nav-main {
+    display: flex;
+    flex-direction: row;
+    // justify-content: space-around;
+    padding: 20px 0;
+    z-index: 1;
+}
+.nav-logo {
+    color: #0000ff;
+    font-size: 2em;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.link {
+    margin-left: 20px;
+    font-weight: 600;
+    color: black;
+    text-decoration: none;
+}
+.nav-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+
+    // border: solid red;
+}
+.nav-button button {
+    outline: none;
+    width: 100px;
+    height: 40px;
+    margin: 0 10px;
+}
+.nav-button button:hover {
+    cursor: pointer;
+}
+.login-btn {
+    background-color: transparent;
+    border: 1px solid blue;
+    border-radius: 5px;
+}
+.signin-btn {
+    background-color: blue;
+    border: 1px solid blue;
+    border-radius: 5px;
+    color: white;
+}
+.user-profile {
+    padding: 0 20px;
+    margin-right: 20px;
+}
+.hide {
+    z-index: 1;
+    display: none;
+}
+.show {
+    display: block;
+}
+.log-hide {
+    visibility: hidden;
+}
+.log-show{
+    visibility: visible;
+}
+.nav-user-profile-image-cx{
+
+}
+.nav-user-image{
+    height: 50px;
+    width: 50px;
+border-radius: 50%;
+}

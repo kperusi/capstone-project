@@ -1,0 +1,125 @@
+.create-account-main {
+    display: flex;
+    flex-direction: row;
+    // align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    animation-name: motion;
+    animation-duration: 1s;
+    transition: all ease-in;
+    justify-content: center;
+    // border: solid blue;
+
+}
+.create-account-content-rw {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    // background-color: white;
+    // height: 600px;
+}
+.create-account-content-rw h1 {
+    // border: solid;
+    margin-bottom: 20px;
+    margin-right: auto;
+}
+.create-account-form {
+    // border: solid;
+    width: 100%;
+}
+.full-name-cx {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+}
+.first-name-cx,
+.last-name-cx {
+    width: 50%;
+}
+
+.name-input,
+.other-form-inputs {
+    border: 1.9px solid grey;
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    outline: none;
+}
+.create-account-form-div {
+    display: flex;
+    flex-direction: column;
+}
+.other-form-inputs {
+}
+
+.create-account-form-btn {
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.create-account-form-btn:hover {
+    cursor: pointer;
+}
+
+.signup-btn-cx {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin: 5px;
+    border-radius: 5px;
+    padding: 5px 40px;
+    gap: 10px;
+    border:1.9px solid gray;
+}
+.signup-btn-cx:hover {
+    cursor: pointer;
+}
+.signup-img {
+    width: 18px;
+    height: 18px;
+}
+.signup-linkedin-img {
+    width: 18px;
+    height: 18px;
+}
+.signup-div-link {
+    display: flex;
+    margin-top: 20px;
+    gap: 10px;
+}
+.or-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
+.or-span {
+    background-color: gray;
+    border: 1px solid grey;
+    width: 100%;
+    height: 1px;
+}
+.or {
+    margin: 10px 0px;
+}
+
+@keyframes motion {
+    from {
+        margin-top: -30px;
+    }
+    to {
+        margin-top: 0px;
+    }
+}

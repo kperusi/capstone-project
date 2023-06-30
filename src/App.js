@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import NavBar from "./components/navbar/NavBar";
+import { MyRoutes } from "./components/pages/MyRoutes";
+import { UserContext } from "./components/userContext/UserContext";
+import { auth } from "./components/firebase/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function App() {
+  const [user] = useAuthState(auth);
+  if (user) {
+    // console.log(user.displayName || user.email);
+    localStorage.setItem("user", JSON.stringify(user));
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <UserContext.Provider value={user}>
+        <NavBar />
+        <MyRoutes />
+      </UserContext.Provider>
     </div>
   );
 }

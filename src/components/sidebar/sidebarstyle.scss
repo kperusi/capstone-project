@@ -1,0 +1,66 @@
+
+@font-face {
+    font-family: DMSans;
+    src: url('../../Assets/fonts/DMSans-Regular.ttf');
+  }
+  
+.sidebar-main {
+    display: flex;
+    flex-direction: column;
+    // border: 1px solid grey;
+    padding: 0 20px;
+    gap: 10px;
+    width: 20%;
+    min-width: 200px;
+    font-family: DMSans;
+    
+}
+.sidebar-rw-1 {
+    margin-bottom: 20px;
+}
+.sidebar-rw-1 h1 {
+    color: blue;
+    font-size: 2em;
+    margin-top: 10px;
+}
+
+.sidebar-rw-2,
+.sidebar-rw-3,
+.sidebar-rw-4 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+   
+
+}
+h2 {
+    margin-bottom: 20px;
+}
+.sidebar-feed-div,
+.sidebar-trending-div,
+.sidebar-personal-div {
+    display: flex;
+    align-content: center;
+    gap: 10px;
+    margin-left: 15px;
+    
+}
+
+.links {
+    text-decoration: none;
+    font-size: 1.2em;
+    color: black;
+}
+.ana-span{
+    display: flex;
+    // align-items: center;
+    border: 2px solid grey;
+    padding: 1px 2px;
+    height: 20px;
+    border-radius: 2px;
+}
+.sidebar-logout-div{
+    margin-top: 30px;
+}
