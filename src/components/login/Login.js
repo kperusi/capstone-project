@@ -11,24 +11,21 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading,setLoading]=useState('')
+  const [loading, setLoading] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
-setLoading(true)
+    setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password).then(()=>{
-         navigate("/feeds");
-         setLoading(false)
+      await signInWithEmailAndPassword(auth, email, password).then(() => {
+        navigate("/feeds");
+        setLoading(false);
       });
-     
     } catch (error) {
       console.log(error.code);
-      setLoading(false)
+      setLoading(false);
     }
   };
-
-
 
   // console.log(email)
   return (
@@ -83,14 +80,11 @@ setLoading(true)
         {/*  */}
       </section>
       <section className="login-section-rw-2">
-        {loading&&
-        <div className="login-loading">
-          <span>
-
-          </span>
-         
+        {loading && (
+          <div className="login-loading">
+            <span></span>
           </div>
-          }
+        )}
       </section>
     </main>
   );

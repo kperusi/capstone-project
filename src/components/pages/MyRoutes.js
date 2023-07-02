@@ -15,7 +15,7 @@ import Singlepost from "../singlepost/Singlepost";
 import Settings from "../settings/Settings";
 // import Main from "../../Main";
 export const MyRoutes = () => {
-  const user =  JSON.parse(localStorage.getItem('user'))
+  // const user =  JSON.parse(localStorage.getItem('user'))
   return (
     <div>
       <Routes>

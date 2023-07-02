@@ -6,6 +6,9 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from "../firebase/firebase";
 import { UserContext } from "../userContext/UserContext";
 import { useNavigate } from "react-router-dom";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+
 export default function CreatePost() {
   const [progress, setProgress] = useState();
   const user = useContext(UserContext);
@@ -16,16 +19,40 @@ export default function CreatePost() {
     image: "",
     createdAt: Timestamp.now().toDate(),
   });
+  const [title,setTitle]=useState('')
+  const [main,setMain]=useState('')
 
-  const handleChange = (e) => {
-    setBlogData({ ...blogData, [e.target.name]: e.target.value });
+
+  const modules = {
+    toolbar: [
+      [{ font: [] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ color: [] }, { background: [] }],
+      [{ script: "sub" }, { script: "super" }],
+      ["blockquote", "code-block"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ indent: "-1" }, { indent: "+1" }, { align: [] }],
+      ["link", "image", "video"],
+      ["clean"],
+    ],
   };
+
+  const handleTitleChange = (e) => {
+    setBlogData({ ...blogData, title: e.target.value });
+  };
+
+  const handleMainChange=(main)=>{
+    setBlogData({...blogData,main:main})
+  }
+
 
   const handleImageChange = (e) => {
     setBlogData({ ...blogData, image: e.target.files[0] });
   };
 
   const handlePublish = () => {
+    
     if (!blogData.title || !blogData.main) {
       alert("please title and post field cannot be empty");
       return;
@@ -59,7 +86,7 @@ export default function CreatePost() {
             title: blogData.title,
             main: blogData.main,
             imageUrl: url,
-            userImageUrl:user.photoURL,
+            userImageUrl: user.photoURL,
             createdAt: Timestamp.now().toDate(),
             createdBy: user.displayName,
             userId: user.uid,
@@ -82,7 +109,7 @@ export default function CreatePost() {
     );
   };
 
-console.log(progress)
+  console.log(blogData.main);
   return (
     <main className="create-post-main">
       <section className="create-post-rw-1">
@@ -151,7 +178,7 @@ console.log(progress)
               placeholder="Title"
               name="title"
               value={blogData.title}
-              onChange={(e) => handleChange(e)}
+              onChange={(e) => handleTitleChange(e)}
             />
           </div>
 
@@ -179,7 +206,7 @@ console.log(progress)
               onChange={(e) => handleImageChange(e)}
             />
 
-            <textarea
+            {/* <textarea
               className="desc-input"
               name="main"
               id="post-textarea"
@@ -188,7 +215,17 @@ console.log(progress)
               placeholder="Write a post..."
               value={blogData.main}
               onChange={(e) => handleChange(e)}
-            ></textarea>
+            ></textarea> */}
+
+            <ReactQuill modules={modules} 
+            onChange={handleMainChange}
+            value={blogData.main}
+            // name='main'
+            // name="main"
+            id="post-textarea"
+            className="desc-input"
+            placeholder="Write a post..."
+            theme="snow" />
           </div>
         </div>
       </section>

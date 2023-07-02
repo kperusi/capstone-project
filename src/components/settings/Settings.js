@@ -17,6 +17,8 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { useContext } from "react";
 import { UserContext } from "../userContext/UserContext";
+import { useDispatch } from "react-redux";
+import { setPhoto_Url } from "../store/dataSlice";
 
 export default function Settings() {
   const user = useContext(UserContext);
@@ -25,13 +27,15 @@ export default function Settings() {
   const [imageAsUrl, setImageAsUrl] = useState("");
   const [progress, setProgress] = useState("");
   const [filteredBlogs, setFilteredBlogs] = useState([]);
-  const [userPhotoUrl, setUserPhotoUrl] = useState("");
+  const [inputName, setInputName] = useState("");
   const [userName, setUserName] = useState("");
+  const [updatedName, setUpdatedName] = useState("");
+  const dispatch = useDispatch();
 
   const handleImageAsFile = async (e) => {
     const image = e.target.files[0];
     setImageAsFile(image);
-    setImageAsUrl(user?.photoURL||URL.createObjectURL(image) );
+    setImageAsUrl(URL.createObjectURL(image));
 
     console.log("start of upload....");
     if (imageAsFile === "") {
@@ -39,6 +43,12 @@ export default function Settings() {
       return;
     }
   };
+
+  const handleInputName = (e) => {
+    setUpdatedName(e.target.value);
+  };
+
+  console.log(updatedName)
 
   const handleSaveChanges = async () => {
     const storageRef = ref(
@@ -62,17 +72,27 @@ export default function Settings() {
       async () => {
         await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           filteredBlogs.forEach(async (element) => {
-           await updateDoc(doc(db,"Blogs",element.id),{
-              userImageUrl:url
-            })
-            console.log(element)
-            setImageAsUrl(url)
+            await updateDoc(doc(db, "Blogs", element.id), {
+              userImageUrl: url,
+              createdBy: updatedName,
+            });
+            setImageAsUrl(url);
           });
-          try {
-            updateProfile(auth.currentUser, { photoURL: `${url}` });
-          } catch (error) {
-            console.log(error);
+
+          if(updatedName===''){
+            setUpdatedName(auth.currentUser.displayName)
           }
+          // try {
+          updateProfile(auth.currentUser, {
+            photoURL: `${url}`,
+            displayName: updatedName,
+          }).then(
+            () => dispatch(setPhoto_Url(auth.currentUser.photoURL))
+            // console.log(auth.currentUser)
+          );
+          // } catch (error) {
+          // console.log(error);
+          // }
         });
       }
     );
@@ -81,7 +101,7 @@ export default function Settings() {
   useEffect(() => {
     if (user) {
       setUserName(user.displayName);
-      setImageAsUrl(user.photoURL)
+      setImageAsUrl(user.photoURL);
     }
     const blogRef = collection(db, "Blogs");
     const q = query(blogRef, where("createdBy", "==", userName));
@@ -92,12 +112,12 @@ export default function Settings() {
       }));
       setFilteredBlogs(blogs);
     });
-  }, [user,userName]);
+  }, [user, userName]);
 
-  // if (user) {
-  //   console.log(user);
-  // }
-  // console.log(user.displayName);
+  if (user) {
+    console.log(user.displayName);
+  }
+  console.log(filteredBlogs);
   return (
     <main className="settings-main">
       Settings
@@ -105,8 +125,10 @@ export default function Settings() {
         <form>
           <input
             type="text"
-            placeholder={user ? user.displayName : ""}
+            placeholder={user ? user.displayName : "no user"}
             className="settings-input"
+            value={updatedName}
+            onChange={(e) => handleInputName(e)}
           />
           <div>
             <input type="file" onChange={handleImageAsFile} />
@@ -124,9 +146,7 @@ export default function Settings() {
         <p>{progress}</p>
         {/* <img src={userPhotoUrl} alt="userphotos" /> */}
       </section>
+      {/* <button onClick={()=>{dispatch(increment())}}>increment</button> */}
     </main>
   );
 }
-
-
- 

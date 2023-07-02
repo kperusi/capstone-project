@@ -20,12 +20,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function FeedView() {
   const user = useContext(UserContext);
+  // const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-
 
   const [blogs, setBlogs] = useState([]);
   const [news, setNews] = useState([]);
-
 
   useEffect(() => {
     const blogRef = collection(db, "Blogs");
@@ -75,13 +74,12 @@ export default function FeedView() {
       });
   };
   const firstLetter = (blog) => {
-    if(blog.createdBy){
-        return ((blog.createdBy)).substring(0,1);
+    if (blog.createdBy) {
+      return blog.createdBy.substring(0, 1);
     }
-  
   };
-console.log(blogs)
- 
+  // console.log(user);
+
   return (
     <main>
       <section className="feedview-post-cx">
@@ -132,7 +130,6 @@ console.log(blogs)
                     borderBottom: "1px solid grey",
                   }}
                 >
-                 
                   <Posts
                     firstLetter={firstLetter(blog)}
                     profilePic={blog.userImageUrl}
@@ -152,8 +149,8 @@ console.log(blogs)
             </div>
             <div>
               <h1>News for you</h1>
-              {news.map((newsArticle) => (
-                <main>
+              {news.map((newsArticle, id) => (
+                <main key={id}>
                   <h2>{newsArticle.author}</h2>
                   <p>{newsArticle.content}</p>
                 </main>

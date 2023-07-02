@@ -3,37 +3,58 @@ import { auth } from "../firebase/firebase";
 import { signOut } from "firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./profilstyle/profilestyle.css";
-import userImage from '../../Assets/images/man.png'
+import userImage from "../../Assets/images/man.png";
 import { useContext } from "react";
 import { UserContext } from "../userContext/UserContext";
 
-export default function Profile({showProfile, setShowProfile}) {
+export default function Profile({ showProfile, setShowProfile }) {
   const navigate = useNavigate();
 
-const handleClose=()=>{
-  if(showProfile==='show'){
-    setShowProfile('hide')
-  }
-  else setShowProfile('show')
-}
+  const removeSpace = (name) => {
+    if(name)
+    return name.replace(/\s/g, "");
+  };
+
+  const handleClose = () => {
+    if (showProfile === "show") {
+      setShowProfile("hide");
+    } else setShowProfile("show");
+  };
   // const user = JSON.parse(localStorage.getItem("user"));
-  const user = useContext(UserContext)
+  const user = useContext(UserContext);
   if (user)
     return (
       <main className={`profile-main`}>
         <section className="profile-rw-1">
           <div className="profile-rw-3">
-            <img src={user.photoURL||userImage }alt="" height={50} width={50} style={{borderRadius:'50%'}} />
+            <img
+              src={user.photoURL || userImage}
+              alt=""
+              height={50}
+              width={50}
+              style={{ borderRadius: "50%" }}
+            />
             <p>{user.displayName}</p>
           </div>
-          
+
           <hr />
           <div className="profile-rw-2">
             <div className="profile-rw-3">
-            <NavLink to={`/feeds/${user.displayName}`}>My Blogs</NavLink>
-              
+              <NavLink
+                to={`/feeds/${user.displayName}`}
+                onClick={() => {
+                  handleClose();
+                }}
+              >
+                My Blogs
+              </NavLink>
             </div>
-            <div className="profile-rw-3" onClick={()=>{handleClose()}}>
+            <div
+              className="profile-rw-3"
+              onClick={() => {
+                handleClose();
+              }}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -41,7 +62,7 @@ const handleClose=()=>{
                 strokeWidth="1.5"
                 stroke="currentColor"
                 className="w-1 h-1"
-                width='22px'
+                width="22px"
               >
                 <path
                   strokeLinecap="round"
@@ -50,14 +71,14 @@ const handleClose=()=>{
                 />
               </svg>
 
-              <NavLink  to={`/${user.displayName}-settings`}>
+              <NavLink to={`/${user.displayName}-settings`}>
                 Account Settings
               </NavLink>
             </div>
           </div>
 
           <button
-          className="profile-logout-btn"
+            className="profile-logout-btn"
             onClick={() => {
               signOut(auth);
               localStorage.removeItem("user");
@@ -67,7 +88,7 @@ const handleClose=()=>{
           >
             LogOut
           </button>
-
+          <p>{user.email}</p>
         </section>
       </main>
     );

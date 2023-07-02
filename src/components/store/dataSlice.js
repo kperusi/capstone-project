@@ -4,7 +4,9 @@ export const dataSlice = createSlice(
     {
         name:'data',
         initialState:{
-            showComment:'show'
+            showComment:'show',
+            number:'CHATTER',
+            photo_Url:''
 
         },
         reducers:{
@@ -13,13 +15,21 @@ export const dataSlice = createSlice(
                 state.showComment='hide'
             }else
             state.showComment = 'show'
+           },
+           increment:(state)=>{
+            state.number='CHATTER'
+           },
+           setPhoto_Url:(state,action)=>{
+            state.photo_Url=action.payload
            }
 
         }
     }
 )
 export const {
-    setShowComment
+    setShowComment,
+    increment,
+    setPhoto_Url
    
   } = dataSlice.actions;
   export default dataSlice.reducer;
