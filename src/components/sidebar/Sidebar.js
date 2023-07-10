@@ -33,7 +33,10 @@ export default function Sidebar() {
               />
             </svg>
           </span>
-          <NavLink to="/feeds" className="links">
+          <NavLink 
+          to="feed"
+           className="links"
+           >
             Feed
           </NavLink>
         </div>
@@ -90,7 +93,7 @@ export default function Sidebar() {
               />
             </svg>
           </span>
-          <NavLink className="links">Drafts</NavLink>
+          <NavLink to='draft' className="links">Drafts</NavLink>
         </div>
 
         <div className="sidebar-feed-div">

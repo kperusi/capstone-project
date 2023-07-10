@@ -1,15 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./createpost.css";
+import "../createpost/createpost.css";
 import { NavLink, useParams } from "react-router-dom";
 import {
   Timestamp,
   addDoc,
-  collection,
-  where,
-  onSnapshot,
-  query,
   doc,
   updateDoc,
+  onSnapshot,
 } from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from "../firebase/firebase";
@@ -20,20 +17,17 @@ import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
 import ProgressBar from "@ramonak/react-progress-bar";
 
-export default function CreatePost() {
+export default function EditPost() {
   const [progress, setProgress] = useState("");
   const user = useContext(UserContext);
   const navigate = useNavigate();
+  const { id } = useParams();
   const [blogData, setBlogData] = useState({
     title: "",
     main: "",
     image: "",
     createdAt: Timestamp.now().toDate(),
   });
-  const [saving, setSaving] = useState("");
-  const [_saving, _setSaving] = useState(false);
-
-  const { id } = useParams();
 
   const modules = {
     toolbar: [
@@ -50,123 +44,62 @@ export default function CreatePost() {
     ],
   };
 
-  const handleTitleChange = async (e) => {
+  const handleTitleChange = (e) => {
     setBlogData({ ...blogData, title: e.target.value });
-    setSaving("Saving...");
-    _setSaving(true)
-
-
-
-    await updateDoc(doc(db, "Blogs", id), {
-      title: blogData.title,
-    }).then(() => {
-      setSaving("Saved");
-      _setSaving(false);
-      console.log("blog updated");
-    });
+  };
+  const handleMainChange = (main) => {
+    setBlogData({ ...blogData, main: main });
+  };
+  const handleImageChange = (e) => {
+    setBlogData({ ...blogData, image: e.target.files[0] });
   };
 
-  const handleMainChange = async (main) => {
-    setBlogData({ ...blogData, main: main });
-    setSaving("Saving...");
-    _setSaving(true)
+  useEffect(() => {
+    const editDocRef = doc(db, "Blogs", id);
+    onSnapshot(editDocRef, (snapshot) => {
+      console.log(snapshot.data());
+      setBlogData({
+        ...blogData,
+        main: snapshot.data().main,
+        title: snapshot.data().title,
+      });
+    });
+  }, []);
+
+  const handlePublish = async () => {
+    console.log("clicked");
+    if (blogData.main === "") {
+      console.log("main cant be  empty");
+      return;
+    }
+    if (blogData.title === "") {
+      console.log("title cant be empty");
+      return;
+    }
+
     await updateDoc(doc(db, "Blogs", id), {
       main: blogData.main,
       title: blogData.title,
     }).then(() => {
       console.log("blog updated");
-      setSaving("Saved");
-      _setSaving(false)
+      navigate(`/chatter/${user.displayName}`)
     });
   };
 
-  const handleImageChange = (e) => {
-    setBlogData({ ...blogData, image: e.target.files[0] });
-  };
-
-  const handlePublish = async () => {
-    setSaving('Publishing')
-    await updateDoc(doc(db, "Blogs", id), {
-      status: "published",
-    }).then(() => {
-      console.log("blog updated");
-      navigate(`/chatter/${user.displayName}`);
-    });
-  };
-
-  const handleSaveAsDraft = async () => {
-    console.log(id);
-    await updateDoc(doc(db, "Blogs", id), {
-      // main: blogData.main,
-      title: blogData.title,
-    }).then(() => {
-      console.log("blog updated");
-    });
-  };
-
-  useEffect(() => {
-    return () => {
-      console.log("“This is unmounted.”");
-    };
-  }, []);
-
-  useEffect(() => {
-    const storageRef = ref(
-      storage,
-      `images/${Date.now()}${blogData.image.name}`
-    );
-    console.log(blogData.image);
-    const uploadedImage = uploadBytesResumable(storageRef, blogData.image);
-    uploadedImage.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(progress);
-      },
-      (err) => {
-        console.log(err);
-      },
-      () => {
-        getDownloadURL(uploadedImage.snapshot.ref)
-          .then(async (url) => {
-            await updateDoc(doc(db, "Blogs", id), {
-              imageUrl: url,
-            }).then(() => {
-              console.log("image updated", url);
-              setProgress(0);
-            });
-          })
-          .finally(() => {
-            console.log("Saved");
-            _setSaving(false)
-          });
-      }
-    );
-  }, [blogData.image, id]);
-
-
- 
-
-
-
+  console.log(id);
   return (
     <main className="create-post-main">
       <section className="create-post-rw-1">
-        <p>Your post: {saving}</p>
         <button
-          className= 'create-post-btn'
-          disabled={_saving}
+          className="create-post-btn"
           onClick={() => {
             handlePublish();
           }}
         >
           Publish
         </button>
-
         <NavLink
-          to={`/chatter/${user.displayName}`}
+           to={`/chatter/${user.displayName}`}
           style={{
             width: "30px",
             marginTop: "-40px",
@@ -179,13 +112,13 @@ export default function CreatePost() {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            strokeWidth="1.5"
+            stroke-width="1.5"
             stroke="currentColor"
-            className="w-6 h-6"
+            class="w-6 h-6"
           >
             <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              stroke-linecap="round"
+              stroke-linejoin="round"
               d="M6 18L18 6M6 6l12 12"
             />
           </svg>
@@ -236,7 +169,6 @@ export default function CreatePost() {
               placeholder="Title"
               name="title"
               value={blogData.title}
-              // onInput={() => handleSaveAsDraft()}
               onChange={(e) => handleTitleChange(e)}
             />
           </div>
@@ -257,38 +189,10 @@ export default function CreatePost() {
                 fontSize: "2.3em",
               }}
             />
+            {/* <QuillEditor/> */}
           </div>
         </div>
       </section>
     </main>
   );
 }
-
-// const storageRef = ref(
-//     storage,
-//     `images/${Date.now()}${blogData.image.name}`
-//   );
-//   console.log(blogData.image)
-//   const uploadedImage = uploadBytesResumable(storageRef, blogData.image);
-//   uploadedImage.on(
-//     "state_changed",
-//     (snapshot) => {
-//       const progress = Math.round(
-//         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-//       );
-//       setProgress(progress);
-//     },
-//     (err) => {
-//       console.log(err);
-//     },
-//     () => {
-
-//       getDownloadURL(uploadedImage.snapshot.ref).then(async(url)=>{
-
-//         await updateDoc(doc(db, "Blogs", id), {
-//           imageUrl:url
-//         }).then(() => {
-//           console.log("image updated", url);
-//         });
-//       })
-//       })

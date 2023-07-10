@@ -18,3 +18,16 @@ html {
   margin: 0;
   font-family: DMSans;
 }
+.app{
+  display: flex;
+  flex-direction: column;
+ /* gap: 100px; */
+}
+.nav-cx{
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+.pages{
+ /* position: absolute; */
+}

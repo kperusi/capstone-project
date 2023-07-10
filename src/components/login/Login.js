@@ -18,7 +18,7 @@ export default function Login() {
     setLoading(true);
     try {
       await signInWithEmailAndPassword(auth, email, password).then(() => {
-        navigate("/feeds");
+        navigate("/chatter");
         setLoading(false);
       });
     } catch (error) {

@@ -6,21 +6,25 @@
     margin: 0 auto;
     border-radius: 5px;
 }
-.settings-rw-main{
+.settings-rw-main {
     border: solid;
     padding: 20px;
     border-radius: 5px;
-    border: 3px solid rgb(201, 197, 197);
-
+    border: 0.3px solid rgb(201, 197, 197);
 }
-.settings-header{
+.settings-head {
     display: flex;
-    margin-bottom: 10px;
+    flex-direction: column;
+    margin-bottom: 20px;
+    // border: solid;
+    border-radius: 5px;
+    background-color: rgb(213, 207, 207);
+    padding: 20px;
 }
 .settings-input {
     padding: 10px;
     font-size: 1.2em;
-    border: 2px solid  rgb(201, 197, 197);
+    border: 2px solid rgb(201, 197, 197);
     border-radius: 5px;
     outline: none;
 }
@@ -38,18 +42,35 @@ input {
     flex-direction: column;
     gap: 20px;
 }
-.settings-col-2{
+.settings-col-2 {
     display: flex;
     flex-direction: column;
 }
-.settings-btn{
+.settings-btn {
     // height: 30px;
     border-radius: 5px;
     outline: none;
     background-color: blue;
     color: white;
     border: none;
-    margin-top: 10px;
+    margin-top: 30px;
     padding: 10px;
-
+    width: 100%;
+}
+.settings-cancel {
+    position: relative;
+    margin-top: -40px;
+    margin-left: 100px;
+    border-radius: 50%;
+    background-color: white;
+    border: 2px solid blue;
+    color: gray;
+    // border: solid;
+    width: 40px;
+    height: 40px;
+    padding: 4px;
+}
+.settings-cancel svg:hover {
+    cursor: pointer;
+  
 }

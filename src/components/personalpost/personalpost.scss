@@ -1,9 +1,9 @@
 .person-post-main{
-    
    
 }
 .person-post-cx{
     // border: solid;
+    // background-color: rgb(255, 222, 222);
 }
 .person-post-rw-1{
     padding:0 20px 10px 20px;
@@ -19,13 +19,15 @@
     display: flex;
     justify-content: center;
     gap: 2px;
+   
 }
+
 .person-post-menu-wrap:hover{
     cursor: pointer;
 }
 .person-post-menu{
-
     padding: 2px;
+   
 
 }
 .menu:hover{
@@ -34,7 +36,22 @@
 .menu-col-2{
     display: flex;
     flex-direction: column;
+    gap: 10px;
+    
+ 
 
+}
+.menu-col-2 button{
+    outline: none;
+    border: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    background-color: transparent;
+    font-size: 1.2em;
+    
+
+    
 }
 .person-post-rw-2{
     display: flex;
@@ -72,4 +89,13 @@
     border: none;
     outline: none;
     color: red;
+}
+
+.person-post-content{
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+
 }

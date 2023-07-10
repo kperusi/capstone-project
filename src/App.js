@@ -5,21 +5,25 @@ import { UserContext } from "./components/userContext/UserContext";
 import { auth } from "./components/firebase/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [user] = useAuthState(auth);
+  const navigate = useNavigate()
 
-  useEffect(()=>{
-    if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
-    }
-  },[user])
- 
+
+ console.log(user)
   return (
-    <div className="App">
+    <div className="app">
       <UserContext.Provider value={user}>
-        <NavBar />
-        <MyRoutes />
+       
+       <section className="nav-cx">
+         <NavBar />
+        </section>
+        <section className="pages">
+          <MyRoutes />
+        </section>
+        
       </UserContext.Provider>
     </div>
   );

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
-    // padding: 180px;
+
     justify-content: center;
     // align-items: center;
     padding-top: 0;
@@ -12,6 +12,7 @@
     flex-direction: column;
     padding-left: 20px;
     width: 100%;
+    padding-left: 160px;
     // flex-basis: 3;
     // padding: 0 100px;
     // border: solid;
@@ -19,7 +20,6 @@
 .single-post-main-2 {
     display: flex;
     flex-direction: row;
-    
 }
 .single-post-rw-1 {
     display: flex;
@@ -47,9 +47,9 @@
 .single-post-rw-2 {
     display: flex;
     flex-direction: column;
-    border: solid rgb(192, 188, 188);
+    // border: 0.3px solid rgb(192, 188, 188);
     padding: 20px;
-    border-radius: 5px;
+    // border-radius: 5px;
 }
 .post-image-wrap {
     display: flex;
@@ -87,26 +87,29 @@
 .single-post-comment-cx {
     display: flex;
     flex-direction: column;
-    margin-right:0px;
+    margin-right: 0px;
     background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-    border: solid rgb(215, 210, 210);
+    // padding: 0px 20px;
     // margin-left: auto;
 }
 .single-post-menu h3 {
     width: 100%;
 }
 
+.single-post-title{
+    font-size: 1.8em;
+}
 .single-post-menu form {
     display: flex;
     flex-direction: column;
-    // border: solid red;
+    border: 0.3px solid rgb(215, 210, 210);
     padding: 20px 10px;
     margin-bottom: 10px;
     gap: 20px;
+    width: 100%;
+    border-radius: 5px;
 }
-form button{
+form button {
     padding: 10px;
     outline: none;
     background-color: blue;
@@ -114,7 +117,8 @@ form button{
     border-radius: 5px;
     border: none;
 }
-form input{
+form input {
+    width: 100%;
     padding: 10px;
     font-size: 1em;
     outline: none;
@@ -138,50 +142,65 @@ form input{
 
 .show {
     visibility: visible;
-    width: 50%;
+    width: 48%;
 }
 .hide {
     visibility: hidden;
-    width: 0px;
-    margin-right: 60px;
-   
+    width: 10px;
+    margin-right:180px;
 }
 .nonzero {
     width: 0;
 }
-.comments-view-col-1{
+.comments-view-col-1 {
     display: flex;
     flex-direction: row;
     // border: solid;
     width: 100%;
-    align-items: center; 
+    align-items: center;
     gap: 20px;
+   
 }
-.comments-view{
+.comments-view-main{
+    border: 0.3px solid rgb(215, 210, 210);
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+.comments-view {
     display: flex;
     flex-direction: column;
     gap: 20px;
     width: 100%;
+    border: 0.3px solid rgb(215, 210, 210);
+    border-radius: 5px;
+    padding: 20px;
 }
-.comment-time{
+.comment-time {
     font-size: 0.8em;
-
 }
 
-.comment-rw-1{
+.comment-rw-1 {
     display: flex;
     flex-direction: row;
-}
-.comment-rw-2{
-    display: flex;
-    flex-direction: column;
-}
-.comment-image{
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
+    width: 80%;
+    
 
 }
-.comments{
+.comment-rw-2 {
+    display: flex;
+    flex-direction: column;
+
+}
+.comment-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+}
+.comments {
     margin-top: 10px;
+}
+.comment-del-cx{
+    width: 20px;
+    height: 20px;
+    margin-left: auto;
 }

@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { db, storage } from "../firebase/firebase";
 import { UserContext } from "../userContext/UserContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./personalpost.css";
 import { deleteObject, ref } from "firebase/storage";
 import Tooltip from "../tooltip/ToolTip";
@@ -26,9 +26,10 @@ export default function PersonalPost() {
   const param = useParams();
   const [userName, setUserName] = useState("");
 
+  const navigate = useNavigate();
+
   const removeSpace = (name) => {
-    if(name)
-    return name.replace(/\s/g, "");
+    if (name) return name.replace(/\s/g, "");
   };
 
   const handleDelete = async (id, imageUrl) => {
@@ -41,16 +42,7 @@ export default function PersonalPost() {
     }
   };
   const handleEdit = async (id, imageUrl) => {
-    const updatedValue = {
-      title: "this is an updated title",
-      main: "This is an updated description main",
-    };
-    try {
-      await updateDoc(doc(db, "Blogs", id), updatedValue);
-      console.log("updated successfully");
-    } catch (error) {
-      console.log(error, error.code);
-    }
+    navigate(`/editing/${id}`);
   };
 
   useEffect(() => {
@@ -68,12 +60,9 @@ export default function PersonalPost() {
     });
   }, [user, userName]);
 
-  
-  console.log('--',blogs);
-  console.log(param.name);
-  if(user){
-    console.log(user.displayName)
-  }
+  // if(user){
+  //   console.log(user.displayName)
+  // }
 
   if (user && user.displayName === param.name)
     return (
@@ -110,7 +99,10 @@ export default function PersonalPost() {
 
               <section className="person-post-rw-3">
                 <img src={blog.imageUrl} alt="postpicture" />
-                <p>{blog.main}</p>
+                <div
+                  dangerouslySetInnerHTML={{ __html: blog.main }}
+                  className="person-post-content"
+                ></div>
               </section>
 
               <section className="person-post-rw-4">
@@ -162,7 +154,6 @@ export default function PersonalPost() {
                   <Popup
                     trigger={
                       <div className="person-post-menu-wrap">
-                        more{" "}
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -181,23 +172,76 @@ export default function PersonalPost() {
                       </div>
                     }
                     position="left center"
-                    contentStyle={{ display: "flex", flexDirection: "column" }}
+                    contentStyle={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "140px",
+                    }}
                   >
                     {(close) => (
                       <div className="menu-col-2">
-                        <button
-                          name="btn"
-                          className="btn"
-                          onClick={() => {
-                            handleDelete(blog.id, blog.imageUrl);
-                            console.log("closed");
-                            close();
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "10px",
+                            color:'red'
                           }}
                         >
-                          Delete
-                        </button>
-
-                        <button
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="w-1 h-1"
+                            style={{ height: "30px" }}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                            />
+                          </svg>
+                          <button
+                            name="btn"
+                            className="del-btn"
+                            onClick={() => {
+                              handleDelete(blog.id, blog.imageUrl);
+                              console.log("closed");
+                              close();
+                            }}
+                            style={{color:'red'}}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            gap: "10px",
+                           
+                           
+                          }}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="1.5"
+                            stroke="currentColor"
+                            className="w-1 h-1"
+                            style={{height:'30px'}}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                            />
+                          </svg>
+                          <button
+                          className="del-btn"
                           onClick={() => {
                             handleEdit(blog.id, blog.imageUrl);
                             close();
@@ -205,6 +249,9 @@ export default function PersonalPost() {
                         >
                           Edit Post
                         </button>
+
+                        </div>
+                       
                       </div>
                     )}
                   </Popup>

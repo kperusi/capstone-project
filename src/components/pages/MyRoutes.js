@@ -8,28 +8,38 @@ import Feeds from "../feeds/Feeds";
 import FeedView from "../feedview/FeedView";
 import CreatePost from "../createpost/CreatePost";
 import Featured from "../featured/Featured";
-import { useContext } from "react";
-import { UserContext } from "../userContext/UserContext";
 import PersonalPost from "../personalpost/PersonalPost";
 import Singlepost from "../singlepost/Singlepost";
 import Settings from "../settings/Settings";
-// import Main from "../../Main";
+import Draft from "../draft/Draft";
+import EditPost from "../editpost/EditPost";
+import Recent from "../recent/Recent";
+import FeedHome from "../feedhome/FeedHome";
+// import Main from "../main/Main";
 export const MyRoutes = () => {
   // const user =  JSON.parse(localStorage.getItem('user'))
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/feeds" element={<Feeds/>} >
-          <Route index element={<FeedView/>}/>
-          <Route path="post" element={<FeedView/>}/>
-          <Route path="write" element={<CreatePost/>}/>
-          <Route path="/feeds/:name" element={<PersonalPost/>}/>
-          <Route path="feeds/featured" element={<Featured/>}/>
+        <Route path="/chatter" element={<FeedHome />}>
+          <Route index element={<Feeds />} />
+          <Route path="feed" element={<Feeds />}>
+            <Route index element={<FeedView />} />
+            <Route path="for-you" element={<FeedView />} />
+            <Route path="recent" element={<Recent />} />
+            <Route path="featured" element={<Featured/>}/>
+          </Route>
+          <Route path="draft" element={<Draft />} />
+          <Route path=":name" element={<PersonalPost />} />
         </Route>
-        <Route path="post/:id" element={<Singlepost/>}/>
-        <Route path = '/:name' element={<Settings/>}/>
+
+        <Route path="createpost" element={<CreatePost />} />
+        <Route path="post/:id" element={<Singlepost />} />
+        <Route path="/:name" element={<Settings />} />
+        <Route path="edit/:id" element={<CreatePost />} />
+        <Route path="editing/:id" element={<EditPost />} />
         <Route path="/signup" element={<SignUp />}>
           <Route index element={<EmailSignUp />} />
           <Route path="login" element={<Login />} />

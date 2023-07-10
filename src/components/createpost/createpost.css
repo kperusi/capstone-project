@@ -39,6 +39,7 @@
 
 .desc-cx {
   display: flex;
+  flex-direction: column;
   gap: 30px;
   margin-top: 20px;
 }
@@ -60,4 +61,32 @@
   outline: none;
   font-size: 1.2em;
   width: 100%;
+  border: 0.3 solid grey;
+}
+
+.desc-input:hover {
+  cursor: pointer;
+}
+
+.wrapper {
+  border-radius: 5px;
+}
+
+.container {
+  border-radius: 2px;
+  background-color: rgb(196, 190, 190);
+  border-radius: 3px;
+}
+
+.bar-completed {
+  background-color: blue;
+  height: 10px;
+}
+
+.label {
+  display: none;
+}
+
+.create-post-btn:disabled {
+  background-color: rgb(81, 81, 234);
 }/*# sourceMappingURL=createpost.css.map */

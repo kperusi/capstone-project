@@ -9,19 +9,13 @@ import userImage from "../../Assets/images/man.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase/firebase";
 import { useSelector } from "react-redux";
+import Popup from "reactjs-popup";
 
 function NavBar() {
   const navigate = useNavigate();
   const [user]= useAuthState(auth)
   const number = useSelector((state) => state.data.number);
   const photo_Url= useSelector((state)=>state.data.photo_Url)
-  // const [user, setUser] = useState();
-
-  // useEffect(() => {
-  //   const user = JSON.parse(localStorage.getItem("user"));
-  //   setUser(user);
-  // }, [setUser]);
-
   const [showProfile, setShowProfile] = useState("hide");
   const handleProfleShow = () => {
     if (showProfile === "hide") {
@@ -73,27 +67,31 @@ function NavBar() {
       <section className="user-profile">
         {user && (
           <div>
-            <div
+            <Popup trigger={<div
               className="nav-user-profile-image-cx"
-              onClick={() => {
-                handleProfleShow();
-              }}
             >
               <img
                 src={user.photoURL || userImage}
                 alt={photo_Url||''}
                 className="nav-user-image"
               />
-               {/* <img
-                src={photo_Url}
-                alt={photo_Url}
-                className="nav-user-image"
-              /> */}
-            </div>
+            </div>}
+            position='bottom right'
+            contentStyle={{width:'310px'}}
+            
+            >
+              {(close)=>(<section>
+                <Profile close={close} />
+
+              </section>)}
+            </Popup>
+
+
+            
           </div>
         )}
+        
         <div className={`${showProfile}`}>
-          <Profile showProfile={showProfile} setShowProfile={setShowProfile} />
         </div>
       </section>
     </nav>

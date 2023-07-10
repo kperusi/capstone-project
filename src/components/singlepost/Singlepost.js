@@ -16,7 +16,7 @@ import { useState } from "react";
 import "./singlepoststyle/singlepoststyle.css";
 import { UserContext } from "../userContext/UserContext";
 
-// import Popup from "reactjs-popup";
+import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowComment } from "../store/dataSlice";
@@ -27,18 +27,17 @@ export default function Singlepost() {
   const user = useContext(UserContext);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  const [width,setWidth]=useState('zero')
+  const [width, setWidth] = useState("zero");
   const showComment = useSelector((state) => state.data.showComment);
 
   const dispatch = useDispatch();
   console.log(showComment);
 
-  const handleWidth = ()=>{
-    if(width==='zero'){
-      setWidth('nonzero')
-    }
-    else setWidth('zero')
-  }
+  const handleWidth = () => {
+    if (width === "zero") {
+      setWidth("nonzero");
+    } else setWidth("zero");
+  };
 
   useEffect(() => {
     const docRef = doc(db, "Blogs", id);
@@ -76,7 +75,7 @@ export default function Singlepost() {
         comment: comment,
         createdAt: new Date(),
         commentId: uuidv4(),
-        commentByImageUrl:user.photoURL
+        commentByImageUrl: user.photoURL,
       }),
     })
       .then(() => {
@@ -88,8 +87,11 @@ export default function Singlepost() {
   };
 
   const handleCommentClose = () => {};
+
+  
+
   console.log(showComment);
-  console.log(width)
+  console.log(width);
   return (
     <main className="single-post-main">
       {post && (
@@ -101,7 +103,11 @@ export default function Singlepost() {
                 alt=""
                 className="single-post-image"
               />
-              <h2>{post.createdBy}</h2>
+              <div>
+                <h2>{post.createdBy}</h2>
+                <h4 style={{color:'grey'}}>{post.createdAt.toDate().toDateString()}</h4>
+              </div>
+              
             </section>
             <section className="single-post-rw-1">
               <div className="single-post-comment">
@@ -164,7 +170,8 @@ export default function Singlepost() {
               <div className="post-image-wrap">
                 <img src={post.imageUrl} alt="" />
               </div>
-              <p>{post.main}</p>
+              {/* <p>{post.main}</p> */}
+              <div dangerouslySetInnerHTML={{ __html: post.main }}></div>
             </section>
           </header>
           {/* ----------------------------------------------------------------------------------------- */}
@@ -191,11 +198,11 @@ export default function Singlepost() {
                 />
               </svg>
             </span>
-            <div className="single-post-menu" >
-              <h3 className={`${width}`} >Add your commits</h3>
-              <form className={`${width}`} >
+            <div className="single-post-menu">
+              <h3 className={`${width}`}>Add your commits</h3>
+              <form className={`${width}`}>
                 <input
-                  className={`${width}`}
+                  className={``}
                   type="text"
                   value={comment}
                   // onKeyUp={(e)=>{handleChangeComment(e)}}
@@ -203,10 +210,8 @@ export default function Singlepost() {
                     setComment(e.target.value);
                   }}
                   placeholder="what do you think?"
-                  
                 />
                 <button
-                
                   className={``}
                   onClick={(e) => {
                     handleChangeComment(e);
@@ -216,28 +221,85 @@ export default function Singlepost() {
                 </button>
               </form>
             </div>
-            <div className={`comments-view ${showComment}`}>
-              {post.comments.map((each) => (
-                <div className="comments-view-main">
-                <div className="comments-view-col-1">
-                  <img src={each.commentByImageUrl} alt="profileImage" className="comment-image" />
-                  <div className="comment-rw-1" >
-                    <div className="comment-rw-2" >
-                      <h3 className="comment-by">{each.commentBy}</h3>
-                      <p className="comment-time" >{each.createdAt.toDate().toDateString()}</p>
+            <header className={`comments-view ${showComment}`}>
+              {post.comments && (
+                <main>
+                  {post.comments.map((each) => (
+                    <div className="comments-view-main">
+                      <div className="comments-view-col-1">
+                        <img
+                          src={each.commentByImageUrl}
+                          alt="profileImage"
+                          className="comment-image"
+                        />
+                        <div className="comment-rw-1">
+                          <div className="comment-rw-2">
+                            <h3 className="comment-by">{each.commentBy}</h3>
+                            <p className="comment-time">
+                              {each.createdAt.toDate().toDateString()}
+                            </p>
+                          </div>
+                          {user && user.displayName === each.commentBy && (
+                            <div className="comment-del-cx">
+                              {" "}
+                              <Popup
+                                trigger={
+                                  <span className="comment-del-cx">
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth="1.5"
+                                      stroke="currentColor"
+                                      className="w-6 h-6"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                                      />
+                                    </svg>
+                                  </span>
+                                }
+                                position="left centre"
+                                contentStyle={{ width: "100px" }}
+                              >
+                                {(close) => (
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                    }}
+                                  >
+                                    <span
+                                      onClick={() => {
+                                        close();
+                                      }}
+                                    >
+                                      Edit
+                                    </span>
+                                    <span
+                                      onClick={() => {
+                                        close();
+                                      }}
+                                      style={{ color: "red" }}
+                                    >
+                                      Delete
+                                    </span>
+                                  </div>
+                                )}
+                              </Popup>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <p className="comments">{each.comment}</p>
                     </div>
-
-            
-                  </div>
-                  
-                </div>
-                <p className="comments">{each.comment}</p>
-                </div>
-              ))}
-            </div>
+                  ))}
+                </main>
+              )}
+            </header>
           </div>
-
-          {/*--------------------------------------------------------------------------------- */}
         </main>
       )}
     </main>

@@ -1,9 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Posts from "../posts/Posts";
-// import postimage from "../../Assets/images/postimage.png";
-import profilePic from "../../Assets/images/profilepic.png";
 import { UserContext } from "../userContext/UserContext";
-import { NavLink } from "react-router-dom";
 import {
   arrayUnion,
   collection,
@@ -13,6 +10,9 @@ import {
   orderBy,
   query,
   updateDoc,
+  setDoc,
+  Timestamp,
+  where,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 import "./feedviewstyle.css";
@@ -22,13 +22,13 @@ export default function FeedView() {
   const user = useContext(UserContext);
   // const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
-
   const [blogs, setBlogs] = useState([]);
   const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const blogRef = collection(db, "Blogs");
-    const q = query(blogRef, orderBy("createdAt", "desc"));
+    const q = query(blogRef, orderBy("createdAt", "desc"),where('status' ,'==', 'published'));
     onSnapshot(q, (snapshot) => {
       const blogs = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -80,11 +80,40 @@ export default function FeedView() {
   };
   // console.log(user);
 
+  const handleCreateDraft = async () => {
+    setLoading(true);
+    const blogRef = doc(collection(db, "Blogs"));
+    await setDoc(blogRef, {
+      title: "",
+      main: "",
+      imageUrl: "",
+      userImageUrl: user?.photoURL,
+      createdAt: Timestamp.now().toDate(),
+      createdBy: user?.displayName,
+      userId: user?.uid,
+      likes: [],
+      numberOfLikes: 0,
+      comments: [],
+      views: 0,
+      viewers: [],
+      status: "draft",
+    });
+    // console.log(blogRef.id);
+    setLoading(false);
+    navigate(`/edit/${blogRef.id}`);
+  };
+  // console.log(">>", loading);
+
+  useEffect(() => {
+    return () => {
+      // console.log("“This is unmounted.”");
+    };
+  }, []);
   return (
     <main>
       <section className="feedview-post-cx">
         <div className="feed-post-wrap">
-          <div className="content-btn-wrap">
+          {/* <div className="content-btn-wrap">
             <div className="content-wrap">
               <h1>FEED</h1>
               <p> Explore different content you'd love</p>
@@ -104,21 +133,28 @@ export default function FeedView() {
                   strokeLinejoin="round"
                 />
               </svg>
-
-              <NavLink to="/feeds/write" className="post-btn">
+             
+              <NavLink
+               
+                className="post-btn"
+                onClick={() => {
+                  handleCreateDraft();
+                }}
+              >
                 Post a content
               </NavLink>
             </div>
           </div>
+          {loading && <div className="loader"></div>}
 
           <header className="feed-header">
             <div className="feed-header-content">
               <h3>For you</h3>
               <h3>Featured</h3>
-              <h3>Recent</h3>
+              <h3 className="recent" onClick={()=>{navigate('/feeds/recent')}}>Recent</h3>
             </div>
             <span className="header-indicator"></span>
-          </header>
+          </header> */}
           <div>
             <div className="feed-posts">
               {blogs.map((blog) => (
@@ -131,6 +167,7 @@ export default function FeedView() {
                   }}
                 >
                   <Posts
+                    status={blog.status}
                     firstLetter={firstLetter(blog)}
                     profilePic={blog.userImageUrl}
                     displayname={blog.createdBy}
@@ -140,7 +177,7 @@ export default function FeedView() {
                     readtime="10 mins read"
                     post={blog.main}
                     postImage={blog.imageUrl}
-                    comments="200"
+                    comments={blog.comments.length}
                     likes={blog.numberOfLikes}
                     views={blog.views}
                   />
@@ -157,8 +194,9 @@ export default function FeedView() {
               ))}
             </div>
           </div>
-        </div>
+        </div> 
       </section>
+     
     </main>
   );
 }

@@ -4,10 +4,9 @@ export const dataSlice = createSlice(
     {
         name:'data',
         initialState:{
-            showComment:'show',
+            showComment:'hide',
             number:'CHATTER',
             photo_Url:''
-
         },
         reducers:{
            setShowComment:(state,action)=>{

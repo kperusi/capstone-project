@@ -27,7 +27,7 @@ export default function EmailSignUp() {
       setName(firstName+lastName) 
       await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(auth.currentUser, { displayName: firstName +" "+lastName });
-      navigate("/feeds");
+      navigate("/chatter");
     } catch (error) {
       console.log(error.message);
     }

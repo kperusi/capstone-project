@@ -1,14 +1,10 @@
 .profile-main{
     display: block;
-    position:absolute;
-    // border: solid grey;
-    box-shadow: 1px 2px 2px 1px rgb(195, 192, 192);
-    // height: 100px;
     background-color: white;
     padding: 20px;
     // margin-right: 20px;
     width: 300px;
-    right: 20px;
+    // right: 20px;
     border-radius: 5px;
 }
 .profile-rw-1{
@@ -30,4 +26,8 @@
     border: none;
     border-radius: 5px;
     padding: 10px;
+}
+.profile-link{
+    text-decoration: none;
+    font-size: 1.2em;
 }

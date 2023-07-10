@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import ProgressBar from "@ramonak/react-progress-bar";
 import {
   collection,
   deleteDoc,
@@ -13,7 +14,12 @@ import {
 import "./settingstyle/settingstyle.css";
 import { useState } from "react";
 import { auth, storage, db } from "../firebase/firebase";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  ref,
+  uploadBytesResumable,
+} from "firebase/storage";
 import { updateProfile } from "firebase/auth";
 import { useContext } from "react";
 import { UserContext } from "../userContext/UserContext";
@@ -22,7 +28,6 @@ import { setPhoto_Url } from "../store/dataSlice";
 
 export default function Settings() {
   const user = useContext(UserContext);
-  // const user = JSON.parse(localStorage.getItem("user"));
   const [imageAsFile, setImageAsFile] = useState("");
   const [imageAsUrl, setImageAsUrl] = useState("");
   const [progress, setProgress] = useState("");
@@ -36,24 +41,21 @@ export default function Settings() {
     const image = e.target.files[0];
     setImageAsFile(image);
     setImageAsUrl(URL.createObjectURL(image));
+    localStorage.setItem("photo", image);
 
     console.log("start of upload....");
-    if (imageAsFile === "") {
-      console.log(`no image the image file is ${typeof imageAsFile}`);
-      return;
-    }
   };
 
   const handleInputName = (e) => {
     setUpdatedName(e.target.value);
   };
 
-  console.log(updatedName)
+  // console.log(updatedName)
 
   const handleSaveChanges = async () => {
     const storageRef = ref(
       storage,
-      `images/${Date.now()}${user.uid}${imageAsFile.name}`
+      `images/${Date.now()}${user.uid}${user.displayName}${imageAsFile.name}`
     );
     const uploadTask = uploadBytesResumable(storageRef, imageAsFile);
     uploadTask.on(
@@ -71,32 +73,95 @@ export default function Settings() {
 
       async () => {
         await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          filteredBlogs.forEach(async (element) => {
-            await updateDoc(doc(db, "Blogs", element.id), {
-              userImageUrl: url,
-              createdBy: updatedName,
+          if (updatedName === "") {
+            // updating users blog
+            filteredBlogs.forEach(async (element) => {
+              await updateDoc(doc(db, "Blogs", element.id), {
+                userImageUrl: url,
+              });
+              setImageAsUrl(url);
             });
-            setImageAsUrl(url);
-          });
 
-          if(updatedName===''){
-            setUpdatedName(auth.currentUser.displayName)
+            // updating user
+
+            updateProfile(auth.currentUser, {
+              photoURL: `${url}`,
+            }).then(() => {
+              dispatch(setPhoto_Url(auth.currentUser.photoURL));
+            });
+          } else {
+            // updating users blog
+            filteredBlogs.forEach(async (element) => {
+              await updateDoc(doc(db, "Blogs", element.id), {
+                userImageUrl: url,
+                createdBy: updatedName,
+              });
+              setImageAsUrl(url);
+            });
+
+            // updating user
+
+            updateProfile(auth.currentUser, {
+              photoURL: `${url}`,
+              displayName: updatedName,
+            }).then(() => {
+              dispatch(setPhoto_Url(auth.currentUser.photoURL));
+            });
           }
-          // try {
-          updateProfile(auth.currentUser, {
-            photoURL: `${url}`,
-            displayName: updatedName,
-          }).then(
-            () => dispatch(setPhoto_Url(auth.currentUser.photoURL))
-            // console.log(auth.currentUser)
-          );
-          // } catch (error) {
-          // console.log(error);
-          // }
         });
       }
     );
   };
+
+  const handleImageDelete = async (imageUrl) => {
+    try {
+      const storageRef = ref(storage, imageUrl);
+      await deleteObject(storageRef);
+      console.log("image deleted successfully");
+
+
+      if (updatedName === "") {
+        // updating users blog
+        filteredBlogs.forEach(async (element) => {
+          await updateDoc(doc(db, "Blogs", element.id), {
+            userImageUrl: '',
+          });
+          setImageAsUrl('');
+        });
+
+        // updating user
+
+        updateProfile(auth.currentUser, {
+          photoURL: `${''}`,
+        }).then(() => {
+          dispatch(setPhoto_Url(auth.currentUser.photoURL));
+        });
+      } else {
+        // updating users blog
+        filteredBlogs.forEach(async (element) => {
+          await updateDoc(doc(db, "Blogs", element.id), {
+            userImageUrl: '',
+            createdBy: updatedName,
+          });
+          setImageAsUrl('');
+        });
+
+        // updating user
+
+        updateProfile(auth.currentUser, {
+          photoURL: `${''}`,
+          displayName: updatedName,
+        }).then(() => {
+          dispatch(setPhoto_Url(auth.currentUser.photoURL));
+        });
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
 
   useEffect(() => {
     if (user) {
@@ -117,36 +182,90 @@ export default function Settings() {
   if (user) {
     console.log(user.displayName);
   }
-  console.log(filteredBlogs);
+
   return (
     <main className="settings-main">
-      Settings
+      <section className="settings-head">
+        <h1 style={{ fontSize: "1.8em" }}>Users Settings</h1>
+        <p style={{ color: "grey" }}>
+          {" "}
+          <i>Make Changes to suit your style...</i>{" "}
+        </p>
+      </section>
       <section className="settings-rw-main">
-        <form>
+        <form className="settings-form">
+          <label htmlFor="" style={{ marginBottom: "-20px" }}>
+            Full Name
+          </label>
           <input
             type="text"
-            placeholder={user ? user.displayName : "no user"}
+            placeholder={user ? user.displayName : ""}
             className="settings-input"
             value={updatedName}
             onChange={(e) => handleInputName(e)}
           />
+          <label htmlFor="" style={{ marginBottom: "-20px" }}>
+            Tag Name
+          </label>
+          <input
+            type="text"
+            placeholder={user ? user.displayName : ""}
+            className="settings-input"
+            // value={updatedName}
+            // onChange={(e) => handleInputName(e)}
+          />
           <div>
-            <input type="file" onChange={handleImageAsFile} />
+            <label htmlFor="image-input">
+              <h3>Profile Image</h3>
+              <img
+                src={imageAsUrl}
+                alt={imageAsFile.name}
+                className="settings-img"
+              />
+            </label>
+            <div
+              className="settings-cancel"
+              onClick={() => {
+                handleImageDelete(user.photoURL);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-1 h-1"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                />
+              </svg>
+            </div>
+            <div>
+              <ProgressBar  completed={progress}/>
+              
+              </div>
+            <input
+              id="image-input"
+              type="file"
+              onChange={handleImageAsFile}
+              style={{ display: "none" }}
+            />
           </div>
         </form>
 
-        <img src={imageAsUrl} alt={imageAsFile.name} className="settings-img" />
         <button
+          className="settings-btn"
           onClick={() => {
             handleSaveChanges();
           }}
         >
           Save Changes
         </button>
-        <p>{progress}</p>
-        {/* <img src={userPhotoUrl} alt="userphotos" /> */}
       </section>
-      {/* <button onClick={()=>{dispatch(increment())}}>increment</button> */}
     </main>
   );
 }

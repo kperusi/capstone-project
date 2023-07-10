@@ -7,7 +7,7 @@ import userImage from "../../Assets/images/man.png";
 import { useContext } from "react";
 import { UserContext } from "../userContext/UserContext";
 
-export default function Profile({ showProfile, setShowProfile }) {
+export default function Profile({ close }) {
   const navigate = useNavigate();
 
   const removeSpace = (name) => {
@@ -15,11 +15,11 @@ export default function Profile({ showProfile, setShowProfile }) {
     return name.replace(/\s/g, "");
   };
 
-  const handleClose = () => {
-    if (showProfile === "show") {
-      setShowProfile("hide");
-    } else setShowProfile("show");
-  };
+  // const handleClose = () => {
+  //   if (showProfile === "show") {
+  //     setShowProfile("hide");
+  //   } else setShowProfile("show");
+  // };
   // const user = JSON.parse(localStorage.getItem("user"));
   const user = useContext(UserContext);
   if (user)
@@ -41,9 +41,10 @@ export default function Profile({ showProfile, setShowProfile }) {
           <div className="profile-rw-2">
             <div className="profile-rw-3">
               <NavLink
-                to={`/feeds/${user.displayName}`}
+              className='profile-link'
+                to={`chatter/${user.displayName}`}
                 onClick={() => {
-                  handleClose();
+                  close()
                 }}
               >
                 My Blogs
@@ -52,7 +53,8 @@ export default function Profile({ showProfile, setShowProfile }) {
             <div
               className="profile-rw-3"
               onClick={() => {
-                handleClose();
+                // handleClose();
+                close()
               }}
             >
               <svg
@@ -71,7 +73,9 @@ export default function Profile({ showProfile, setShowProfile }) {
                 />
               </svg>
 
-              <NavLink to={`/${user.displayName}-settings`}>
+              <NavLink 
+              className='profile-link'
+              to={`/${user.displayName}-settings`}>
                 Account Settings
               </NavLink>
             </div>
@@ -83,7 +87,7 @@ export default function Profile({ showProfile, setShowProfile }) {
               signOut(auth);
               localStorage.removeItem("user");
               navigate("/");
-              handleClose();
+              close()
             }}
           >
             LogOut

@@ -12,7 +12,7 @@ export default function SignUp() {
   const handleToggleChange = (option) => {
     setToggle(option);
   };
-  console.log(toggle);
+  // console.log(toggle);
   return (
     <main className="signup-main">
       <section className="signup-logo-cx" aria-label="image-container">

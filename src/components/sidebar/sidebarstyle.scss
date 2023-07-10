@@ -1,20 +1,38 @@
-
 @font-face {
     font-family: DMSans;
-    src: url('../../Assets/fonts/DMSans-Regular.ttf');
-  }
-  
+    src: url("../../Assets/fonts/DMSans-Regular.ttf");
+}
+
 .sidebar-main {
     display: flex;
     flex-direction: column;
-    // border: 1px solid grey;
-    padding: 0 20px;
+    padding-left: 20px;
+    padding-right: 30px;
     gap: 10px;
-    width: 20%;
+    // width: 25%;
     min-width: 200px;
     font-family: DMSans;
-    
+    height: 100vh;
 }
+.sidebar-main:hover {
+    overflow-x: scroll;
+}
+
+.sidebar-main::-webkit-scrollbar {
+    width: 0.7em;
+   
+}
+
+// .sidebar-main::-webkit-scrollbar-track {
+//     // box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+// }
+
+.sidebar-main::-webkit-scrollbar-thumb {
+    background-color: rgb(196, 194, 194);
+     border-radius: 10px;
+    // outline: 1px solid rgb(148, 149, 150);
+}
+
 .sidebar-rw-1 {
     margin-bottom: 20px;
 }
@@ -32,8 +50,6 @@
     gap: 10px;
     margin-bottom: 10px;
     letter-spacing: -1px;
-   
-
 }
 h2 {
     margin-bottom: 20px;
@@ -45,7 +61,6 @@ h2 {
     align-content: center;
     gap: 10px;
     margin-left: 15px;
-    
 }
 
 .links {
@@ -53,7 +68,7 @@ h2 {
     font-size: 1.2em;
     color: black;
 }
-.ana-span{
+.ana-span {
     display: flex;
     // align-items: center;
     border: 2px solid grey;
@@ -61,6 +76,6 @@ h2 {
     height: 20px;
     border-radius: 2px;
 }
-.sidebar-logout-div{
+.sidebar-logout-div {
     margin-top: 30px;
 }

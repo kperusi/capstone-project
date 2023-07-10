@@ -5,11 +5,25 @@
 .sidebar-main {
   display: flex;
   flex-direction: column;
-  padding: 0 20px;
+  padding-left: 20px;
+  padding-right: 30px;
   gap: 10px;
-  width: 20%;
   min-width: 200px;
   font-family: DMSans;
+  height: 100vh;
+}
+
+.sidebar-main:hover {
+  overflow-x: scroll;
+}
+
+.sidebar-main::-webkit-scrollbar {
+  width: 0.7em;
+}
+
+.sidebar-main::-webkit-scrollbar-thumb {
+  background-color: rgb(196, 194, 194);
+  border-radius: 10px;
 }
 
 .sidebar-rw-1 {
