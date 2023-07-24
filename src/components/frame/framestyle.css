@@ -20,4 +20,25 @@
   border-radius: 50%;
   background-color: rgba(128, 128, 128, 0.5);
   padding: 10px;
+}
+
+@media screen and (min-width: 180px) and (max-width: 767px) {
+  .frame-main {
+    width: 100%;
+  }
+  .section-two {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .section-three {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 821px) {
+  .frame-main {
+    border: 3px solid blue;
+  }
 }/*# sourceMappingURL=framestyle.css.map */

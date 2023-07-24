@@ -6,8 +6,8 @@
 }
 
 .feed-post-cx {
-    padding: 20px;
-    border: 1px solid grey;
+    // padding: 20px;
+    // border: 1px solid red;
     border-radius: 5px;
 }
 .feed-navigation-wrap {
@@ -81,4 +81,14 @@
         width: 100%;
     }
     
+}
+
+@media (min-width: 180px) and (max-width: 780px) {
+    .feed-main{
+        border: solid red;
+    }
+ 
+}
+@media screen And (min-width: 768px) And (max-width: 821px) {
+   
 }

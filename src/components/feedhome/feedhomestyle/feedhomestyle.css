@@ -7,6 +7,36 @@
   padding-right: 20px;
   padding-top: 5px;
   row-gap: 10px;
+  scroll-behavior: smooth;
+  word-break: break-all;
+  overflow-x: scroll;
+  height: 90vh;
+  padding-bottom: 30px;
+}
+
+.feedhome {
+  scrollbar-width: 120px;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s;
+}
+.feedhome:hover {
+  scrollbar-color: black transparent;
+}
+.feedhome:not(:hover)::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+.feedhome::-webkit-scrollbar {
+  width: 11.5px;
+  margin-right: 10px;
+}
+.feedhome::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.75);
+}
+.feedhome::-webkit-scrollbar-button:single-button {
+  background-color: rgb(255, 255, 255);
+  height: 8px;
+  border-radius: 2px;
 }
 
 .search-cx {
@@ -23,10 +53,91 @@
   background-color: rgb(247, 245, 245);
   border-radius: 5px;
   width: 22vw;
+  scroll-behavior: smooth;
+  word-break: break-all;
+  overflow-x: scroll;
+  height: 90vh;
 }
 
 .outlet-cx {
   grid-area: outlet;
   border: 0.3px solid gray;
   background-color: white;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.sidebar-cx {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s;
+}
+.sidebar-cx:hover {
+  scrollbar-color: black transparent;
+}
+.sidebar-cx::-webkit-scrollbar-track {
+  color: white;
+  background-color: white;
+}
+.sidebar-cx:not(:hover)::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+.sidebar-cx::-webkit-scrollbar {
+  width: 11px;
+}
+.sidebar-cx::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.75);
+}
+.sidebar-cx::-webkit-scrollbar-button:single-button {
+  background-color: rgb(255, 255, 255);
+  height: 8px;
+  border-radius: 5px;
+}
+.sidebar-cx::-webkit-scrollbar-button:single-button:vertical:decrement {
+  border-width: 0 8px 8px 8px;
+  border-color: transparent transparent #555555 transparent;
+}
+
+.mobile-sidebar-menu-cx {
+  display: none;
+}
+
+@media (min-width: 180px) and (max-width: 780px) {
+  .feedhome {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 5px;
+    overflow: hidden;
+    height: -moz-fit-content;
+    height: fit-content;
+  }
+  .sidebar-cx {
+    display: none;
+  }
+  .outlet-cx {
+    width: 100%;
+  }
+  .search-cx {
+    width: 100%;
+    display: flex;
+    gap: 5px;
+  }
+  .sidebar-show {
+    display: block;
+  }
+  .mobile-sidebar-menu-cx {
+    position: absolute;
+    top: 150px;
+    z-index: 0;
+  }
+  .sidebar-hidden {
+    display: none;
+  }
+  .arrow-down-show {
+    display: block;
+  }
+  .arrow-down-hidden {
+    display: none;
+  }
 }/*# sourceMappingURL=feedhomestyle.css.map */

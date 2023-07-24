@@ -1,5 +1,5 @@
 
-.feed-search {
+.search {
     grid-area: search;
     padding: 10px 0;
     display: flex;
@@ -22,4 +22,14 @@
     border: none;
     outline: none;
     width: 250px;
+}
+@media (min-width: 180px) and (max-width: 780px) {
+    .search{
+        width: 100%;
+        padding: 10px 5px;
+    }
+ 
+}
+@media screen And (min-width: 768px) And (max-width: 821px) {
+   
 }

@@ -10,20 +10,8 @@
   gap: 10px;
   min-width: 200px;
   font-family: DMSans;
-  height: 100vh;
-}
-
-.sidebar-main:hover {
-  overflow-x: scroll;
-}
-
-.sidebar-main::-webkit-scrollbar {
-  width: 0.7em;
-}
-
-.sidebar-main::-webkit-scrollbar-thumb {
-  background-color: rgb(196, 194, 194);
-  border-radius: 10px;
+  padding-bottom: 20px;
+  background-color: white;
 }
 
 .sidebar-rw-1 {
@@ -65,6 +53,25 @@ h2 {
   color: black;
 }
 
+.see-all {
+  width: 100%;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  position: relative;
+  display: inline-block;
+}
+
+.see-all:hover {
+  background-color: grey;
+  color: white;
+  border-radius: 5px;
+}
+
+.see-all-popup {
+  background-color: grey;
+}
+
 .ana-span {
   display: flex;
   border: 2px solid grey;
@@ -75,4 +82,51 @@ h2 {
 
 .sidebar-logout-div {
   margin-top: 30px;
+}
+
+.feed,
+.bookmark,
+.analytic,
+.teamblog {
+  color: blue;
+  font-weight: bolder;
+}
+
+.draft {
+  color: blue;
+}
+
+.content {
+  padding: 17px 9px 17px 17px;
+  width: 300px;
+  height: 200px;
+  word-break: break-all;
+}
+
+.tag-wrap {
+  border-radius: 5px;
+  overflow: auto;
+  height: 90vh;
+  box-shadow: 1px 2px 3px 2px rgb(199, 199, 199);
+  padding: 10px 0;
+}
+
+.tag-nav {
+  padding: 10px;
+}
+.tag-nav:hover {
+  background-color: rgb(211, 211, 211);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close {
+  visibility: hidden;
+  border: solid red;
+}
+
+@media (min-width: 180px) and (max-width: 780px) {
+  .sidebar-main {
+    width: 100%;
+  }
 }/*# sourceMappingURL=sidebarstyle.css.map */

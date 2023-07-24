@@ -127,4 +127,11 @@
   to {
     margin-top: 0px;
   }
+}
+.error {
+  position: absolute;
+  padding: 30px;
+  border-radius: 8px;
+  background-color: white;
+  border: 0.3px solid rgb(190, 190, 190);
 }/*# sourceMappingURL=emailsignupstyle.css.map */

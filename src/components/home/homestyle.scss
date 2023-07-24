@@ -2,12 +2,11 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-   z-index: -1;
+    z-index: -1;
     width: 100%;
-    height: 500px;
+    // height: 500px;
 }
 .bg-header {
-
     height: 700px;
     display: flex;
     flex-direction: column;
@@ -20,7 +19,7 @@
     justify-content: center;
     align-items: center;
 }
-.cx-wrap{
+.cx-wrap {
     // border: solid red;
     width: 55%;
 }
@@ -43,115 +42,214 @@
     border: 0px solid;
     color: white;
 }
-.section-two{
+.section-two {
     display: flex;
     flex-direction: row;
     margin-top: 100px;
     padding-left: 40px;
     padding-right: 40px;
+    width: 100%;
+    gap: 20px;
 }
-.section-two h1{
+.section-two-content {
+    width: 50%;
+}
+.section-two h1 {
     margin-bottom: 20px;
+    font-size: 2em;
 }
 
-.home-img1{
-    width: 500px;
-    height: 300px;
+.home-img1 {
+    width: 40%;
+    height: 40%;
+    margin-left: auto;
     // border: solid red;
-    
 }
-.section-three{
+.section-three {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-left: 140px;
     padding-right: 140px;
+    margin-top: 30px;
 }
-.section-three h1{
+.section-three h1 {
     margin-bottom: 20px;
     text-align: center;
+    font-size: 2em;
 }
-.frame-cx{
+.frame-cx {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     // border: solid red;
     width: 100%;
 }
-.section-four{
+.section-four {
     display: flex;
     flex-direction: row;
     margin-top: 20px;
     padding: 60px;
     background-color: rgba(255, 237, 204, 0.5);
-
 }
 
-.home-img2{
+.home-img2 {
     width: 200px;
     height: 200px;
     border-radius: 50%;
 }
-.section-four-content{
+.section-four-content {
     margin-left: 50px;
     display: flex;
     flex-direction: column;
 }
-.section-four-content p{
+.section-four-content p {
     margin-top: 20px;
 }
-.section-five{
+.section-five {
     padding: 80px;
     display: flex;
     flex-direction: row;
     gap: 80px;
-
 }
-.section-five-image-cx{
+.section-five-image-cx {
     display: flex;
     flex-direction: row;
 }
-.section-five-img1{
+.section-five-img1 {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    object-fit:cover;
+    object-fit: cover;
     // clip: auto;
 }
 
-.flex-rw{
+.flex-rw {
     display: flex;
     flex-direction: row;
 }
-.flex-col{
+.flex-col {
     display: flex;
     flex-direction: column;
 }
-.just-center{
+.just-center {
     justify-content: center;
     align-items: center;
 }
-.gap{
+.gap {
     gap: 80px;
 }
-.section-five-content h1{
+.section-five-content h1 {
     font-size: 2em;
     line-height: 1.5em;
     margin-bottom: 20px;
 }
 
-.footer{
+.footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 60px;
     background-color: rgba(255, 237, 204, 0.5);
 }
-.footer h1{
+.footer h1 {
     color: blue;
 }
-.footer div{
+.footer div {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+@media screen And (min-width: 180px) And (max-width: 767px) {
+    .home-main {
+        width: 100%;
+        // border: solid red;
+    }
+    .cx-wrap {
+       display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        padding: 0 10px;
+    }
+    .cx-wrap p{
+        text-align:center;
+    }
+    .bg-header {
+        align-items: center;
+        justify-content: center;
+    }
+    .section-two {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 15px;
+        margin-top: 20px;
+    }
+    .section-two-content {
+        width: 100%;
+        text-align: justify;
+    }
+    .section-two h1 {
+        margin-bottom: 20px;
+        font-size: 2.5em;
+        text-align: center;
+    }
+    
+    .home-img1 {
+        width: 100%;
+        height: 40%;
+        margin-left: auto;
+        // border: solid red;
+    }
+
+    .section-three {
+        display: flex;
+        flex-direction: column;
+        padding: 0 15px;
+        margin-top: 20px;
+    }
+    .section-three h1{
+        font-size: 2.5em;
+        line-height: 40px;
+    
+    }
+    .frame-cx {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+     
+       
+    }
+    .section-four {
+        flex-direction: column;
+        width: 100%;
+        border: solid blue;
+    }
+    .section-five {
+        flex-direction: column;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+    .section-five-image-cx {
+        border: solid red;
+        width: 100%;
+    }
+    .section-five-img1 {
+        width: 100px;
+        height: 100px;
+    }
+    .footer {
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+@media screen And (min-width: 768px) And (max-width: 821px) {
+    .home-main {
+        border: solid blue;
+    }
 }

@@ -14,7 +14,6 @@
     flex-direction: column;
     padding: 10px 80px;
     width: 100%;
-    
 }
 
 .signup-header {
@@ -73,5 +72,28 @@
     to {
         margin-left: 0%;
         // width: 100%;
+    }
+}
+
+@media (min-width: 180px) and (max-width: 780px) {
+    .signup-main {
+        flex-direction: column;
+        padding: 0;
+    }
+    .signup-logo-cx {
+        width: 100%;
+    }
+    .signup-logo {
+        width: 100%;
+        height: 30vh;
+        object-fit: cover;
+    }
+    .signup-content{
+       padding:30px 10px;
+    }
+}
+@media screen And (min-width: 768px) And (max-width: 821px) {
+    .nav-main {
+        border: solid blue;
     }
 }

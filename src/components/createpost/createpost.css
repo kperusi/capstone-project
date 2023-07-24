@@ -3,11 +3,20 @@
   height: 100%;
   border: 1px solid grey;
   padding: 0 20px;
+  padding: 10px 10px 10px 100px;
+  background-color: rgb(223, 221, 221);
 }
 
 .create-post-rw-1 {
   display: flex;
   padding: 20px 10px;
+  background-color: white;
+  padding: 10px 30px;
+}
+
+.create-post-rw-2 {
+  background-color: white;
+  padding: 30px;
 }
 
 .create-post-btn {
@@ -42,6 +51,9 @@
   flex-direction: column;
   gap: 30px;
   margin-top: 20px;
+  padding-bottom: 30px;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .title-input {
@@ -54,18 +66,6 @@
 .title-cx svg, .desc-cx svg {
   border: solid rgb(188, 186, 186);
   border-radius: 50%;
-}
-
-.desc-input {
-  border: none;
-  outline: none;
-  font-size: 1.2em;
-  width: 100%;
-  border: 0.3 solid grey;
-}
-
-.desc-input:hover {
-  cursor: pointer;
 }
 
 .wrapper {
@@ -89,4 +89,30 @@
 
 .create-post-btn:disabled {
   background-color: rgb(81, 81, 234);
+}
+
+.create-post-col-2 {
+  display: flex;
+}
+
+.tag-cx {
+  display: flex;
+  flex-direction: column;
+  width: 29%;
+  align-items: center;
+  padding: 10px;
+}
+
+.tag-cx div {
+  width: 100%;
+}
+
+.tagInputFieldClass {
+  height: 40px;
+  width: 100%;
+  outline: none;
+  font-size: 1em;
+  padding: 0 5px;
+  border-radius: 5px;
+  border: none;
 }/*# sourceMappingURL=createpost.css.map */

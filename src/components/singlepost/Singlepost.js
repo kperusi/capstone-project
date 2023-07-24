@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import {
-  // Timestamp,
   arrayUnion,
   doc,
   increment,
@@ -16,8 +15,6 @@ import { useState } from "react";
 import "./singlepoststyle/singlepoststyle.css";
 import { UserContext } from "../userContext/UserContext";
 
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowComment } from "../store/dataSlice";
 
@@ -88,12 +85,10 @@ export default function Singlepost() {
 
   const handleCommentClose = () => {};
 
-  
-
   console.log(showComment);
   console.log(width);
   return (
-    <main className="single-post-main">
+    <main className="single-posts-main">
       {post && (
         <main className="single-post-main-2">
           <header className="single-post-header">
@@ -105,9 +100,10 @@ export default function Singlepost() {
               />
               <div>
                 <h2>{post.createdBy}</h2>
-                <h4 style={{color:'grey'}}>{post.createdAt.toDate().toDateString()}</h4>
+                <h4 style={{ color: "grey" }}>
+                  Posted . {post.createdAt.toDate().toDateString()}
+                </h4>
               </div>
-              
             </section>
             <section className="single-post-rw-1">
               <div className="single-post-comment">
@@ -170,8 +166,10 @@ export default function Singlepost() {
               <div className="post-image-wrap">
                 <img src={post.imageUrl} alt="" />
               </div>
-              {/* <p>{post.main}</p> */}
-              <div dangerouslySetInnerHTML={{ __html: post.main }}></div>
+              <div
+                className="single-post-content"
+                dangerouslySetInnerHTML={{ __html: post.main }}
+              ></div>
             </section>
           </header>
           {/* ----------------------------------------------------------------------------------------- */}
@@ -198,29 +196,7 @@ export default function Singlepost() {
                 />
               </svg>
             </span>
-            <div className="single-post-menu">
-              <h3 className={`${width}`}>Add your commits</h3>
-              <form className={`${width}`}>
-                <input
-                  className={``}
-                  type="text"
-                  value={comment}
-                  // onKeyUp={(e)=>{handleChangeComment(e)}}
-                  onChange={(e) => {
-                    setComment(e.target.value);
-                  }}
-                  placeholder="what do you think?"
-                />
-                <button
-                  className={``}
-                  onClick={(e) => {
-                    handleChangeComment(e);
-                  }}
-                >
-                  Comment
-                </button>
-              </form>
-            </div>
+
             <header className={`comments-view ${showComment}`}>
               {post.comments && (
                 <main>
@@ -242,7 +218,7 @@ export default function Singlepost() {
                           {user && user.displayName === each.commentBy && (
                             <div className="comment-del-cx">
                               {" "}
-                              <Popup
+                              {/* <Popup
                                 trigger={
                                   <span className="comment-del-cx">
                                     <svg
@@ -288,7 +264,7 @@ export default function Singlepost() {
                                     </span>
                                   </div>
                                 )}
-                              </Popup>
+                              </Popup> */}
                             </div>
                           )}
                         </div>
@@ -299,6 +275,47 @@ export default function Singlepost() {
                 </main>
               )}
             </header>
+            <div className="single-post-form">
+              <div  style={{display:'flex', flexDirection:'row', alignItems:'center',paddingLeft:'20px'}}>
+                <span style={{display:'flex', flexDirection:'row'}}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-1 h-1 comment-svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155"
+                    />
+                  </svg>
+                </span>
+                <h3 className={`${width}`}>Add your commits</h3>
+              </div>
+              <form className={`${width}`}>
+                <input
+                  className={``}
+                  type="text"
+                  value={comment}
+                  // onKeyUp={(e)=>{handleChangeComment(e)}}
+                  onChange={(e) => {
+                    setComment(e.target.value);
+                  }}
+                  placeholder="what do you think?"
+                />
+                <button
+                  className={``}
+                  onClick={(e) => {
+                    handleChangeComment(e);
+                  }}
+                >
+                  Comment
+                </button>
+              </form>
+            </div>
           </div>
         </main>
       )}

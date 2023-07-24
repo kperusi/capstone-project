@@ -1,33 +1,76 @@
-.single-post-main {
+.single-posts-main {
   display: flex;
   flex-direction: row;
   gap: 10px;
   justify-content: center;
-  padding-top: 0;
+  align-items: center;
+  padding-top: 20px;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .single-post-header {
   display: flex;
   flex-direction: column;
-  padding-left: 20px;
   width: 100%;
-  padding-left: 160px;
+  height: 100vh;
+  scroll-behavior: smooth;
+  word-break: break-all;
+  overflow-x: scroll;
+}
+
+.single-post-header {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.1s;
+  transition: all ease-in;
+}
+.single-post-header:hover {
+  scrollbar-color: black transparent;
+  transition: 0.5s;
+}
+.single-post-header:not(:hover)::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 5px;
+  -webkit-transition: all ease-in-out;
+  transition: all ease-in-out;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+.single-post-header::-webkit-scrollbar {
+  width: 10.5px;
+  -webkit-transition: all ease-in-out;
+  transition: all ease-in-out;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+.single-post-header::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  -webkit-transition: all ease-in-out;
+  transition: all ease-in-out;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  background: rgba(96, 95, 95, 0.75);
 }
 
 .single-post-main-2 {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  overflow-x: hidden;
 }
 
 .single-post-rw-1 {
   display: flex;
   flex-direction: row;
-  width: 100%;
   padding: 20px;
   border-bottom: 1px solid grey;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+  margin-right: 10px;
 }
 
 .single-post-owner-rw {
@@ -47,15 +90,33 @@
 .single-post-rw-2 {
   display: flex;
   flex-direction: column;
+  border: 0.3px solid rgb(192, 188, 188);
   padding: 20px;
+  align-items: center;
+  margin-right: 10px;
 }
 
 .post-image-wrap {
   display: flex;
-  padding: 20px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.single-post-rw-2 p {
+.post-image-wrap img {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.single-post-title {
+  margin-top: 20px;
+  font-size: 1.8em;
+  width: 100%;
+  text-align: center;
+}
+
+.single-post-content {
   text-align: justify;
   padding: 20px;
 }
@@ -85,20 +146,47 @@
   flex-direction: column;
   margin-right: 0px;
   background-color: white;
+  border: 0.3px solid rgb(209, 209, 209);
+  padding: 20px 20px;
+  height: 80vh;
+  scroll-behavior: smooth;
+  word-break: break-all;
+  overflow-x: scroll;
 }
 
-.single-post-menu h3 {
+.single-post-comment-cx {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s;
+}
+.single-post-comment-cx:hover {
+  scrollbar-color: black transparent;
+}
+.single-post-comment-cx:not(:hover)::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+.single-post-comment-cx::-webkit-scrollbar {
+  width: 8px;
+}
+.single-post-comment-cx::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.single-post-form {
+  margin-top: 20px;
+  box-shadow: 1px 0px 2px 1px rgb(211, 211, 211);
+  border-radius: 8px;
+}
+
+.single-post-form h3 {
   width: 100%;
+  padding: 10px;
 }
 
-.single-post-title {
-  font-size: 1.8em;
-}
-
-.single-post-menu form {
+.single-post-form form {
   display: flex;
   flex-direction: column;
-  border: 0.3px solid rgb(215, 210, 210);
   padding: 20px 10px;
   margin-bottom: 10px;
   gap: 20px;
@@ -146,8 +234,7 @@ form input {
 
 .hide {
   visibility: hidden;
-  width: 10px;
-  margin-right: 180px;
+  width: 0px;
 }
 
 .nonzero {
@@ -207,4 +294,9 @@ form input {
   width: 20px;
   height: 20px;
   margin-left: auto;
+}
+
+.comment-svg {
+  width: 30px;
+  height: 30px;
 }/*# sourceMappingURL=singlepoststyle.css.map */

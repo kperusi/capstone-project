@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { db } from "../firebase/firebase";
 import { UserContext } from "../userContext/UserContext";
 import Posts from "../posts/Posts";
+import './recentpoststyle/recentpoststyle.css'
 
 export default function Draft() {
   const user = useContext(UserContext);
@@ -30,7 +31,7 @@ export default function Draft() {
       }));
       setDrafts(draftBlogs);
     });
-  }, []);
+  }, [user?.uid]);
 
   const firstLetter = (blog) => {
     if (blog.createdBy) {
@@ -38,12 +39,20 @@ export default function Draft() {
     }
   };
 
-  // console.log(user?.uid);
+  // console.log(user?.uid)
+  console.log(drafts)
+  if(drafts.length===0){
+    return <>
+    <section>
+      You do not have any recent activity 
+    </section>
+    </>
+  }
+
   return (
-    <main>
-        recent
+    <main className="recent-post">
       {drafts.map((draft) => (
-        <section key={draft.id}>
+        <section key={draft.id} className="recent-post-rw-1">
           <Posts
             status={draft.status}
             firstLetter={firstLetter(draft)}
@@ -58,6 +67,7 @@ export default function Draft() {
             comments="200"
             likes={draft.numberOfLikes}
             views={draft.views}
+            tags={draft.tags}
           />
         </section>
       ))}

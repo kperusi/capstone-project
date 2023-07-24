@@ -1,0 +1,22 @@
+.trending {
+  display: flex;
+  flex-direction: column;
+  margin-top: -10px;
+  width: 100%;
+}
+
+.trending ul {
+  list-style: none;
+  font-size: 1.3em;
+  display: flex;
+  flex-direction: column;
+  padding-left: 20px;
+}
+
+.tag-link:hover {
+  cursor: pointer;
+  background-color: blue;
+  border-radius: 5px;
+  color: white;
+  padding-left: 10px;
+}/*# sourceMappingURL=trendingstyle.css.map */

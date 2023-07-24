@@ -6,8 +6,6 @@
 }
 
 .feed-post-cx {
-  padding: 20px;
-  border: 1px solid grey;
   border-radius: 5px;
 }
 
@@ -80,5 +78,10 @@
   }
   to {
     width: 100%;
+  }
+}
+@media (min-width: 180px) and (max-width: 780px) {
+  .feed-main {
+    border: solid red;
   }
 }/*# sourceMappingURL=feedstyle.css.map */

@@ -14,20 +14,31 @@
 body,
 html {
   /* border: solid red; */
-  padding: 0;
+  padding: 0 1px;
   margin: 0;
   font-family: DMSans;
+  /* overflow: hidden; */
+ 
 }
 .app{
   display: flex;
   flex-direction: column;
  /* gap: 100px; */
+
 }
-.nav-cx{
+.app-nav{
   position: sticky;
-  position: -webkit-sticky;
   top: 0;
 }
-.pages{
- /* position: absolute; */
+.app-main{
+  height: fit-content;
+  
+}
+
+
+@media (min-width: 180px) and (max-width: 780px) {
+  .app-nav{
+    position: sticky;
+    top: 0;
+  }
 }

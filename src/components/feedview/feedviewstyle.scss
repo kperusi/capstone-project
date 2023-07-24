@@ -1,18 +1,25 @@
-
-
-.feed-post-wrap{
+.feed-post-cx{
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    gap: 20px;
+    // border: 0.3px solid;
 }
-.feed-post-wrap p{
-    color: grey;
-}
+
+// .feed-posts-wrap{
+//     display: flex;
+//     flex-direction: column;
+//     padding: 20px;
+//     border: 0.3px solid;
+//     gap: 20px;
+   
+// }
 
 
 .feed-posts{
-    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
     border-radius: 5px;
+    gap: 20px;
     // padding: 20px;
 
 }

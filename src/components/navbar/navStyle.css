@@ -1,9 +1,7 @@
 .nav-main {
   display: flex;
   flex-direction: row;
-  position: sticky;
-  position: -webkit-sticky;
-  border-bottom: 0.3px solid grey;
+  border-bottom: 0.3px solid rgb(29, 9, 9);
   padding: 20px 20px;
   z-index: 1;
   background-color: white;
@@ -89,4 +87,68 @@
   height: 50px;
   width: 50px;
   border-radius: 50%;
+}
+
+.nav-bar-hambuger {
+  display: none;
+}
+
+@media (min-width: 180px) and (max-width: 780px) {
+  .nav-main {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 0px 20px;
+    align-items: center;
+    z-index: 1;
+  }
+  .nav-main h1 {
+    font-size: 1em;
+  }
+  .user-profile {
+    display: none;
+  }
+  .hambuger {
+    display: block;
+    align-self: flex-end;
+    margin-top: 3vh;
+    margin-right: 1%;
+  }
+  .hambuger.active .line:nth-child(2) {
+    opacity: 0;
+  }
+  .hambuger.active .line:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hambuger.active .line:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+  }
+  .nav-bar-hambuger {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    height: 100%;
+    top: 0px;
+    right: 0px;
+    z-index: 2;
+    margin-right: 10px;
+  }
+  .show {
+    right: 5%;
+    display: flex;
+  }
+  .back {
+    /* background-color: rgba(128, 128, 128, 0.27); */
+  }
+  .nav-rw-1 {
+    display: none;
+  }
+  .nav-rw-2 {
+    display: none;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 821px) {
+  .nav-main {
+    border: solid blue;
+  }
 }/*# sourceMappingURL=navStyle.css.map */

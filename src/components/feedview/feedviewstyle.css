@@ -1,16 +1,14 @@
-.feed-post-wrap {
+.feed-post-cx {
   display: flex;
   flex-direction: column;
-  padding: 20px;
-}
-
-.feed-post-wrap p {
-  color: grey;
+  gap: 20px;
 }
 
 .feed-posts {
-  border: 1px solid grey;
+  display: flex;
+  flex-direction: column;
   border-radius: 5px;
+  gap: 20px;
 }
 
 .feed-posts:hover {

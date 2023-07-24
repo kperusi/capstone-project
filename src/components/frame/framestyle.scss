@@ -21,3 +21,28 @@ margin-top: 20px;
     padding: 10px;
 
 }
+
+
+@media screen And (min-width: 180px) And (max-width: 767px) {
+    .frame-main {
+        width: 100%;
+        // border: solid red;
+    }
+    .section-two{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .section-three{
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen And (min-width: 768px) And (max-width: 821px) {
+    .frame-main {
+        border: 3px solid blue;
+    }
+}
