@@ -24,6 +24,16 @@ export default function All() {
   const param = useParams();
   const [userName, setUserName] = useState("");
 
+  const handleDelete = async (id: any, imageUrl: any) => {
+    try {
+      await deleteDoc(doc(db, "Blogs", id));
+      const storageRef = ref(storage, imageUrl);
+      deleteObject(storageRef);
+    } catch (error) {
+      // console.log(error.code);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       setUserName(user.displayName);
@@ -127,7 +137,11 @@ export default function All() {
                 </div>
 
                 <div className="person-post-menu rounded-xl shadow border">
-                  <MyDropdown />
+                  <MyDropdown
+                    id={blog.id}
+                    handleDelete={handleDelete}
+                    img={blog.imageUrl}
+                  />
                 </div>
               </section>
             </section>

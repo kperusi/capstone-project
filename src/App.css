@@ -4,40 +4,40 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
- 
 }
 @font-face {
   font-family: DMSans;
-  src: url('./Assets/fonts/DMSans-Regular.ttf');
+  src: url("./Assets/fonts/DMSans-Regular.ttf");
 }
 
 body,
 html {
   /* border: solid red; */
-  padding: 0 1px;
+  padding: 0px 1px 10px 0px;
   margin: 0;
   font-family: DMSans;
-  /* overflow: hidden; */
- 
+  overflow: visible;
 }
-.app{
+.app {
   display: flex;
   flex-direction: column;
- /* gap: 100px; */
-
+  /* gap: 100px; */
 }
-.app-nav{
+.app-nav {
   position: sticky;
   top: 0;
+  z-index: 1;
 }
-.app-main{
-  height: fit-content;
-  
-}
+.app-main {
+  display: flex;
+  flex-direction: column;
+  /* height: 100vh; */
+  /* border: solid red; */
 
+}
 
 @media (min-width: 180px) and (max-width: 780px) {
-  .app-nav{
+  .app-nav {
     position: sticky;
     top: 0;
   }

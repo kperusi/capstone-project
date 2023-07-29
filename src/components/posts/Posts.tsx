@@ -2,12 +2,8 @@ import React, { useState } from "react";
 import { NavLink, useParams } from "react-router-dom";
 import "./post.css";
 
-export default function Posts(props) {
-  // if(props.title===''){
-  //   return <>
-  //   <section>Getting ready</section>
-  //   </>
-  // }
+export default function Posts(props:any) {
+ 
   return (
     <main className="post-main">
       <section className="post-rw-1">
@@ -37,7 +33,7 @@ export default function Posts(props) {
       <section className="post-rw-2">
         <h1>{props.title}</h1>
         <div className='post-tag-cx'>
-      {props.tags.map((tag)=><NavLink to={`/chatter/tags/${tag}`} className='post-tag'>{tag}</NavLink>)}
+      {props.tags.map((tag:any)=><NavLink to={`/chatter/tags/${tag}`} className='post-tag'>{tag}</NavLink>)}
 
         </div>
         <div className="readtime">

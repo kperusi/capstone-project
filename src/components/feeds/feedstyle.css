@@ -72,16 +72,15 @@
   align-items: center;
 }
 
+.post-btn:hover {
+  cursor: pointer;
+}
+
 @keyframes motion {
   from {
     width: 0%;
   }
   to {
     width: 100%;
-  }
-}
-@media (min-width: 180px) and (max-width: 780px) {
-  .feed-main {
-    border: solid red;
   }
 }/*# sourceMappingURL=feedstyle.css.map */

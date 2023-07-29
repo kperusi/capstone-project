@@ -13,7 +13,7 @@ import MenuItem from "@mui/material/MenuItem";
 import NavMenu from "../nav-menu/AccountMenu";
 import Preview from "../preview/Preview";
 import Hambuger from "./Hambuger";
-import { setMobi_Menu } from "../store/dataSlice";
+import { handleSelected, setForYou, setMobi_Menu } from "../store/dataSlice";
 
 
 function NavBar() {
@@ -58,32 +58,37 @@ const mobi_menu= useSelector((state:any)=>state.data.mobi_menu)
         <NavLink to="/" className="link">
           Home
         </NavLink>
-        <NavLink to="aboutus" className="link">
+        <NavLink to="about" className="link">
           About us
         </NavLink>
         <NavLink to="/contact" className="link">
           Contact
         </NavLink>
-        <NavLink to="" className="link">
+        <NavLink to="chatter/feed" className="link" 
+        onClick={() => {
+          dispatch(setForYou());
+          dispatch(handleSelected('feed'));
+        }}
+        >
           Blogs
         </NavLink>
       </section>
       <section className="nav-rw-2 nav-button">
-        <button
+        {/* <button
           className={`${user ? "log-hide" : "log-show"} login-btn`}
           onClick={() => {
             navigate("signup/login");
           }}
         >
           Log in
-        </button>
+        </button> */}
         <button
           className={`${user ? "log-hide" : "log-show"} signin-btn`}
           onClick={() => {
             navigate("signup");
           }}
         >
-          Sign up
+          Get Started
         </button>
       </section>
 

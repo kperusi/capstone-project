@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./homestyle.css";
 import logo from "../../Assets/images/scarbor-siu-87gLIFoj79c-unsplash.jpg";
 import Frame from "../frame/Frame";
@@ -6,29 +6,30 @@ import analytics from "../../Assets/images/trending_up_FILL0_wght400_GRAD0_opsz4
 import content from "../../Assets/images/library_books_FILL0_wght400_GRAD0_opsz48.svg";
 import social from "../../Assets/images/groups_FILL0_wght400_GRAD0_opsz48.svg";
 import alex from "../../Assets/images/alex-suprun-ZHvM3XIOHoE-unsplash.jpg";
-import pic1 from '../../Assets/images/olga-nayda-fHXpgMd_XhE-unsplash.jpg'
-import pic3 from '../../Assets/images/sigmund-jzz_3jWMzHA-unsplash.jpg'
+import pic1 from "../../Assets/images/olga-nayda-fHXpgMd_XhE-unsplash.jpg";
+import pic3 from "../../Assets/images/sigmund-jzz_3jWMzHA-unsplash.jpg";
 import pic2 from "../../Assets/images/alexander-hipp-iEEBWgY_6lA-unsplash.jpg";
 import { useSelector } from "react-redux";
 import Profile from "../profile/Profile";
 import Preview from "../preview/Preview";
-
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../userContext/UserContext";
 
 function Home() {
-// const user = JSON.parse(localStorage.getItem('user'))
-//  console.log(user.displayName)
-//  const navigate = useNavigate()
- const mobi_menu = useSelector((state:any)=>state.data.mobi_menu)
 
- console.log(mobi_menu)
+  // const user = JSON.parse(localStorage.getItem('user'))
+  //  console.log(user.displayName)
+  const navigate = useNavigate()
+  const mobi_menu = useSelector((state: any) => state.data.mobi_menu);
+const user = useContext(UserContext)
+  console.log(mobi_menu);
+
 
   return (
-
     <main className="home-main">
-       {/* <Profile close={mobi_menu}/> */}
-    
-      <section className="bg-wrap">
       
+
+      <section className="bg-wrap">
         <header className="bg-header">
           <div className="cx-wrap">
             <h2 className="home-title">
@@ -44,8 +45,6 @@ function Home() {
       </section>
 
       <section className="section-two">
-     
-
         <div className="section-two-content">
           <h1>About Chatter</h1>
           <p>
@@ -118,7 +117,7 @@ function Home() {
       <section className="section-five">
         <div className="section-five-image-cx">
           <div className="flex-col gap">
-            <img src={pic3} alt="pic3" className="section-five-img1"/>
+            <img src={pic3} alt="pic3" className="section-five-img1" />
             <img src={pic2} alt="avatar" className="section-five-img1" />
           </div>
           <div className="flex-rw just-center">
@@ -158,7 +157,6 @@ function Home() {
           <p>Engineering blog</p>
         </div>
       </footer>
-  
     </main>
   );
 }

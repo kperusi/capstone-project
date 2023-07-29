@@ -2,9 +2,51 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    z-index: -1;
     width: 100%;
-    // height: 500px;
+    
+ 
+   
+}
+.home-mains{
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.1s;
+    transition: all ease-in;
+ 
+    &:hover {
+        scrollbar-color: black transparent;
+        transition: 0.5s;
+       
+       
+    }
+
+    &:not(:hover)::-webkit-scrollbar-thumb {
+        //   background: transparent;
+    }
+    &:not(:hover)::-webkit-scrollbar {
+        width: 6px;
+        border-radius: 5px;
+        transition: all ease-in-out;
+        transition: 0.5s;
+    }
+    &::-webkit-scrollbar {
+        width: 14.5px;
+        transition: all ease-in-out;
+        transition: 0.5s;
+        
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 3px;
+        transition: all ease-in-out;
+        transition: 0.5s;
+     
+        background: rgba(96, 95, 95, 0.75);
+    }
+    &::-webkit-scrollbar-track{
+        border: 3px solid transparent;
+    }
+
 }
 .bg-header {
     height: 700px;
@@ -18,6 +60,7 @@
     background-size: cover, cover;
     justify-content: center;
     align-items: center;
+
 }
 .cx-wrap {
     // border: solid red;
@@ -50,6 +93,7 @@
     padding-right: 40px;
     width: 100%;
     gap: 20px;
+  
 }
 .section-two-content {
     width: 50%;
@@ -115,6 +159,7 @@
 .section-five-image-cx {
     display: flex;
     flex-direction: row;
+    width: 40%;
 }
 .section-five-img1 {
     width: 150px;
@@ -167,14 +212,14 @@
         // border: solid red;
     }
     .cx-wrap {
-       display: flex;
+        display: flex;
         flex-direction: column;
         width: 100%;
         align-items: center;
         padding: 0 10px;
     }
-    .cx-wrap p{
-        text-align:center;
+    .cx-wrap p {
+        text-align: center;
     }
     .bg-header {
         align-items: center;
@@ -197,7 +242,7 @@
         font-size: 2.5em;
         text-align: center;
     }
-    
+
     .home-img1 {
         width: 100%;
         height: 40%;
@@ -211,17 +256,14 @@
         padding: 0 15px;
         margin-top: 20px;
     }
-    .section-three h1{
+    .section-three h1 {
         font-size: 2.5em;
         line-height: 40px;
-    
     }
     .frame-cx {
         display: flex;
         flex-direction: column;
         width: 100%;
-     
-       
     }
     .section-four {
         flex-direction: column;

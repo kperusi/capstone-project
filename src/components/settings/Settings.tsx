@@ -25,6 +25,8 @@ import { useContext } from "react";
 import { UserContext } from "../userContext/UserContext";
 import { useDispatch } from "react-redux";
 import { setPhoto_Url } from "../store/dataSlice";
+import { useParams } from "react-router-dom";
+import ErrorPage from "../erropage/ErrorPage";
 
 export default function Settings() {
   const user = useContext(UserContext);
@@ -37,7 +39,12 @@ export default function Settings() {
   const [updatedName, setUpdatedName] = useState<any>("");
   const dispatch = useDispatch();
 
-  const handleImageAsFile = async (e:any) => {
+const param = useParams()
+
+console.log('param',param.name)
+
+
+  const handleImageAsFile = async (e: any) => {
     const image = e.target.files[0];
     setImageAsFile(image);
     setImageAsUrl(URL.createObjectURL(image));
@@ -46,7 +53,7 @@ export default function Settings() {
     console.log("start of upload....");
   };
 
-  const handleInputName = (e:any) => {
+  const handleInputName = (e: any) => {
     setUpdatedName(e.target.value);
   };
 
@@ -75,7 +82,7 @@ export default function Settings() {
         await getDownloadURL(uploadTask.snapshot.ref).then((url) => {
           if (updatedName === "") {
             // updating users blog
-            filteredBlogs.forEach(async (element:any) => {
+            filteredBlogs.forEach(async (element: any) => {
               await updateDoc(doc(db, "Blogs", element.id), {
                 userImageUrl: url,
               });
@@ -83,7 +90,7 @@ export default function Settings() {
             });
 
             // updating user
-const cUser:any = auth.currentUser
+            const cUser: any = auth.currentUser;
             updateProfile(cUser, {
               photoURL: `${url}`,
             }).then(() => {
@@ -91,7 +98,7 @@ const cUser:any = auth.currentUser
             });
           } else {
             // updating users blog
-            filteredBlogs.forEach(async (element:any) => {
+            filteredBlogs.forEach(async (element: any) => {
               await updateDoc(doc(db, "Blogs", element.id), {
                 userImageUrl: url,
                 createdBy: updatedName,
@@ -100,7 +107,7 @@ const cUser:any = auth.currentUser
             });
 
             // updating user
-            const cUser:any = auth.currentUser
+            const cUser: any = auth.currentUser;
             updateProfile(cUser, {
               photoURL: `${url}`,
               displayName: updatedName,
@@ -113,56 +120,52 @@ const cUser:any = auth.currentUser
     );
   };
 
-  const handleImageDelete = async (imageUrl:any) => {
+  const handleImageDelete = async (imageUrl: any) => {
     try {
       const storageRef = ref(storage, imageUrl);
       await deleteObject(storageRef);
       console.log("image deleted successfully");
 
-
       if (updatedName === "") {
         // updating users blog
-        filteredBlogs.forEach(async (element:any) => {
+        filteredBlogs.forEach(async (element: any) => {
           await updateDoc(doc(db, "Blogs", element.id), {
-            userImageUrl: '',
+            userImageUrl: "",
           });
-          setImageAsUrl('');
+          setImageAsUrl("");
         });
 
         // updating user
-        const cUser:any = auth.currentUser
+        const cUser: any = auth.currentUser;
 
         updateProfile(cUser, {
-          photoURL: `${''}`,
+          photoURL: `${""}`,
         }).then(() => {
           dispatch(setPhoto_Url(cUser.photoURL));
         });
       } else {
         // updating users blog
-        filteredBlogs.forEach(async (element:any) => {
+        filteredBlogs.forEach(async (element: any) => {
           await updateDoc(doc(db, "Blogs", element.id), {
-            userImageUrl: '',
+            userImageUrl: "",
             createdBy: updatedName,
           });
-          setImageAsUrl('');
+          setImageAsUrl("");
         });
 
         // updating user
-        const cUser:any = auth.currentUser
+        const cUser: any = auth.currentUser;
         updateProfile(cUser, {
-          photoURL: `${''}`,
+          photoURL: `${""}`,
           displayName: updatedName,
         }).then(() => {
           dispatch(setPhoto_Url(cUser.photoURL));
         });
       }
-
     } catch (error) {
       console.log(error);
     }
   };
-
-
 
   useEffect(() => {
     if (user) {
@@ -180,7 +183,12 @@ const cUser:any = auth.currentUser
     });
   }, [user, userName]);
 
- 
+
+  if(param.name!==user?.displayName){
+    return(<div>
+      <ErrorPage/>
+    </div>)
+  }
 
   return (
     <main className="settings-main">
@@ -244,9 +252,8 @@ const cUser:any = auth.currentUser
               </svg>
             </div>
             <div>
-              <ProgressBar  completed={progress}/>
-              
-              </div>
+              <ProgressBar completed={progress} />
+            </div>
             <input
               id="image-input"
               type="file"

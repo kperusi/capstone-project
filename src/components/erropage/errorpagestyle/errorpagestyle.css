@@ -1,0 +1,28 @@
+.error-page {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+
+.error-ui {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: gray;
+  color: white;
+  height: 100vh;
+}
+
+.error-ui h1,
+details {
+  text-align: center;
+  margin: 0 auto;
+  width: 50vw;
+}
+
+.error {
+  margin: 10px auto;
+}/*# sourceMappingURL=errorpagestyle.css.map */

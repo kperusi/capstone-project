@@ -99,7 +99,7 @@ const user = useContext(UserContext);
         <Divider />
         <MenuItem onClick={()=>{
           handleClose();
-          navigate(`chatter/mystories`)
+          navigate(`chatter/mystories/all`)
         }}>
           <ListItemIcon>
             {/* <PersonAdd fontSize="small" /> */}
@@ -108,7 +108,7 @@ const user = useContext(UserContext);
         </MenuItem>
         <MenuItem onClick={()=>{
           handleClose();
-          navigate(`/${user.displayName}-settings`)
+          navigate(`/${user.displayName}`)
         }
         }>
           <ListItemIcon>
@@ -121,9 +121,7 @@ const user = useContext(UserContext);
           localStorage.removeItem("user");
           navigate("/");
         }}>
-          <ListItemIcon>
-            {/* <Logout fontSize="small" /> */}
-          </ListItemIcon>
+        
           Logout
         </MenuItem>
       </Menu>

@@ -1,7 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./createpost.css";
+import "../createpost/createpost.css";
 import { NavLink, useParams } from "react-router-dom";
-import { Timestamp, arrayUnion, doc, updateDoc } from "firebase/firestore";
+import {
+  Timestamp,
+  addDoc,
+  doc,
+  updateDoc,
+  onSnapshot,
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from "../firebase/firebase";
 import { UserContext } from "../userContext/UserContext";
@@ -10,38 +16,24 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "react-quill/dist/quill.bubble.css";
 import ProgressBar from "@ramonak/react-progress-bar";
-import { WithContext as ReactTags } from "react-tag-input";
 import { TagsInput } from "react-tag-input-component";
-import { useSelector } from "react-redux";
+import { AnyMxRecord } from "dns";
 
-
-
-export default function CreatePost() {
+export default function EditPost() {
   const [progress, setProgress] = useState<any>("");
   const user = useContext(UserContext);
   const navigate = useNavigate();
+  const { id }: any = useParams();
   const [blogData, setBlogData] = useState<any>({
     title: "",
     main: "",
     image: "",
     createdAt: Timestamp.now().toDate(),
   });
-  const [saving, setSaving] = useState("");
-  const [_saving, _setSaving] = useState(false);
   const [number_words, setNumber_Words] = useState(0);
+  const [saving, setSaving] = useState("");
   const [titleImage, setTitleImage] = useState("");
-  const { id } :any= useParams<any>();
- 
-  const [selected, setSelected] = useState<any>([]);
-
-
-  
-  const KeyCodes = {
-    comma: 188,
-    enter: 13
-  };
-  
-  const delimiters = [KeyCodes.comma, KeyCodes.enter];
+  const [_saving, _setSaving] = useState(false);
   const modules = {
     toolbar: [
       [{ font: [] }],
@@ -55,17 +47,6 @@ export default function CreatePost() {
       ["link", "image", "video"],
       ["clean"],
     ],
-    // toolbar: [
-    //   [{ header: [1, 2, 3, 4, 5, 6, false] }],
-    //   ["bold", "italic", "underline", "strike", "blockquote"],
-    //   [{ size: [] }],
-    //   [{ font: [] }],
-    //   [{ align: ["right", "center", "justify"] }],
-    //   [{ list: "ordered" }, { list: "bullet" }],
-    //   ["link", "image"],
-    //   [{ color: ["red", "#785412"] }],
-    //   [{ background: ["red", "#785412"] }]
-    // ]
   };
   const formats = [
     "header",
@@ -84,41 +65,30 @@ export default function CreatePost() {
     "size",
     "font",
   ];
+  const [selected, setSelected] = useState<any>([]);
 
-  const getWordsCount = () => {
-    setNumber_Words(
-      blogData.main.split(" ").filter((word:any) => {
-        return word !== "";
-      }).length
-    );
-  };
- 
-
-
-  const handleTitleChange = async (e:any) => {
+  const handleTitleChange = (e: any) => {
+    setSaving('Saving...')
     setBlogData({ ...blogData, title: e.target.value });
-    setSaving("Saving...");
-    _setSaving(true);
   };
-
-  const handleImageChange = (e:any) => {
+  const handleMainChange = (main: any) => {
+    setBlogData({ ...blogData, main: main });
+  };
+  const handleImageChange = (e: any) => {
     setBlogData({ ...blogData, image: e.target.files[0] });
   };
 
-  const handlePublish = async () => {
-    setSaving("Publishing");
-    await updateDoc(doc(db, "Blogs", id), {
-      status: "published",
-    }).then(() => {
-      console.log("blog updated");
-      navigate(`/chatter/mystories/all`);
-    });
-  };
-
   useEffect(() => {
-    return () => {
-      console.log("“This is unmounted.”");
-    };
+    const editDocRef = doc(db, "Blogs", id);
+    onSnapshot(editDocRef, (snapshot: any) => {
+      // console.log(snapshot.data());
+      setBlogData({
+        ...blogData,
+        main: snapshot.data().main,
+        title: snapshot.data().title,
+        image:snapshot.data().image
+      });
+    });
   }, []);
 
   useEffect(():any=> {
@@ -142,96 +112,58 @@ export default function CreatePost() {
        
       });
     }
-  }, [blogData.main, id, blogData.title, number_words]);
+  }, [blogData.main, id, blogData.title]);
 
-  useEffect(() => {
-    if (blogData.image) {
-      setSaving("Saving...");
-      _setSaving(true);
 
-      const storageRef = ref(
-        storage,
-        `images/${Date.now()}${blogData.image.name}`
-      );
-      console.log(blogData.image);
-      const uploadedImage = uploadBytesResumable(storageRef, blogData.image);
-      uploadedImage.on(
-        "state_changed",
-        (snapshot) => {
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          setProgress(progress);
-        },
-        (err) => {
-          console.log(err);
-        },
-        () => {
-          getDownloadURL(uploadedImage.snapshot.ref)
-            .then(async (url) => {
-              await updateDoc(doc(db, "Blogs", id), {
-                imageUrl: url,
-              }).then(() => {
-                // console.log("image updated", url);
-                setProgress(0);
-                setTitleImage(url);
-              });
-            })
-            .finally(() => {
-              _setSaving(false);
-              setSaving("saved");
-            });
-        }
-      );
-    }
-  }, [blogData.image, id]);
 
-  const getCharacterCount = () => {
-    return blogData.main.length;
-  };
-
-  console.log(number_words);
-  const handleProcedureContentChange = async (
-    content:any,
-    delta:any,
-    source:any,
-    editor:any,
-  ) => {
-    setBlogData({ ...blogData, main: content });
-    getWordsCount();
-    const range = editor.getSelection();
-    // console.log(range);
-
-    setSaving("Saving...");
-    _setSaving(true);
+  const handlePublish = async () => {
+    setSaving("Publishing");
+    await updateDoc(doc(db, "Blogs", id), {
+      status: "published",
+    }).then(() => {
+      console.log("blog updated");
+      navigate(`/chatter/mystories/all`);
+    });
   };
 
 
-  useEffect(()=>{
-    updateDoc(doc(db, "Blogs", id), {
-     tags:selected
-      }).then(() => {
-        _setSaving(false);
-        setSaving("Saved");
-      });
 
-  },[selected,id,])
-//  console.log(selected)
+  // const handlePublish = async () => {
+  //   console.log("clicked");
+  //   setSaving('Publishing...')
+  //   if (blogData.main === "") {
+  //     console.log("main cant be  empty");
+  //     return;
+  //   }
+  //   if (blogData.title === "") {
+  //     console.log("title cant be empty");
+  //     return;
+  //   }
+
+  //   await updateDoc(doc(db, "Blogs", id), {
+  //     main: blogData.main,
+  //     title: blogData.title,
+  //   }).then(() => {
+  //     console.log("blog updated");
+  //     setSaving('Published')
+  //     navigate(`/chatter/mystories/published`);
+  //   });
+  // };
+
+  // console.log(id);
   return (
     <main className="create-post-main">
       <section className="create-post-rw-1">
-        <p>Your post <b>.</b> {saving}</p>
-        <p style={{marginLeft:'30px'}}>Number of Words <b>.</b>{number_words}</p>
+        <p>Your post <b>.</b>  {saving}</p>
+        <p style={{marginLeft:'30px'}}>Number of Words . {number_words}</p>
         <button
           className="create-post-btn"
-          disabled={_saving}
           onClick={() => {
             handlePublish();
           }}
         >
           Publish
         </button>
-
         <NavLink
           to={`/chatter/mystories/all`}
           style={{
@@ -271,7 +203,6 @@ export default function CreatePost() {
           />
         </section>
       )}
-
       <section className="create-post-col-2">
         <aside className="create-post-rw-2">
           <div className="col-2">
@@ -312,11 +243,12 @@ export default function CreatePost() {
             <div>{titleImage && <img src={titleImage} alt={titleImage} />}</div>
 
             <div className="desc-cx">
+      
               <ReactQuill
                 modules={modules}
                 formats={formats}
                 value={blogData.main}
-                onChange={handleProcedureContentChange}
+                onChange={handleMainChange}
                 id="post-textarea"
                 className="desc-input"
                 placeholder="Write a post..."
@@ -334,53 +266,21 @@ export default function CreatePost() {
         <aside className="tag-cx">
           <h1>Add tags to your post</h1>
           <div>
-            
             <TagsInput
-            value={selected}
-            onChange ={setSelected}
-            placeHolder="Enter tags"
-            name="tag"
+              value={selected}
+              onChange={setSelected}
+              placeHolder="Enter tags"
+              name="tag"
             />
           </div>
           <div>
             <h1>Add Category</h1>
             <select name="" id="">
-            <option value="">Select Categories</option>
-          </select>
+              <option value="">Select Categories</option>
+            </select>
           </div>
-        
         </aside>
       </section>
-  
     </main>
   );
 }
-
-// const storageRef = ref(
-//     storage,
-//     `images/${Date.now()}${blogData.image.name}`
-//   );
-//   console.log(blogData.image)
-//   const uploadedImage = uploadBytesResumable(storageRef, blogData.image);
-//   uploadedImage.on(
-//     "state_changed",
-//     (snapshot) => {
-//       const progress = Math.round(
-//         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-//       );
-//       setProgress(progress);
-//     },
-//     (err) => {
-//       console.log(err);
-//     },
-//     () => {
-
-//       getDownloadURL(uploadedImage.snapshot.ref).then(async(url)=>{
-
-//         await updateDoc(doc(db, "Blogs", id), {
-//           imageUrl:url
-//         }).then(() => {
-//           console.log("image updated", url);
-//         });
-//       })
-//       })

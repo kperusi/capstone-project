@@ -106,8 +106,7 @@ const dispatch = useDispatch()
             </svg>
 
             <div
-              // to="/feeds/write"
-              // to="/createpost"
+             
               className="post-btn"
               onClick={() => {
                 handleCreateDraft();

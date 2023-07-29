@@ -72,6 +72,9 @@
     justify-content: center;
     align-items: center;
 }
+.post-btn:hover{
+    cursor: pointer;
+}
 
 @keyframes motion {
     from{
@@ -85,7 +88,7 @@
 
 @media (min-width: 180px) and (max-width: 780px) {
     .feed-main{
-        border: solid red;
+        
     }
  
 }

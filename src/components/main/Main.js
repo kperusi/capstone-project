@@ -8,16 +8,22 @@ import { useNavigate } from 'react-router-dom'
 export default function Main() {
     // const user = JSON.parse(localStorage.getItem('user'))
     const user =  useContext(UserContext)
-    // const navigate = useNavigate()
-
+    const navigate = useNavigate()
+useEffect(()=>{
+  if(user){
+    navigate('/chatter')
+  }else{
+    navigate('/')
+  }
+},[user])
     
   return (
-    <main>
+    <>
 
-        {user? <FeedHome/>:<Home/>}
+        {/* {user? <FeedHome/>:<Home/>} */}
 
 
-    </main>
+    </>
    
   )
 }

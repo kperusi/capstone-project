@@ -7,33 +7,29 @@
   padding-right: 20px;
   padding-top: 5px;
   row-gap: 10px;
-  scroll-behavior: smooth;
-  word-break: break-all;
-  overflow-x: scroll;
-  height: 90vh;
   padding-bottom: 30px;
 }
 
-.feedhome {
+.feedhomed {
   scrollbar-width: 120px;
   scrollbar-color: transparent transparent;
   transition: scrollbar-color 0.3s;
 }
-.feedhome:hover {
+.feedhomed:hover {
   scrollbar-color: black transparent;
 }
-.feedhome:not(:hover)::-webkit-scrollbar-thumb {
+.feedhomed:not(:hover)::-webkit-scrollbar-thumb {
   background: transparent;
 }
-.feedhome::-webkit-scrollbar {
+.feedhomed::-webkit-scrollbar {
   width: 11.5px;
   margin-right: 10px;
 }
-.feedhome::-webkit-scrollbar-thumb {
+.feedhomed::-webkit-scrollbar-thumb {
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.75);
 }
-.feedhome::-webkit-scrollbar-button:single-button {
+.feedhomed::-webkit-scrollbar-button:single-button {
   background-color: rgb(255, 255, 255);
   height: 8px;
   border-radius: 2px;

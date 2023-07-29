@@ -30,10 +30,12 @@ export default function EmailSignUp() {
 
 
   const signInWithGoogle = async () => {
+    setLoading(true)
     try {
     await signInWithPopup(auth,googleProvider).then((res)=>{
       console.log(res)
-      navigate("/chatter");
+      setLoading(false)
+      navigate("/chatter/feed/for-you");
 
     });
     } catch (err){

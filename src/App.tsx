@@ -7,8 +7,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import React from "react";
-import { useSelector } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import Profile from "./components/profile/Profile";
+import ErrorBoundary from "./components/ErrorBoundary";
+import store from "./components/store/store";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -19,11 +21,13 @@ function App() {
     // setLocalUser(users)
   }, []);
 
-  const mobi_menu = useSelector((state: any) => state.data.mobi_menu);
+  // const mobi_menu = useSelector((state: any) => state.data.mobi_menu);
   // console.log(mobi_menu);
   //  console.log(localUser)
   return (
     <div className="app">
+      <ErrorBoundary>
+        <Provider store={store}>
       <UserContext.Provider value={user}>
 
        
@@ -32,11 +36,13 @@ function App() {
         </section>
 
         <section className="app-main">
-           {/* <Profile /> */}
+         
           <MyRoutes />
           
         </section>
       </UserContext.Provider>
+      </Provider>
+      </ErrorBoundary>
     </div>
   );
 }

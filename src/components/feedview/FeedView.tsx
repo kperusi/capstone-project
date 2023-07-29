@@ -95,21 +95,33 @@ export default function FeedView() {
     const viewRef = doc(db, "Blogs", blog.id);
     const viewerRef = doc(db, "Blogs", blog.id);
     navigate(`/post/${blog.id}`);
-    
   
     updateDoc(viewRef, {
       views: increment(1),
     });
-
-    updateDoc(viewerRef, {
-      viewers: arrayUnion(user.uid),
+if(user){
+  updateDoc(viewerRef, {
+    viewers: arrayUnion(user.uid),
+  })
+    .then(() => {
+      console.log("liked");
     })
-      .then(() => {
-        console.log("liked");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    .catch((e) => {
+      console.log(e);
+    });
+}
+else{
+  updateDoc(viewerRef, {
+    viewers: arrayUnion('Anonymous'),
+  })
+    .then(() => {
+      console.log("liked");
+    })
+    .catch((e) => {
+      console.log(e);
+    });
+}
+   
   };
   const firstLetter = (blog:any) => {
     if (blog.createdBy) {

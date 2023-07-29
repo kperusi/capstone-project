@@ -101,10 +101,10 @@ export default function PersonalPost() {
               </section>
 
               <section className="person-post-rw-3">
-               {blog.imgeUrl &&
+               
                
                <img src={blog.imageUrl} alt="postpicture" />
-               } 
+            
                
                 <div
                   dangerouslySetInnerHTML={{ __html: blog.main }}
@@ -159,7 +159,7 @@ export default function PersonalPost() {
                 </div>
 
                 <div className="person-post-menu rounded-xl shadow border">
-                  <MyDropdown />
+                  <MyDropdown id={blog.id} handleDelete={handleDelete} img={blog.imageUrl}  handleEdit={handleEdit}/>
                 </div>
               </section>
             </section>

@@ -14,18 +14,18 @@ export default function Sidebar() {
   const selected = useSelector((state: any) => state.data.selected);
   const navigate = useNavigate();
   const [tags, setTags] = useState([]);
-  const [close, setClose] = useState<any>("");
-  const [showSeeAll, setShowSeeAll] = useState<any>("see-all-hidden");
+  // const [close, setClose] = useState<any>("");
+  // const [showSeeAll, setShowSeeAll] = useState<any>("see-all-hidden");
 
   const [open, setOpen] = useState(false);
   const closeModal = () => setOpen(false);
 
-  const handleClose = () => {
-    if (showSeeAll === "see-all-hidden") {
-      setShowSeeAll("see-all-show");
-    } else setShowSeeAll("see-all-hidden");
-  };
-  console.log(showSeeAll);
+  // const handleClose = () => {
+  //   if (showSeeAll === "see-all-hidden") {
+  //     setShowSeeAll("see-all-show");
+  //   } else setShowSeeAll("see-all-hidden");
+  // };
+  // console.log(showSeeAll);
   useEffect(() => {
     onSnapshot(collection(db, "Blogs"), (snapshot): any => {
       let tag: any = [

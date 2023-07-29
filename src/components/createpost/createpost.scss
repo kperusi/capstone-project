@@ -1,22 +1,31 @@
 .create-post-main{
     width: 100%;
     height: 100%;
-    border:1px  solid grey;
-    padding: 0 20px;
-    padding:10px 10px 10px 100px;
+    
+   
+    padding:0px 10px 10px 10px;
     background-color: rgb(223, 221, 221);
 }
 .create-post-rw-1{
     display: flex;
     padding: 20px 10px;
     background-color: white;
+    border: 0.3px solid rgb(222, 221, 221);
     padding: 10px 30px;
+    position: sticky;
+    top: 80px;
+    margin-bottom: 20px;
+    z-index: 1;
+    border-radius: 5px;
+  
+   
 
 
 }
 .create-post-rw-2{
     background-color: white;
     padding: 30px;
+    width: 70%;
 }
 .create-post-btn{
     background-color: blue;
@@ -51,6 +60,8 @@
     padding-bottom: 30px;
     // border: solid red;
     height: fit-content;
+    z-index: 0;
+    
 
 }
 
@@ -59,6 +70,8 @@
     font-size: 2.5em;
     border: none;
     outline: none;
+    width: 100%;
+    text-overflow: ellipsis;
 }
 .title-cx svg, .desc-cx svg{
     border: solid rgb(188, 186, 186);
@@ -94,10 +107,17 @@
 .tag-cx{
     display: flex;
     flex-direction: column;
-    // border: solid;
-    width: 29%;
+    border:0.3px solid;
+    width: 28%;
     align-items: center;
     padding: 10px;
+    position: fixed;
+    right: 10px;
+    border: 0.3px solid rgb(175, 175, 175);
+    background-color: white;
+    border-radius: 8px;
+    gap: 30px;
+    height: 100%;
 }
 .tag-cx div{
     width: 100%;
