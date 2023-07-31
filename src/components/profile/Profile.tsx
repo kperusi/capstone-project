@@ -23,7 +23,9 @@ console.log(mobi_menu)
   if (!user)
     return (
       <main className={`profile-main ${mobi_menu}`}>
-        <button
+       <h1>Welcome</h1>
+       <p className="profile-p">Sign in to enjoy all...</p>
+        <button className="profile-btn"
           onClick={() => {
             navigate("/signup");
             dispatch(setMobi_Menu());
@@ -32,6 +34,7 @@ console.log(mobi_menu)
           Get Started
         </button>
         <button
+        className="profile-btn"
           onClick={() => {
             navigate("/");
             dispatch(setMobi_Menu());

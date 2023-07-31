@@ -6,6 +6,7 @@
   width: 100%;
   border-radius: 5px;
   min-height: 100%;
+  gap: 20px;
 }
 
 .profile-rw-1 {
@@ -34,4 +35,26 @@
 .profile-link {
   text-decoration: none;
   font-size: 1.2em;
+}
+
+.profile-main h1 {
+  align-self: center;
+  font-size: 2.4em;
+}
+
+.profile-p {
+  font-size: 1.3em;
+  align-self: center;
+  margin-top: -25px;
+  color: grey;
+}
+
+.profile-btn {
+  border-radius: 8px;
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  font-size: 1em;
+  width: 50%;
+  align-self: center;
 }/*# sourceMappingURL=profilestyle.css.map */
