@@ -121,4 +121,29 @@
   border-radius: 5px;
   color: white;
   padding: 5px;
+}
+
+@media screen and (min-width: 180px) and (max-width: 767px) {
+  .post-main {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .post-rw-1 {
+    width: 100%;
+  }
+  .disp-name {
+    font-size: 1.5em;
+  }
+  .p {
+    display: flex;
+    flex-direction: column;
+  }
+  .post-title {
+    line-height: 1em;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 821px) {
+  .home-main {
+    border: solid blue;
+  }
 }/*# sourceMappingURL=post.css.map */

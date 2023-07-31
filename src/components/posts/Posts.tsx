@@ -23,15 +23,21 @@ export default function Posts(props:any) {
           )}
         </div>
         <div>
-          <h2>{props.displayname}</h2>
-          <p>
-            {props.prof} {props.date}
+          <h2 className="disp-name">{props.displayname}</h2>
+          <div className="p">
+          <p >
+            {props.prof} 
           </p>
+          <p >
+          {props.date}
+          </p>
+          </div>
+         
         </div>
       </section>
 
       <section className="post-rw-2">
-        <h1>{props.title}</h1>
+        <h1 className="post-title">{props.title}</h1>
         <div className='post-tag-cx'>
       {props.tags.map((tag:any)=><NavLink to={`/chatter/tags/${tag}`} className='post-tag'>{tag}</NavLink>)}
 
@@ -56,7 +62,7 @@ export default function Posts(props:any) {
       </section>
 
       <section className="post-rw-3">
-        <img src={props.postImage} alt="postpicture" className="" />
+        <img src={props.postImage} alt={props.postImage?"postpicture":""} className="" />
 
         <div 
           dangerouslySetInnerHTML={{ __html: props.post }}

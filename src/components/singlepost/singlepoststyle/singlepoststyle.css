@@ -4,7 +4,7 @@
   gap: 10px;
   justify-content: center;
   align-items: center;
-  padding-top: 20px;
+  padding-top: 10px;
   overflow-x: hidden;
   overflow-y: hidden;
 }
@@ -13,23 +13,19 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh;
-  scroll-behavior: smooth;
-  word-break: break-all;
-  overflow-x: scroll;
 }
 
-.single-post-header {
+.single-post-headere {
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
   transition: scrollbar-color 0.1s;
   transition: all ease-in;
 }
-.single-post-header:hover {
+.single-post-headere:hover {
   scrollbar-color: black transparent;
   transition: 0.5s;
 }
-.single-post-header:not(:hover)::-webkit-scrollbar {
+.single-post-headere:not(:hover)::-webkit-scrollbar {
   width: 5px;
   border-radius: 5px;
   -webkit-transition: all ease-in-out;
@@ -37,14 +33,14 @@
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
-.single-post-header::-webkit-scrollbar {
+.single-post-headere::-webkit-scrollbar {
   width: 10.5px;
   -webkit-transition: all ease-in-out;
   transition: all ease-in-out;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
-.single-post-header::-webkit-scrollbar-thumb {
+.single-post-headere::-webkit-scrollbar-thumb {
   border-radius: 3px;
   -webkit-transition: all ease-in-out;
   transition: all ease-in-out;
@@ -71,6 +67,20 @@
   justify-content: space-between;
   margin-bottom: 20px;
   margin-right: 10px;
+}
+
+.dot {
+  display: block;
+  width: 3.5px;
+  height: 3.5px;
+  border-radius: 50%;
+  background-color: gray;
+  align-self: center;
+  margin: 0 5px;
+}
+
+.owner-name {
+  font-size: 1.8em;
 }
 
 .single-post-owner-rw {
@@ -142,41 +152,49 @@
 }
 
 .single-post-comment-cx {
+  position: fixed;
+  right: 0;
   display: flex;
   flex-direction: column;
   margin-right: 0px;
   background-color: white;
   border: 0.3px solid rgb(209, 209, 209);
-  padding: 20px 20px;
-  height: 80vh;
+  padding: 20px 5px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.single-post-comment-rw-1 {
+  height: 72vh;
   scroll-behavior: smooth;
   word-break: break-all;
   overflow-x: scroll;
+  padding: 10px;
 }
 
-.single-post-comment-cx {
+.single-post-comment-rw-1 {
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
   transition: scrollbar-color 0.3s;
 }
-.single-post-comment-cx:hover {
+.single-post-comment-rw-1:hover {
   scrollbar-color: black transparent;
 }
-.single-post-comment-cx:not(:hover)::-webkit-scrollbar-thumb {
+.single-post-comment-rw-1:not(:hover)::-webkit-scrollbar-thumb {
   background: transparent;
 }
-.single-post-comment-cx::-webkit-scrollbar {
+.single-post-comment-rw-1::-webkit-scrollbar {
   width: 8px;
 }
-.single-post-comment-cx::-webkit-scrollbar-thumb {
+.single-post-comment-rw-1::-webkit-scrollbar-thumb {
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.75);
 }
 
 .single-post-form {
   margin-top: 20px;
-  box-shadow: 1px 0px 2px 1px rgb(211, 211, 211);
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
   border-radius: 8px;
+  background-color: white;
 }
 
 .single-post-form h3 {
@@ -214,6 +232,7 @@ form input {
 
 .cancel-cx {
   display: flex;
+  margin-bottom: 10px;
 }
 
 .cancel-cx:hover {
@@ -229,7 +248,7 @@ form input {
 
 .show {
   visibility: visible;
-  width: 48%;
+  width: 40%;
 }
 
 .hide {
@@ -253,6 +272,7 @@ form input {
   border: 0.3px solid rgb(215, 210, 210);
   border-radius: 5px;
   padding: 10px 20px;
+  margin: 10px 0;
 }
 
 .comments-view {
@@ -260,9 +280,8 @@ form input {
   flex-direction: column;
   gap: 20px;
   width: 100%;
-  border: 0.3px solid rgb(215, 210, 210);
   border-radius: 5px;
-  padding: 20px;
+  gap: 10px;
 }
 
 .comment-time {
@@ -299,4 +318,15 @@ form input {
 .comment-svg {
   width: 30px;
   height: 30px;
+}
+
+@media screen and (min-width: 180px) and (max-width: 767px) {
+  .single-posts-main {
+    border: solid;
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 821px) {
+  .home-main {
+    border: solid blue;
+  }
 }/*# sourceMappingURL=singlepoststyle.css.map */

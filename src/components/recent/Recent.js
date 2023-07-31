@@ -11,10 +11,12 @@ import { db } from "../firebase/firebase";
 import { UserContext } from "../userContext/UserContext";
 import Posts from "../posts/Posts";
 import './recentpoststyle/recentpoststyle.css'
+import { useNavigate } from "react-router-dom";
 
 export default function Draft() {
   const user = useContext(UserContext);
   const [drafts, setDrafts] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const draftBlogRef = collection(db, "Blogs");
@@ -52,7 +54,9 @@ export default function Draft() {
   return (
     <main className="recent-post">
       {drafts.map((draft) => (
-        <section key={draft.id} className="recent-post-rw-1">
+        <section key={draft.id} className="recent-post-rw-1"
+        onClick={()=>{navigate(`/post/${draft.id}`);}}
+        >
           <Posts
             status={draft.status}
             firstLetter={firstLetter(draft)}
