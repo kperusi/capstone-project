@@ -14,6 +14,8 @@ import Profile from "../profile/Profile";
 import Preview from "../preview/Preview";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../userContext/UserContext";
+import { handleSelected, setForYou,} from "../store/dataSlice";
+import { useDispatch } from "react-redux";
 
 function Home() {
 
@@ -22,8 +24,19 @@ function Home() {
   const navigate = useNavigate()
   const mobi_menu = useSelector((state: any) => state.data.mobi_menu);
 const user = useContext(UserContext)
+const dispatch = useDispatch()
   console.log(mobi_menu);
+const handlenav = ()=>{
+  if(!user){
+    navigate("signup");
 
+  }
+  else{
+    navigate("chatter/feed" )
+    dispatch(setForYou());
+    dispatch(handleSelected('feed'));
+  }
+}
 
   return (
     <main className="home-main">
@@ -39,7 +52,11 @@ const user = useContext(UserContext)
               Unleash the Power of Words, Connect with Like-minded Readers{" "}
               <br /> and Writers
             </p>
-            <button className="home-btn">Get Started</button>
+            <button className="home-btn"
+             onClick={() => {
+             handlenav()
+            }}
+            >Get Started</button>
           </div>
         </header>
       </section>
@@ -111,7 +128,11 @@ const user = useContext(UserContext)
           <p>
             <b>Adebobola Muhydeen,</b>Software developer at Apple
           </p>
-          <button className="home-btn">Join chatter</button>
+          <button className="home-btn" 
+           onClick={() => {
+            navigate("signup");
+          }}
+          >Join chatter</button>
         </div>
       </section>
       <section className="section-five">
@@ -131,7 +152,12 @@ const user = useContext(UserContext)
             interests. connect with people of same interests and goals
           </p>
 
-          <button className="home-btn">Get started</button>
+          <button className="home-btn"
+          
+          onClick={() => {
+            navigate("signup");
+          }}
+          >Get started</button>
         </div>
       </section>
       <footer className="footer">
@@ -145,7 +171,8 @@ const user = useContext(UserContext)
           <p>Chatter for teams</p>
         </div>
 
-        <div className="footer-rw-2">
+        <div
+         className="footer-rw-2">
           <h3>Support</h3>
           <p>Support docs</p>
           <p>Join slack</p>
