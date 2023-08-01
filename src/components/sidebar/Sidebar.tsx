@@ -200,17 +200,12 @@ export default function Sidebar() {
         <h2>Trending Tags</h2>
         <Trending />
 
-        {/* <div className={`sidebar-trending-div `}> */}
+      
         <button className="see-all" onClick={() => setOpen((o) => !o)}>
           See all
         </button>
 
-        {/* <div className={`see-all-popup ${showSeeAll}`}>
-          {tags.map((tag) => (
-            <div key={tag}>{tag}</div>
-          ))}
-         
-        </div> */}
+      
         <Popup
           open={open}
           closeOnDocumentClick

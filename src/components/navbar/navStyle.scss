@@ -1,8 +1,6 @@
 .nav-main {
     display: flex;
     flex-direction: row;
-    // position:fixed;
-    // position: -webkit-fixed;
     border-bottom: 0.3px solid rgb(29, 9, 9);
     padding: 20px 20px;
     z-index: 1;
@@ -11,12 +9,23 @@
     height: 80px;
     top: 0px;
     left: 0;
+    
 }
 .nav-logo {
     color: #0000ff;
     font-size: 2em;
 }
+.nav-profile-rw-1{
+    // border: solid red;
+    padding-right: 10px;
+    padding-left: 10px;
+  
 
+}
+.nav-profile-logout-btn{
+    color: red;
+    margin-bottom: 10px;
+}
 .nav-links {
     display: flex;
     flex-direction: row;
@@ -83,6 +92,10 @@
 }
 .nav-bar-hambuger {
     display: none;
+}
+.user-profile{
+  
+    height: fit-content
 }
 
 @media (min-width: 180px) and (max-width: 780px) {
