@@ -87,7 +87,7 @@ export default function TopTrending() {
 
   return (
     <main className="top-trending">
-      <aside>
+      <aside style={{display:'flex'}}>
 
     
       <section>
@@ -131,8 +131,8 @@ export default function TopTrending() {
       </section>
 
 
-      <section>
-      <div className="next more-btn-cx">
+      <section className="next-cx">
+      <div className="">
           <button
             className=" top-trending-btn nxt"
             disabled={currentPage === NumberOfPages}
