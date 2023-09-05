@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../userContext/UserContext";
 
-export default function Hambuger(props:any) {
+export default function Hambuger(props: any) {
   const style = {
     display: "block",
     width: " 30px",
@@ -14,36 +14,31 @@ export default function Hambuger(props:any) {
     backgroundColor: "grey",
   };
   const [classname, setClassname] = useState("");
-  const navigate = useNavigate()
-const user = useContext(UserContext)
+  const navigate = useNavigate();
+  const user = useContext(UserContext);
 
   const toggle = () => {
     if (classname === "active") {
       setClassname("");
-      if(!user){
-        navigate('../')
+      if (!user) {
+        navigate("../");
       }
-      if(user){
-        navigate(-1)
+      if (user) {
+        navigate(-1);
       }
-      
-
     } else {
       setClassname("active");
-     
-       navigate('menu-nav')
-    
-     
+
+      navigate("menu-nav");
     }
-    props.showHandler()
+    props.showHandler();
   };
 
-  useEffect(()=>{
-    if(props.mobi_menu==='nav-menu-close'){
-      setClassname('')
+  useEffect(() => {
+    if (props.mobi_menu === "nav-menu-close") {
+      setClassname("");
     }
-  },[props.mobi_menu])
-console.log(props.mobi_menu)
+  }, [props.mobi_menu]);
   return (
     <div className={`hambuger ${classname}`} onClick={() => toggle()}>
       <span className="line" style={style}></span>

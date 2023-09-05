@@ -17,6 +17,11 @@ export const dataSlice = createSlice({
       draft: "",
       analytics: "",
     },
+    selectedPersonalPost: {
+      all: "",
+      draft: "",
+      published: "",
+    },
     suggestions: [
       "Programing",
       "Data science",
@@ -29,8 +34,8 @@ export const dataSlice = createSlice({
       "React js",
     ],
     sideShow: "sidebar-hidden",
-    arrowDown:''
-
+    arrowDown: "",
+    showSearchBar: "",
   },
   reducers: {
     setShowComment: (state, action) => {
@@ -71,15 +76,17 @@ export const dataSlice = createSlice({
         state.mobi_menu = "nav-menu-show";
       } else state.mobi_menu = "nav-menu-close";
     },
-    setSideShow:(state)=>{
+    setSideShow: (state) => {
       if (state.sideShow === "sidebar-hidden") {
         state.sideShow = "sidebar-show";
-        state.arrowDown='arrow-down-hidden'
+        state.arrowDown = "arrow-down-hidden";
       } else {
-        state.sideShow = "sidebar-hidden"
-        state.arrowDown='arrow-down-show'
-    };
-
+        state.sideShow = "sidebar-hidden";
+        state.arrowDown = "arrow-down-show";
+      }
+    },
+    setShowSearchBar: (state, action) => {
+      state.showSearchBar = action.payload;
     },
     handleSelected: (state, action) => {
       if (action.payload === "feed") {
@@ -116,6 +123,23 @@ export const dataSlice = createSlice({
         state.selected.feed = "";
       }
     },
+    handlePersonalPostSelected: (state, action) => {
+      if (action.payload === "published-border") {
+        state.selectedPersonalPost.all = "";
+        state.selectedPersonalPost.draft = "";
+        state.selectedPersonalPost.published = action.payload;
+      }
+      else if (action.payload === "all-border") {
+        state.selectedPersonalPost.all = action.payload;
+        state.selectedPersonalPost.draft = "";
+        state.selectedPersonalPost.published = "";
+      }
+      else if (action.payload === "draft-border") {
+        state.selectedPersonalPost.all = "";
+        state.selectedPersonalPost.draft = action.payload;
+        state.selectedPersonalPost.published = "";
+      }
+    },
   },
 });
 export const {
@@ -128,5 +152,7 @@ export const {
   handleSelected,
   setMobi_Menu,
   setSideShow,
+  setShowSearchBar,
+  handlePersonalPostSelected,
 } = dataSlice.actions;
 export default dataSlice.reducer;

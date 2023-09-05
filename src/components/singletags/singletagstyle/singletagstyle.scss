@@ -7,11 +7,14 @@
 .single-tag-rw-2{
     display: flex;
     flex-direction: column;
-    
     gap: 20px;
 
 }
 .single-tag-card{
-    border:0.3px solid;
+    // border:0.3px solid;
     border-radius: 8px;
+}
+.tag-tag{
+    font-size: 1.5rem;
+    color: blue;
 }

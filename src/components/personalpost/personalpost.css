@@ -13,18 +13,16 @@
   border: 0.3px solid rgb(181, 181, 181);
   border-radius: 5px;
   background-color: white;
-  width: 100%;
+}
+
+.person-post-header h1 {
+  font-size: 1.2em;
+  font-weight: 600;
 }
 
 .col-1 {
   display: flex;
   flex-direction: column;
-}
-
-.person-post-menu-wrap {
-  display: flex;
-  justify-content: center;
-  gap: 2px;
 }
 
 .person-post-menu-wrap:hover {
@@ -57,19 +55,48 @@
 
 .person-post-rw-2 {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
   margin-top: 20px;
+  padding: 20px;
 }
 
-.person-post-rw-2 h1 {
-  font-size: 1.7em;
-}
-
-.person-post-rw-3 {
+.person-post-content-cx {
   display: flex;
   flex-direction: column;
+  width: 50vw;
   gap: 20px;
+}
+
+.person-post-content-cx h1 {
+  font-size: 1.5em;
+}
+
+.person-post-img {
+  width: 25vw;
+  border-radius: 8px;
+}
+
+.person-post-img-cx {
+  display: flex;
+  margin-left: auto;
+  width: 30vw;
+  height: 40vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.person-all {
+  margin-left: auto;
+  margin-top: auto;
+}
+
+.person-draft {
+  margin-top: auto;
+}
+
+.person-publish {
+  margin-top: auto;
 }
 
 .person-post-rw-3 img {
@@ -78,7 +105,9 @@
   max-width: 20vw;
 }
 
-.person-post-comment, .person-post-views, .person-post-likes {
+.person-post-comment,
+.person-post-views,
+.person-post-likes {
   display: flex;
   flex-direction: row;
   gap: 5px;
@@ -105,6 +134,8 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  margin-bottom: 0;
+  margin-top: auto;
 }
 
 .person-post-nav {
@@ -117,6 +148,25 @@
   width: 100%;
 }
 
-.person-draft:hover, .person-publish:hover, .person-all:hover {
+.person-draft:hover,
+.person-publish:hover,
+.person-all:hover {
   cursor: pointer;
+}
+
+.person-post-outlet {
+  height: 210vh;
+}
+
+.all-border {
+  border-bottom: 5px solid blue;
+  transition: all 2ms ease-in;
+}
+
+.draft-border {
+  border-bottom: 5px solid blue;
+}
+
+.published-border {
+  border-bottom: 5px solid blue;
 }/*# sourceMappingURL=personalpost.css.map */

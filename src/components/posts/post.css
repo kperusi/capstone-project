@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 0px;
-  padding: 0px 200px 20px 20px;
+  padding: 0px 30px 30px 20px;
 }
 
 .post-rw-1 {
@@ -39,11 +39,35 @@
   font-size: 2em;
 }
 
+.post-title {
+  font-size: 2em;
+  line-height: 1em;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
 .post-rw-3 {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  margin-top: 10px;
   gap: 20px;
   color: black;
+  background-color: rgb(219, 218, 218);
+  padding: 10px 20px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.post-rw-3:hover {
+  cursor: pointer;
+}
+
+.post-content-cx {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50vw;
 }
 
 .post-content {
@@ -52,12 +76,21 @@
   overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
+  font-size: 1.2em;
 }
 
-.post-rw-3 img {
-  max-height: 50vh;
-  -o-object-fit: contain;
-     object-fit: contain;
+.post-img {
+  width: 30vw;
+  border-radius: 8px;
+}
+
+.post-img-cx {
+  display: flex;
+  margin-left: auto;
+  width: 30vw;
+  height: 40vh;
+  align-items: center;
+  justify-content: center;
 }
 
 .readtime {
@@ -71,10 +104,13 @@
   display: flex;
   width: 100%;
   margin-top: 20px;
-  justify-content: space-between;
+  gap: 20px;
+  padding-right: 80px;
 }
 
-.post-comment, .post-views, .post-likes {
+.post-comment,
+.post-views,
+.post-likes {
   display: flex;
   flex-direction: row;
   gap: 5px;
@@ -90,6 +126,10 @@
   height: 100%;
   padding: 20px;
   border-radius: 50%;
+}
+
+.post-menu {
+  border: solid;
 }
 
 .post-letter-img h1 {
@@ -117,10 +157,22 @@
 
 .post-tag {
   text-decoration: none;
-  background-color: blue;
+  border: 0.3px solid blue;
   border-radius: 5px;
   color: white;
   padding: 5px;
+  color: black;
+}
+
+.disp-name {
+  font-size: 1.6em;
+  margin-bottom: -4px;
+  color: gray;
+}
+
+.p {
+  margin-top: -8px;
+  color: gray;
 }
 
 @media screen and (min-width: 180px) and (max-width: 767px) {

@@ -1,9 +1,48 @@
-import React, { useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { UserContext } from "../userContext/UserContext";
 import "./post.css";
+import { db } from "../firebase/firebase";
+import {
+  arrayUnion,
+  collection,
+  doc,
+  increment,
+  onSnapshot,
+  orderBy,
+  query,
+  updateDoc,
+  setDoc,
+  Timestamp,
+  where,
+  arrayRemove,
+} from "firebase/firestore";
 
-export default function Posts(props:any) {
- 
+export default function Posts(props: any) {
+  const user = useContext(UserContext);
+  const navigate = useNavigate();
+  const [bookmarkers, setBookmarkers] = useState("");
+
+
+
+  const handleBookmarks = (blog: any) => {
+    const blogRef = doc(db, "Blogs", blog.id);
+
+    if (user) {
+      if (!blog.bookmarker?.includes(user?.uid)) {
+        updateDoc(blogRef, {
+          bookmarker: arrayUnion(user.uid),
+        });
+      } else {
+        updateDoc(blogRef, {
+          bookmarker: arrayRemove(user.uid),
+        });
+      }
+    } else {
+      navigate(`signup`);
+    }
+  };
+
   return (
     <main className="post-main">
       <section className="post-rw-1">
@@ -25,24 +64,52 @@ export default function Posts(props:any) {
         <div>
           <h2 className="disp-name">{props.displayname}</h2>
           <div className="p">
-          <p >
-            {props.prof} 
-          </p>
-          <p >
-          {props.date}
-          </p>
+            {/* <p>{props.prof}</p> */}
+            <p>{props.date}</p>
           </div>
-         
         </div>
       </section>
 
       <section className="post-rw-2">
-        <h1 className="post-title">{props.title}</h1>
-        <div className='post-tag-cx'>
-      {props.tags.map((tag:any)=><NavLink to={`/chatter/tags/${tag}`} className='post-tag'>{tag}</NavLink>)}
-
+       
+        <div className="post-tag-cx">
+          {props.tags.map((tag: any) => (
+            <NavLink to={`/chatter/tags/${tag}`} key={tag} className="post-tag">
+              {tag}
+            </NavLink>
+          ))}
         </div>
-        <div className="readtime">
+        
+      </section>
+
+      <section
+        className="post-rw-3"
+        onClick={() => props.handleNavigate(props.blog)}
+      
+      >
+        <div className="post-content-cx"> 
+        <h1 className="post-title"> <b>{props.title}</b></h1>
+        <div
+          dangerouslySetInnerHTML={{ __html: props.post }}
+          className="post-content"
+        ></div>
+        </div>
+        
+        <div className="post-img-cx">
+        <img
+        
+          src={props.postImage}
+          alt={props.postImage ? "postpicture" : ""}
+          className="post-img"
+        />
+
+        
+        </div>
+       
+      </section>
+
+      <section className="post-rw-4">
+      <div className="readtime">
           <svg
             width="22"
             height="18"
@@ -55,24 +122,30 @@ export default function Posts(props:any) {
               fill="black"
             />
           </svg>
-          <div style={{display:'flex',flexDirection:'row', gap:'5px',color:'grey'}}><p>{props.readtime} </p>
-          <p>min. read time </p></div>
-          
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "5px",
+              color: "grey",
+            }}
+          >
+            <p>{props.readtime} </p>
+            <p>min. read time </p>
+          </div>
         </div>
-      </section>
 
-      <section className="post-rw-3">
-        <img src={props.postImage} alt={props.postImage?"postpicture":""} className="" />
+        <div style={{display:'flex',
+        marginLeft:'auto',
+        flexDirection:'row',
+        // border:'solid',
+        gap:'50px'}}>
 
-        <div 
-          dangerouslySetInnerHTML={{ __html: props.post }}
-          className="post-content"
-        ></div>
-     
-      </section>
-
-      <section className="post-rw-4">
-        <div className="post-comment">
+        
+        <div
+          className="post-comment"
+          onClick={() => props.handleNavigate(props.blog)}
+        >
           <svg
             width="22"
             height="20"
@@ -88,23 +161,25 @@ export default function Posts(props:any) {
 
           <p>{props.comments}</p>
         </div>
-        <div className="post-likes">
+        <div
+          className="post-likes"
+          onClick={() => props.handleNavigate(props.blog)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            fill={props.likes?'red':''}
+            fill={props.likes ? "red" : ""}
             viewBox="0 0 24 24"
             strokeWidth="1.5"
-            stroke={props.likes?'red':'black'}
+            stroke={props.likes ? "red" : "black"}
             className="w-1 h-1 post-heart"
           >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
-              fill={props.likes?'red':'none'}
+              fill={props.likes ? "red" : "none"}
               d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
             />
           </svg>
-          
 
           <p>{props.likes}</p>
         </div>
@@ -119,8 +194,23 @@ export default function Posts(props:any) {
           </svg>
 
           <p>{props.views}</p>
+        </div>
 
-          {/* <h1>status:{props.status}</h1> */}
+        <div
+          onClick={() => {
+            handleBookmarks(props.blog);
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="28"
+            viewBox="0 -960 960 960"
+            width="28"
+            fill={props.blog.bookmarker?.includes(user?.uid) ? "blue" : "black"}
+          >
+            <path d="M200-120v-665q0-24 18-42t42-18h290v60H260v574l220-93 220 93v-334h60v425L480-240 200-120Zm60-665h290-290Zm440 180v-90h-90v-60h90v-90h60v90h90v60h-90v90h-60Z" />
+          </svg>
+        </div>
         </div>
       </section>
     </main>

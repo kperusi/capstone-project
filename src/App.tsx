@@ -14,26 +14,19 @@ import store from "./components/store/store";
 
 function App() {
   const [user] = useAuthState(auth);
-  // const [localUser, setLocalUser]=useState()
+  // @ts-ignore
+  // const user2 = JSON.parse(localStorage.getItem('user'))
 
-  useEffect(() => {
-    // const users = JSON.parse(localStorage.getItem('user'))
-    // setLocalUser(users)
-  }, []);
-
-  // const mobi_menu = useSelector((state: any) => state.data.mobi_menu);
-  // console.log(mobi_menu);
-  //  console.log(localUser)
+ 
   return (
     <div className="app">
       <ErrorBoundary>
         <Provider store={store}>
       <UserContext.Provider value={user}>
-
-       
+   
         <section className="app-nav">
           <NavBar />
-        </section>
+        </section> 
 
         <section className="app-main">
          

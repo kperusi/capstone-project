@@ -1,0 +1,18 @@
+.bookmark-main{
+    display: flex;
+    flex-direction:column;
+    gap: 20px;
+    padding: 10px;
+}
+.bookmark-post{
+    border: 0.3px solid rgb(204, 203, 203);
+    border-radius: 8px;
+}
+.bookmark-header{
+    border: 0.3px solid  rgb(204, 203, 203);
+    padding: 10px 5px;
+    border-radius: 8px;
+}
+.bookmark-header h1{
+    font-weight: 600;
+}

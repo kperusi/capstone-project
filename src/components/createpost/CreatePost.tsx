@@ -13,7 +13,11 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import { WithContext as ReactTags } from "react-tag-input";
 import { TagsInput } from "react-tag-input-component";
 import { useSelector } from "react-redux";
-
+import {remark} from 'remark'
+import rehypeParse from 'rehype-parse'
+import rehypeRemark from 'rehype-remark'
+import remarkStringify from 'remark-stringify'
+import ReactMarkdown from 'react-markdown'
 
 
 export default function CreatePost() {
@@ -30,17 +34,15 @@ export default function CreatePost() {
   const [_saving, _setSaving] = useState(false);
   const [number_words, setNumber_Words] = useState(0);
   const [titleImage, setTitleImage] = useState("");
-  const { id } :any= useParams<any>();
- 
+  const { id }: any = useParams<any>();
+
   const [selected, setSelected] = useState<any>([]);
 
-
-  
   const KeyCodes = {
     comma: 188,
-    enter: 13
+    enter: 13,
   };
-  
+
   const delimiters = [KeyCodes.comma, KeyCodes.enter];
   const modules = {
     toolbar: [
@@ -87,21 +89,19 @@ export default function CreatePost() {
 
   const getWordsCount = () => {
     setNumber_Words(
-      blogData.main.split(" ").filter((word:any) => {
+      blogData.main.split(" ").filter((word: any) => {
         return word !== "";
       }).length
     );
   };
- 
 
-
-  const handleTitleChange = async (e:any) => {
+  const handleTitleChange = async (e: any) => {
     setBlogData({ ...blogData, title: e.target.value });
     setSaving("Saving...");
     _setSaving(true);
   };
 
-  const handleImageChange = (e:any) => {
+  const handleImageChange = (e: any) => {
     setBlogData({ ...blogData, image: e.target.files[0] });
   };
 
@@ -121,16 +121,17 @@ export default function CreatePost() {
     };
   }, []);
 
-  useEffect(():any=> {
+  useEffect((): any => {
     setSaving("");
     if (blogData.main) {
       const wpm = 225;
-      setNumber_Words(blogData.main.split(" ").filter((word:any) => {
-        return word !== "";
-      }).length)
-     
+      setNumber_Words(
+        blogData.main.split(" ").filter((word: any) => {
+          return word !== "";
+        }).length
+      );
+
       setSaving("Saving..");
-      console.log(number_words)
       const time = Math.ceil(number_words / wpm);
       updateDoc(doc(db, "Blogs", id), {
         main: blogData.main,
@@ -139,7 +140,6 @@ export default function CreatePost() {
       }).then(() => {
         _setSaving(false);
         setSaving("Saved");
-       
       });
     }
   }, [blogData.main, id, blogData.title, number_words]);
@@ -190,38 +190,76 @@ export default function CreatePost() {
     return blogData.main.length;
   };
 
-  console.log(number_words);
   const handleProcedureContentChange = async (
-    content:any,
-    delta:any,
-    source:any,
-    editor:any,
+    content: any,
+    delta: any,
+    source: any,
+    editor: any
   ) => {
     setBlogData({ ...blogData, main: content });
     getWordsCount();
     const range = editor.getSelection();
-    // console.log(range);
+    
 
     setSaving("Saving...");
     _setSaving(true);
   };
 
-
-  useEffect(()=>{
+  useEffect(() => {
     updateDoc(doc(db, "Blogs", id), {
-     tags:selected
-      }).then(() => {
-        _setSaving(false);
-        setSaving("Saved");
-      });
+      tags: selected,
+    }).then(() => {
+      _setSaving(false);
+      setSaving("Saved");
+    });
+  }, [selected, id]);
+  // console.log(blogData.main);
 
-  },[selected,id,])
-//  console.log(selected)
+const htmlToMarkDown=()=>{
+   const file = remark()
+    .use(rehypeParse, { emitParseErrors: true, duplicateAttribute: false })
+    .use(rehypeRemark)
+    .use(remarkStringify)
+    .processSync(blogData.main);
+  return String(file);
+}
+
+
+console.log(htmlToMarkDown())
   return (
     <main className="create-post-main">
       <section className="create-post-rw-1">
-        <p>Your post <b>.</b> {saving}</p>
-        <p style={{marginLeft:'30px'}}>Number of Words <b>.</b>{number_words}</p>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <p>Your post</p>
+          <span className="dot"></span>
+          <p>{saving}</p>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginLeft: "30px",
+          }}
+        >
+          <p>Number of Words</p>
+          <span className="dot"></span>
+          <p>{number_words}</p>
+        </div>
+
+        {/* <div>
+        
+          <ReactMarkdown>
+            {htmlToMarkDown()}
+          </ReactMarkdown>
+        </div> */}
+
         <button
           className="create-post-btn"
           disabled={_saving}
@@ -334,24 +372,21 @@ export default function CreatePost() {
         <aside className="tag-cx">
           <h1>Add tags to your post</h1>
           <div>
-            
             <TagsInput
-            value={selected}
-            onChange ={setSelected}
-            placeHolder="Enter tags"
-            name="tag"
+              value={selected}
+              onChange={setSelected}
+              placeHolder="Enter tags"
+              name="tag"
             />
           </div>
-          <div>
+          {/* <div>
             <h1>Add Category</h1>
             <select name="" id="">
-            <option value="">Select Categories</option>
-          </select>
-          </div>
-        
+              <option value="">Select Categories</option>
+            </select>
+          </div> */}
         </aside>
       </section>
-  
     </main>
   );
 }

@@ -5,23 +5,32 @@
 .sidebar-main {
   display: flex;
   flex-direction: column;
-  padding-left: 20px;
-  padding-right: 30px;
   gap: 10px;
   min-width: 200px;
   font-family: DMSans;
   padding-bottom: 20px;
+  padding: 40px 5px;
   background-color: white;
+  border-radius: 8px;
 }
 
 .sidebar-rw-1 {
+  display: flex;
+  align-items: center;
   margin-bottom: 20px;
+  gap: 20px;
+  border: 0.3px solid rgb(212, 211, 211);
+  border-radius: 4px;
+  padding: 2px 6px;
 }
 
 .sidebar-rw-1 h1 {
   color: blue;
   font-size: 2em;
-  margin-top: 10px;
+}
+
+.aside {
+  font-size: 1em;
 }
 
 .sidebar-rw-2,
@@ -31,20 +40,25 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 10px;
-  letter-spacing: -1px;
+  padding-left: 10px;
 }
 
-h2 {
-  margin-bottom: 20px;
+.sidebar-rw-4 {
+  padding-top: 10px;
+}
+
+.sidebar-rw-4 h2 {
+  font-size: 1.2em;
+  font-weight: bolder;
 }
 
 .sidebar-feed-div,
 .sidebar-trending-div,
 .sidebar-personal-div {
   display: flex;
-  align-content: center;
   gap: 10px;
   margin-left: 15px;
+  font-size: 0.9em;
 }
 
 .links {
@@ -55,9 +69,9 @@ h2 {
 
 .see-all {
   width: 100%;
-  text-align: center;
+  padding-left: 14px;
+  margin-top: -8px;
   font-weight: 700;
-  letter-spacing: 0.3em;
   position: relative;
   display: inline-block;
 }
@@ -120,9 +134,43 @@ h2 {
   cursor: pointer;
 }
 
+.side-post {
+  width: 18vw;
+}
+
+.trending-topics-cx {
+  width: 100%;
+}
+
+.log-out {
+  color: red;
+  font-weight: 600;
+}
+
 .close {
   visibility: hidden;
   border: solid red;
+}
+
+.hambuger {
+  display: block;
+  margin-left: auto;
+}
+
+.hambuger:hover {
+  cursor: pointer;
+}
+
+.hambuger.active .line:nth-child(2) {
+  opacity: 0;
+}
+
+.hambuger.active .line:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+
+.hambuger.active .line:nth-child(3) {
+  transform: translateY(-4px) rotate(-45deg);
 }
 
 @media (min-width: 180px) and (max-width: 780px) {

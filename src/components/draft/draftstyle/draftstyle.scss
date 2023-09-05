@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+    height: fit-content;
+   
 }
 .draft-rw-1{
     display: flex;
@@ -37,4 +39,17 @@
     display: flex;
     gap: 5px;
     margin-left: auto;
+}
+.empty-draft{
+    display: flex;
+    border:0.3px solid rgb(199, 199, 199);
+    margin-top: 20px;
+    height: 40vh;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 1.5em;
+    justify-content: center;
+    align-items: center;
+
 }

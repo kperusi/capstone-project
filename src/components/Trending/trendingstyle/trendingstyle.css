@@ -1,16 +1,16 @@
 .trending {
   display: flex;
   flex-direction: column;
-  margin-top: -10px;
+  margin-top: 4px;
   width: 100%;
 }
 
 .trending ul {
   list-style: none;
-  font-size: 1.3em;
+  font-size: 1em;
   display: flex;
   flex-direction: column;
-  padding-left: 20px;
+  padding-left: 15px;
 }
 
 .tag-link:hover {
@@ -19,4 +19,20 @@
   border-radius: 5px;
   color: white;
   padding-left: 10px;
+  width: 70%;
+}
+
+.trending-topic {
+  display: flex;
+  padding: 0 5px;
+  gap: 10px;
+  width: 100%;
+}
+
+.trending-topic-tag {
+  padding: 5px 5px;
+  background-color: rgb(95, 95, 236);
+  color: white;
+  border-radius: 5px;
+  font-size: 0.8em;
 }/*# sourceMappingURL=trendingstyle.css.map */

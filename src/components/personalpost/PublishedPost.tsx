@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { db, storage } from "../firebase/firebase";
 import { UserContext } from "../userContext/UserContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import "./personalpost.css";
 import { deleteObject, ref } from "firebase/storage";
 import MyDropdown from "../option/MyDropdown";
@@ -23,8 +23,8 @@ export default function PersonalPost() {
   const user = useContext(UserContext);
   const param = useParams();
   const [userName, setUserName] = useState("");
-
   const navigate = useNavigate();
+  const [setNumber]=useOutletContext<any>()
 
   const removeSpace = (name: any) => {
     if (name) return name.replace(/\s/g, "");
@@ -50,7 +50,7 @@ export default function PersonalPost() {
     const blogRef = collection(db, "Blogs");
     const q = query(
       blogRef,
-      where("createdBy", "==", userName),
+      where("createdBy", "==", `${user?.displayName}`),
       orderBy("createdAt", "desc"),
       where("status", "==", "published")
     );
@@ -60,8 +60,9 @@ export default function PersonalPost() {
         ...doc.data(),
       }));
       setBlogs(blogs);
+      setNumber(blogs.length)
     });
-  }, [user, userName]);
+  }, [user, userName,setNumber]);
 
   // if(user){
   //   console.log(user.displayName)
@@ -73,14 +74,7 @@ export default function PersonalPost() {
         <section className="person-post-cx">
           {blogs.map((blog: any) => (
             <section key={blog.id} className="person-post-rw-1">
-              {/* <section className="post-rw-1">
-              <img src={blog.imageUrl} alt="" className="profile-pic" />
-              <div>
-                <h2>{props.displayname}</h2>
-                <p>{props.prof} {props.date}</p>
-              </div>
-            </section> */}
-
+          
               <section className="person-post-rw-2">
                 <h1>{blog.title}</h1>
                 <div className="readtime">

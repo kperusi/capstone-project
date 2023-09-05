@@ -1,45 +1,92 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { UserContext } from "../userContext/UserContext";
 import { Outlet, useNavigate } from "react-router-dom";
 import "./personalpost.css";
+import { useDispatch, useSelector } from "react-redux";
+import { handlePersonalPostSelected } from "../store/dataSlice";
 
 export default function PersonalPost() {
-  const user = useContext(UserContext);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [number, setNumber] = useState(0);
+  const [name, setName] = useState("");
+
+  const personalPostSelected = useSelector(
+    (state: any) => state.data.selectedPersonalPost
+  );
 
   return (
     <main className="person-post">
       <section className="person-post-nav">
+        <div className="person-post-header">
+          <h1> Personal Contents</h1>
+          <div style={{ display: "flex",justifyContent:'center' ,alignItems:'center',flexDirection:'row'}}>
+            <p>All your contents</p>
+            <span
+              style={{
+                display: "block",
+                borderRadius: "50%",
+                width: "4px",
+                height: "4px",
+                backgroundColor: "grey",
+                marginLeft:'10px',
+              }}
+            ></span>
+            <p style={{marginLeft:'10px'}}>
+              {number}{' '}
+              {name}
+            </p>
+          </div>
+        </div>
+
         <div
-          className="person-all"
+          className={`person-all`}
           onClick={() => {
+            dispatch(handlePersonalPostSelected("all-border"));
             navigate("all");
+            setName("All");
           }}
         >
           <h4>All</h4>
+          <span
+            className={`${personalPostSelected.all}`}
+            style={{ height: "5px", color: "blue", display: "block" }}
+          ></span>
         </div>
         <div
-          className="person-draft"
+          className={`person-draft `}
           onClick={() => {
+            dispatch(handlePersonalPostSelected("draft-border"));
             navigate("drafts");
+            setName("Drafts");
           }}
         >
           <h4>Drafts</h4>
+          <span
+            className={`${personalPostSelected.draft}`}
+            style={{ height: "5px", color: "blue", display: "block" }}
+          ></span>
         </div>
         <div
-          className="person-publish"
-          onClick={() => {
+          className={`person-publish`}
+          onClick={(e) => {
+            e.preventDefault();
+            dispatch(handlePersonalPostSelected("published-border"));
             navigate(`published`);
+            setName("Published");
           }}
         >
           <h4>Published</h4>
+          <span
+            className={`${personalPostSelected.published}`}
+            style={{ height: "5px", color: "blue", display: "block" }}
+          ></span>
         </div>
       </section>
 
       <section className="person-post-outlet">
-        <Outlet />
+        <Outlet context={[setNumber]} />
       </section>
     </main>
   );

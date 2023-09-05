@@ -5,18 +5,30 @@ import { UserContext } from "../userContext/UserContext";
 import { useState } from "react";
 import userImage from "../../Assets/images/man.png";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase/firebase";
+import { auth, storage } from "../firebase/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import Hambuger from "./Hambuger";
-import { handleSelected, setForYou, setMobi_Menu } from "../store/dataSlice";
+
+import { getDownloadURL, getStorage, ref } from "firebase/storage";
+
+import {
+  handleSelected,
+  setForYou,
+  setMobi_Menu,
+  setShowSearchBar,
+} from "../store/dataSlice";
 import Popup from "reactjs-popup";
+import Search from "../search/Search";
+import NewPost from "../../components/createpost/NewPost";
 
 function NavBar() {
   // const [show, setShow] = useState("");
   // const [back, setBack] = useState("close");
   const dispatch = useDispatch();
   const user = useContext(UserContext);
+  // @ts-ignore
+  // const user = JSON.parse(localStorage.getItem('user'))
   const showHandler = () => {
     dispatch(setMobi_Menu());
   };
@@ -24,43 +36,59 @@ function NavBar() {
   const closeModal = () => setOpen(false);
   const mobi_menu = useSelector((state: any) => state.data.mobi_menu);
   const navigate = useNavigate();
-  // const [user] = useAuthState(auth);
   const number = useSelector((state: any) => state.data.number);
-  const photo_Url = useSelector((state: any) => state.data.photo_Url);
-  // const [showProfile, setShowProfile] = useState("hide");
-
-  if (user) {
-    // console.log(user);
-  }
+  const showSearchBar = useSelector((state: any) => state.data.showSearchBar);
+  // console.log(user);
 
   return (
     <nav className="nav-main">
       <section>
-        <h1 className="nav-logo">{number}</h1>
+        <h1
+          className="nav-logo"
+          onClick={() => {
+            navigate("./");
+            dispatch(setShowSearchBar(false));
+          }}
+        >
+          {number}
+        </h1>
       </section>
       <section className={`nav-bar-hambuger`}>
         <Hambuger showHandler={showHandler} mobi_menu={mobi_menu} />
       </section>
       <section className="nav-rw-1 nav-links">
-        <NavLink to="/" className="link">
-          Home
-        </NavLink>
-        <NavLink to="about" className="link">
-          About us
-        </NavLink>
-        <NavLink to="/contact" className="link">
-          Contact
-        </NavLink>
-        <NavLink
-          to="chatter/feed"
-          className="link"
-          onClick={() => {
-            dispatch(setForYou());
-            dispatch(handleSelected("feed"));
-          }}
+        <aside
+          className={`nav-search-cx`}
         >
-          Blogs
-        </NavLink>
+          <Search />
+        </aside>
+
+        {/* <aside
+          className={`${
+            showSearchBar ? "search-bar-hidden" : "search-bar-show"
+          }`}
+        >
+          <NavLink to="/" className="link">
+            Home
+          </NavLink>
+          <NavLink to="about" className="link">
+            About us
+          </NavLink>
+          <NavLink to="/contact" className="link">
+            Contact
+          </NavLink>
+          <NavLink
+            to="chatter/feed"
+            className="link"
+            onClick={() => {
+              dispatch(setForYou());
+              dispatch(handleSelected("feed"));
+              dispatch(setShowSearchBar(true));
+            }}
+          >
+            Blogs
+          </NavLink>
+        </aside> */}
       </section>
       <section className="nav-rw-2 nav-button">
         <button
@@ -73,15 +101,44 @@ function NavBar() {
         </button>
       </section>
 
+      <section className="nav-create-post">
+        <NewPost />
+      </section>
+      <section className="nav-notify">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="blue"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            fill="white"
+            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5"
+          />
+        </svg>
+      </section>
+
       <section className="user-profile">
         {user && (
-          <div onClick={() => setOpen((o) => !o)}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              borderRadius: "50%",
+              width: "60px",
+              height: "60px",
+            }}
+            onClick={() => setOpen((o) => !o)}
+          >
             <img
-              style={{ borderRadius: "50%" }}
+              style={{ borderRadius: "50%", height: "40px", width: "40px" }}
               src={user?.photoURL || userImage}
               alt=""
-              height="50"
-              width={50}
             />
           </div>
         )}
@@ -106,9 +163,9 @@ function NavBar() {
                 <img
                   src={user?.photoURL || userImage}
                   alt=""
-                  height={50}
-                  width={50}
-                  style={{ borderRadius: "50%" }}
+                  // height={50}
+                  // width={50}
+                  style={{ borderRadius: "50%", height: "40px", width: "40px" }}
                 />
                 <p>{user?.displayName}</p>
               </div>
@@ -126,9 +183,10 @@ function NavBar() {
                   </svg>
                   <NavLink
                     className="profile-link"
-                    to={`/chatter/mystories`}
+                    to={`/chatter/mystories/all`}
                     onClick={() => {
                       closeModal();
+                      dispatch(setShowSearchBar(true));
                     }}
                   >
                     My stories
@@ -160,7 +218,7 @@ function NavBar() {
               </div>
 
               <hr />
-              <div style={{display:'flex', gap:'5px',marginTop:'20px'}}>
+              <div style={{ display: "flex", gap: "5px", marginTop: "20px" }}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="28"
@@ -170,20 +228,19 @@ function NavBar() {
                   <path d="M180-120q-24 0-42-18t-18-42v-600q0-24 18-42t42-18h299v60H180v600h299v60H180Zm486-185-43-43 102-102H360v-60h363L621-612l43-43 176 176-174 174Z" />
                 </svg>
 
-
                 <button
-                className="nav-profile-logout-btn"
-                onClick={() => {
-                  signOut(auth);
-                  localStorage.removeItem("user");
-                  navigate("/");
-                  closeModal();
-                }}
-              >
-                LogOut
-              </button>
+                  className="nav-profile-logout-btn"
+                  onClick={() => {
+                    signOut(auth);
+                    localStorage.removeItem("user");
+                    navigate("/");
+                    closeModal();
+                  }}
+                >
+                  LogOut
+                </button>
               </div>
-             
+
               <p style={{ color: "grey" }}>{user?.email}</p>
             </section>
           </header>

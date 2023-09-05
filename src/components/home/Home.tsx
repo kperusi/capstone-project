@@ -16,16 +16,16 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../userContext/UserContext";
 import { handleSelected, setForYou,} from "../store/dataSlice";
 import { useDispatch } from "react-redux";
+import NavBar from "../navbar/NavBar";
 
 function Home() {
 
   // const user = JSON.parse(localStorage.getItem('user'))
   //  console.log(user.displayName)
   const navigate = useNavigate()
-  const mobi_menu = useSelector((state: any) => state.data.mobi_menu);
+  // const mobi_menu = useSelector((state: any) => state.data.mobi_menu);
 const user = useContext(UserContext)
 const dispatch = useDispatch()
-  console.log(mobi_menu);
 const handlenav = ()=>{
   if(!user){
     navigate("signup");
@@ -40,6 +40,7 @@ const handlenav = ()=>{
 
   return (
     <main className="home-main">
+  
       
 
       <section className="bg-wrap">

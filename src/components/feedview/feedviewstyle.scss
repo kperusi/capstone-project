@@ -2,18 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    // border: 0.3px solid;
-}
-
-// .feed-posts-wrap{
-//     display: flex;
-//     flex-direction: column;
-//     padding: 20px;
-//     border: 0.3px solid;
-//     gap: 20px;
    
-// }
-
+}
 
 .feed-posts{
     display: flex;
@@ -23,9 +13,7 @@
     // padding: 20px;
 
 }
-.feed-posts:hover{
-    cursor: pointer;
-}
+
 
 .content-btn-wrap{
     display: flex;
@@ -39,26 +27,30 @@
 .btn-wrap{
     display: flex;
     flex-direction: row;
-    background-color: blue;
+    // background-color: blue;
+    border:0.3px solid blue;
     justify-content: center;
-    border-radius: 5px;
+    border-radius: 8px;
     align-items: center;
-    color: white;
+    color: blue;
     margin-left: auto;
     padding: 0 10px;
     gap: 10px;
-    height: 50px;
+    height: 40px;
+    width:120px ;
+    line-height: 12px;
 }
 .post-btn{
-    color: white;
+    color: blue;
     text-decoration: none;
+    text-align: center;
 }
 .loader {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #3498db;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 60px;
+    height: 60px;
     animation: spin 2s linear infinite;
     margin: 100px auto;
   }

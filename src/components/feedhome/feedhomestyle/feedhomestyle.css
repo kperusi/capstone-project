@@ -1,13 +1,12 @@
 .feedhome {
   display: grid;
-  grid-template-columns: 1.3fr 1fr 3fr;
-  grid-template-rows: 0.01fr 1fr 3fr;
-  grid-template-areas: "sidebar search search" "sidebar outlet outlet" "sidebar outlet outlet";
+  grid-template-columns: 1.15fr 1fr 2.3fr 1fr;
+  grid-template-rows: 0.01fr 1fr 2fr 0.01fr;
+  grid-template-areas: "sidebar trending trending trending " "sidebar outlet outlet outlet " "sidebar outlet outlet outlet";
   background-color: rgb(247, 245, 245);
-  padding-right: 20px;
-  padding-top: 5px;
-  row-gap: 10px;
+  padding-left: 2px;
   padding-bottom: 30px;
+  padding-top: 20px;
 }
 
 .feedhomed {
@@ -35,12 +34,19 @@
   border-radius: 2px;
 }
 
+.trending-cx {
+  grid-area: trending;
+}
+
 .search-cx {
   grid-area: search;
   height: -moz-fit-content;
   height: fit-content;
   background-color: white;
   border-radius: 8px;
+  margin-bottom: 10px;
+  position: sticky;
+  top: 0px;
 }
 
 .sidebar-cx {
@@ -48,17 +54,19 @@
   grid-area: sidebar;
   background-color: rgb(247, 245, 245);
   border-radius: 5px;
-  width: 22vw;
+  width: 20vw;
   scroll-behavior: smooth;
   word-break: break-all;
   overflow-x: scroll;
-  height: 90vh;
+  height: 84vh;
+  top: 80px;
 }
 
 .outlet-cx {
   grid-area: outlet;
-  border: 0.3px solid gray;
+  border: 0.3px solid rgb(214, 212, 212);
   background-color: white;
+  margin-top: 10px;
   height: -moz-fit-content;
   height: fit-content;
 }
@@ -69,7 +77,7 @@
   transition: scrollbar-color 0.3s;
 }
 .sidebar-cx:hover {
-  scrollbar-color: black transparent;
+  scrollbar-color: rgb(112, 112, 112) transparent;
 }
 .sidebar-cx::-webkit-scrollbar-track {
   color: white;
@@ -79,14 +87,14 @@
   background: transparent;
 }
 .sidebar-cx::-webkit-scrollbar {
-  width: 11px;
+  width: 9px;
 }
 .sidebar-cx::-webkit-scrollbar-thumb {
   border-radius: 3px;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(99, 99, 99, 0.75);
 }
 .sidebar-cx::-webkit-scrollbar-button:single-button {
-  background-color: rgb(255, 255, 255);
+  background-color: white;
   height: 8px;
   border-radius: 5px;
 }

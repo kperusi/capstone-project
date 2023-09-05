@@ -23,6 +23,7 @@ import Profile from "../profile/Profile";
 // import Preview from "../preview/Preview";
 import All from "../personalpost/All";
 import ErrorPage from "../erropage/ErrorPage";
+import Bookmarks from "../bookmarks/Bookmarks";
 // import Main from "../main/Main";
 export const MyRoutes = () => {
   // const mobi_menu = useSelector((state: any) => state.data.mobi_menu);
@@ -43,6 +44,7 @@ export const MyRoutes = () => {
             <Route path="recent" element={<Recent />} />
             <Route path="featured" element={<Featured />} />
           </Route>
+          <Route path="bookmarks" element={<Bookmarks/>}/>
           <Route path="draft" element={<Draft />} />
           <Route path="mystories" element={<PersonalPost />}>
             <Route index element={<All />} />

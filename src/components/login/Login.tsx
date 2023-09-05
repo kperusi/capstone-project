@@ -5,34 +5,40 @@ import { auth } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import {setForYou} from '../store/dataSlice'
+import { setForYou } from "../store/dataSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Login() {
   const navigate = useNavigate();
+  const popup = (message:any) => toast(`${message} try again`);
 
-
-
+  const [error, setError] = useState<any>(false);
   const [email, setEmail] = useState<any>("");
   const [password, setPassword] = useState<any>("");
   const [loading, setLoading] = useState<any>("");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const handleLogin = async (e:any) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    dispatch(setForYou())
+    dispatch(setForYou());
     try {
       await signInWithEmailAndPassword(auth, email, password).then(() => {
+        localStorage.setItem("user", JSON.stringify(auth.currentUser));
         navigate("/chatter/feed/for-you");
-        
         setLoading(false);
+      }).catch((e)=>{
+        setError("can't login. Check your network");
+        console.log(e.message);
+        setLoading(false);
+        popup(e.code)
       });
-    } catch (error) {
-      // console.log(error.code:any);
-      setLoading(false);
+    }  catch (error) {
+     
     }
   };
-  
 
+ 
   // console.log(email)
   return (
     <main className="login-main">
@@ -46,7 +52,7 @@ export default function Login() {
             <input
               type="text"
               className="login-form-input"
-              onInput={(e:any) => {
+              onInput={(e: any) => {
                 setEmail(e.target.value);
               }}
             />
@@ -58,7 +64,7 @@ export default function Login() {
             <input
               type="password"
               className="login-form-input"
-              onInput={(e:any) => {
+              onInput={(e: any) => {
                 setPassword(e.target.value);
               }}
             />
@@ -71,7 +77,7 @@ export default function Login() {
                 Remember Password
               </label>
             </div>
-            <NavLink to=''>Forgot Password?</NavLink>
+            <NavLink to="">Forgot Password?</NavLink>
           </div>
 
           <button
@@ -92,6 +98,7 @@ export default function Login() {
           </div>
         )}
       </section>
+      <ToastContainer/>
     </main>
   );
 }
