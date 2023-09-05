@@ -80,6 +80,9 @@
 }
 
 .post-img {
+  height: 40vh;
+  -o-object-fit: cover;
+     object-fit: cover;
   width: 30vw;
   border-radius: 8px;
 }

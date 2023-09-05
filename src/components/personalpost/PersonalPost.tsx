@@ -4,13 +4,14 @@ import { UserContext } from "../userContext/UserContext";
 import { Outlet, useNavigate } from "react-router-dom";
 import "./personalpost.css";
 import { useDispatch, useSelector } from "react-redux";
-import { handlePersonalPostSelected } from "../store/dataSlice";
+import { handlePersonalPostSelected, setName } from "../store/dataSlice";
 
 export default function PersonalPost() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [number, setNumber] = useState(0);
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
+  const name = useSelector((state:any)=>state.data.name)
 
   const personalPostSelected = useSelector(
     (state: any) => state.data.selectedPersonalPost
@@ -45,7 +46,7 @@ export default function PersonalPost() {
           onClick={() => {
             dispatch(handlePersonalPostSelected("all-border"));
             navigate("all");
-            setName("All");
+            dispatch(setName('All'));
           }}
         >
           <h4>All</h4>
@@ -59,7 +60,7 @@ export default function PersonalPost() {
           onClick={() => {
             dispatch(handlePersonalPostSelected("draft-border"));
             navigate("drafts");
-            setName("Drafts");
+            dispatch(setName("Drafts"));
           }}
         >
           <h4>Drafts</h4>
@@ -74,7 +75,7 @@ export default function PersonalPost() {
             e.preventDefault();
             dispatch(handlePersonalPostSelected("published-border"));
             navigate(`published`);
-            setName("Published");
+            dispatch(setName("Published"));
           }}
         >
           <h4>Published</h4>

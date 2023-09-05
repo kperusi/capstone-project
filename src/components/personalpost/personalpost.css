@@ -80,6 +80,9 @@
 .person-post-img {
   width: 25vw;
   border-radius: 8px;
+  height: 40vh;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .person-post-img-cx {

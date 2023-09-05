@@ -18,18 +18,17 @@ import MyDropdown from "../option/MyDropdown";
 import Paginate from "../Paginate";
 import Popup from "reactjs-popup";
 import { useDispatch, useSelector } from "react-redux";
+import { handlePersonalPostSelected, setName } from "../store/dataSlice";
 
 export default function All() {
   const [currentPage, setCurrentPage] = useState(1);
   const [blogs, setBlogs] = useState<any>([]);
   const user = useContext(UserContext);
-  const param = useParams();
-  const [userName, setUserName] = useState("");
   const [loading, setLoading] = useState<any>(true);
-  const [error, setError] = useState<any>("");
   const [setNumber] = useOutletContext<any>();
   const navigate = useNavigate();
   const createPostLoading = useSelector((state: any) => state.data.loading);
+  const dispatch=useDispatch()
 
   const handleDelete = async (id: any, imageUrl: any) => {
     try {
@@ -60,8 +59,10 @@ export default function All() {
         setBlogs(blogs);
         setLoading(false);
       });
-   
-  }, [user, setNumber, createPostLoading]);
+
+   dispatch(handlePersonalPostSelected('all-border'))
+   dispatch(setName('All'))
+  }, [user, setNumber, createPostLoading,dispatch]);
 
   const handleEdit = async (id: any, imageUrl: any) => {
     navigate(`/editing/${id}`);

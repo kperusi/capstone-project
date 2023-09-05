@@ -10,8 +10,9 @@ export const dataSlice = createSlice({
     forYou: "",
     recent: "",
     featured: "",
-    loading:'',
-    error:'',
+    loading: "",
+    error: "",
+    name: "",
     selected: {
       feed: "",
       bookmark: "",
@@ -130,23 +131,24 @@ export const dataSlice = createSlice({
         state.selectedPersonalPost.all = "";
         state.selectedPersonalPost.draft = "";
         state.selectedPersonalPost.published = action.payload;
-      }
-      else if (action.payload === "all-border") {
+      } else if (action.payload === "all-border") {
         state.selectedPersonalPost.all = action.payload;
         state.selectedPersonalPost.draft = "";
         state.selectedPersonalPost.published = "";
-      }
-      else if (action.payload === "draft-border") {
+      } else if (action.payload === "draft-border") {
         state.selectedPersonalPost.all = "";
         state.selectedPersonalPost.draft = action.payload;
         state.selectedPersonalPost.published = "";
       }
     },
-    setLoading:(state,action)=>{
-      state.loading=action.payload
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
-    setError:(state,action)=>{
-state.error=action.payload
+    setError: (state, action) => {
+      state.error = action.payload;
+    },
+    setName: (state, action) => {
+      state.name = action.payload;
     },
   },
 });
@@ -164,5 +166,6 @@ export const {
   handlePersonalPostSelected,
   setLoading,
   setError,
+  setName,
 } = dataSlice.actions;
 export default dataSlice.reducer;

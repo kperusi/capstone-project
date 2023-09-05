@@ -17,14 +17,15 @@ import { useNavigate, useOutletContext, useParams } from "react-router-dom";
 import "./personalpost.css";
 import { deleteObject, ref } from "firebase/storage";
 import MyDropdown from "../option/MyDropdown";
+import { useDispatch } from "react-redux";
+import { handlePersonalPostSelected, setName } from "../store/dataSlice";
 
 export default function PersonalPost() {
   const [blogs, setBlogs] = useState<any>([]);
   const user = useContext(UserContext);
-  const param = useParams();
-  const [userName, setUserName] = useState("");
   const navigate = useNavigate();
   const [setNumber]=useOutletContext<any>()
+  const dispatch=useDispatch()
 
   const removeSpace = (name: any) => {
     if (name) return name.replace(/\s/g, "");
@@ -44,9 +45,8 @@ export default function PersonalPost() {
   };
 
   useEffect(() => {
-    if (user) {
-      setUserName(user.displayName);
-    }
+   
+
     const blogRef = collection(db, "Blogs");
     const q = query(
       blogRef,
@@ -62,7 +62,9 @@ export default function PersonalPost() {
       setBlogs(blogs);
       setNumber(blogs.length)
     });
-  }, [user, userName,setNumber]);
+    dispatch(handlePersonalPostSelected('publish-border'))
+    dispatch(setName('Published'))
+  }, [user,setNumber,dispatch]);
 
   const handleUnplish=()=>{
 
