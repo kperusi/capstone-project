@@ -82,6 +82,7 @@ export default function Posts(props: any) {
       <section
         className="post-rw-3"
         onClick={() => props.handleNavigate(props.blog)}
+        style={{backgroundImage:`${props.postImage}`}}
       >
         <div className="post-content-cx">
           <h1 className="post-title">

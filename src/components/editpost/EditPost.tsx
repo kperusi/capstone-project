@@ -72,12 +72,16 @@ export default function EditPost() {
     setBlogData({ ...blogData, title: e.target.value });
   };
   const handleMainChange = (main: any) => {
+    setSaving('Saving...')
     setBlogData({ ...blogData, main: main });
   };
   const handleImageChange = (e: any) => {
+    setSaving('Saving...')
     setBlogData({ ...blogData, image: e.target.files[0] });
   };
+const handleTagChanged=(e:any)=>{
 
+}
   useEffect(() => {
     const editDocRef = doc(db, "Blogs", id);
     onSnapshot(editDocRef, (snapshot: any) => {
@@ -99,8 +103,8 @@ export default function EditPost() {
         return word !== "";
       }).length)
      
-      setSaving("Saving..");
-      console.log(number_words)
+      setSaving("Saving...");
+      // console.log(number_words)
       const time = Math.ceil(number_words / wpm);
       updateDoc(doc(db, "Blogs", id), {
         main: blogData.main,
@@ -112,9 +116,17 @@ export default function EditPost() {
        
       });
     }
-  }, [blogData.main, id, blogData.title]);
+  }, [blogData.main, id, blogData.title,number_words]);
 
-
+useEffect(() => {
+  setSaving('saving...')
+    updateDoc(doc(db, "Blogs", id), {
+      tags: selected,
+    }).then(() => {
+      _setSaving(false);
+      setSaving("Saved");
+    });
+  }, [selected, id]);
 
   const handlePublish = async () => {
     setSaving("Publishing");
