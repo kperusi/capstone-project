@@ -25,6 +25,11 @@
   flex-direction: column;
 }
 
+.person-post-menu {
+  display: flex;
+  align-items: center;
+}
+
 .person-post-menu-wrap:hover {
   cursor: pointer;
 }

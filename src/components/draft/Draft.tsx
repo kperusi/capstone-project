@@ -16,55 +16,37 @@ import { db, storage } from "../firebase/firebase";
 import { UserContext } from "../userContext/UserContext";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import "./draftstyle/draftstyle.css";
+import { useSelector } from "react-redux";
 
 export default function Draft() {
   const user = useContext(UserContext);
   const [drafts, setDrafts] = useState<any>([]);
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [setNumber]=useOutletContext<any>()
+  const createPostLoading=useSelector((state:any)=>state.data.loading)
 
-  const handleCreateDraft = async (): Promise<any> => {
-    setLoading(true);
-    const blogRef = doc(collection(db, "Blogs"));
-    await setDoc(blogRef, {
-      title: "",
-      main: "",
-      imageUrl: "",
-      userImageUrl: user?.photoURL,
-      createdAt: Timestamp.now().toDate(),
-      createdBy: user?.displayName,
-      userId: user?.uid,
-      likes: [],
-      numberOfLikes: 0,
-      comments: [],
-      views: 0,
-      viewers: [],
-      readtime: 0,
-      status: "draft",
-      category: "",
-      tags: [],
-    });
-    setLoading(false);
-    navigate(`/edit/${blogRef.id}`);
-  };
 
+console.log(createPostLoading)
   useEffect(() => {
-    const draftBlogRef = collection(db, "Blogs");
-    const q = query(
-      draftBlogRef,
-      orderBy("createdAt", "desc"),
-      where("status", "==", "draft"),
-      where("createdBy", "==", `${user?.displayName}`)
-    );
-    onSnapshot(q, (snapshot) => {
-      const draftBlogs = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setDrafts(draftBlogs);
-      setNumber(draftBlogs.length)
-    });
+   
+      const draftBlogRef = collection(db, "Blogs");
+      const q = query(
+        draftBlogRef,
+        orderBy("createdAt", "desc"),
+        where("status", "==", "draft"),
+        where("createdBy", "==", `${user?.displayName}`)
+      );
+      onSnapshot(q, (snapshot) => {
+        const draftBlogs = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setDrafts(draftBlogs);
+        setNumber(draftBlogs.length)
+      });
+    
+   
   }, [user,setNumber]);
 
   const firstLetter = (blog: any) => {
@@ -95,6 +77,11 @@ export default function Draft() {
 
       </section>
     );
+  }
+
+  if (createPostLoading===true) {
+    setNumber('')
+    return <section className="loader"></section>;
   }
   return (
     <main className="person-post-main">

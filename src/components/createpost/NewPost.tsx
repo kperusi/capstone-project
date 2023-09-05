@@ -6,50 +6,62 @@ import { db } from "../firebase/firebase";
 import { Outlet, useNavigate } from "react-router-dom";
 import { UserContext } from "../userContext/UserContext";
 import { useSelector, useDispatch } from "react-redux";
-import { setFeatured, setForYou, setRecent } from "../store/dataSlice";
+import { setError, setFeatured, setForYou, setLoading, setRecent } from "../store/dataSlice";
 
 export default function NewPost() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const loading = useSelector((state:any)=>state.data.loading)
+  const error = useSelector((state:any)=>state.data.error)
   const user = useContext<any>(UserContext);
-    // @ts-ignore
-    // const user = JSON.parse(localStorage.getItem('user'))
+  // @ts-ignore
+  // const user = JSON.parse(localStorage.getItem('user'))
   const dispatch = useDispatch();
 
-  const handleCreateDraft = async (): Promise<any> => {
-    if(!user){
-      navigate("signup");
-    }
-    else{
-      
-    setLoading(true);
-    const blogRef = doc(collection(db, "Blogs"));
-    await setDoc(blogRef, {
-      title: "",
-      main: "",
-      imageUrl: "",
-      userImageUrl: user?.photoURL,
-      createdAt: Timestamp.now().toDate(),
-      createdBy: user?.displayName,
-      userId: user?.uid,
-      likes: [],
-      numberOfLikes: 0,
-      comments: [],
-      views: 0,
-      viewers: [],
-      readtime: 0,
-      status: "draft",
-      category: "",
-      tags: [],
-      bookmarks: '',
-      bookmarker: [],
-      lastViewed:''
-    });
-    setLoading(false);
-    navigate(`/edit/${blogRef.id}`);
 
+  console.log(loading)
+  const handleCreateDraft = async (): Promise<any> => {
+    if (!user) {
+      navigate("signup");
+    } else {
+       dispatch(setLoading(true))
+
+      const blogRef = doc(collection(db, "Blogs"));
+      navigate(`/edit/${blogRef.id}`);
+      await setDoc(blogRef, {
+        title: "",
+        main: "",
+        imageUrl: "",
+        userImageUrl: user?.photoURL,
+        createdAt: Timestamp.now().toDate(),
+        createdBy: user?.displayName,
+        userId: user?.uid,
+        likes: [],
+        numberOfLikes: 0,
+        comments: [],
+        views: 0,
+        viewers: [],
+        readtime: 0,
+        status: "draft",
+        category: "",
+        tags: [],
+        bookmarks: "",
+        bookmarker: [],
+        lastViewed: "",
+      })
+        
+        dispatch(setLoading(false))
+        console.log('>>>','loading')
+     
     }
   };
+
+  if (loading===true) {
+    return (<div className="btn-wrap">creating...</div>);
+  }
+  if (error!=='') {
+    return (<div className="btn-wrap">error...</div>);
+  }
+ 
   return (
     <main>
       <div className="btn-wrap">

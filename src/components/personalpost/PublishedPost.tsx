@@ -64,6 +64,9 @@ export default function PersonalPost() {
     });
   }, [user, userName,setNumber]);
 
+  const handleUnplish=()=>{
+
+  }
   // if(user){
   //   console.log(user.displayName)
   // }
@@ -76,8 +79,28 @@ export default function PersonalPost() {
             <section key={blog.id} className="person-post-rw-1">
           
               <section className="person-post-rw-2">
-                <h1>{blog.title}</h1>
-                <div className="readtime">
+                <div className="person-post-content-cx">
+                   <h1><b>{blog.title}</b></h1>
+                   <div
+                  dangerouslySetInnerHTML={{ __html: blog.main }}
+                  className="person-post-content"
+                ></div>
+
+                </div>
+                <div className="person-post-img-cx">
+
+                <img src={blog.imageUrl} alt="postpicture"
+                className="person-post-img"
+                />
+            
+               
+                </div>
+               
+               
+              </section>
+
+              <section className="person-post-rw-4">
+              <div className="readtime">
                   <svg
                     width="22"
                     height="18"
@@ -92,21 +115,8 @@ export default function PersonalPost() {
                   </svg>
                   <p>{blog.readtime} min . read time</p>
                 </div>
-              </section>
 
-              <section className="person-post-rw-3">
-               
-               
-               <img src={blog.imageUrl} alt="postpicture" />
-            
-               
-                <div
-                  dangerouslySetInnerHTML={{ __html: blog.main }}
-                  className="person-post-content"
-                ></div>
-              </section>
-
-              <section className="person-post-rw-4">
+                <div style={{ display: "flex", flexDirection: "row", gap: "50px" }}>
                 <div className="person-post-comment">
                   <svg
                     width="22"
@@ -151,9 +161,11 @@ export default function PersonalPost() {
                   <p>{blog.views}</p>
                  
                 </div>
+                </div>
+     
 
-                <div className="person-post-menu rounded-xl shadow border">
-                  <MyDropdown id={blog.id} handleDelete={handleDelete} img={blog.imageUrl}  handleEdit={handleEdit}/>
+                <div className="person-post-menu ">
+                  <MyDropdown unpublish={handleUnplish} id={blog.id} handleDelete={handleDelete} img={blog.imageUrl}  handleEdit={handleEdit}/>
                 </div>
               </section>
             </section>

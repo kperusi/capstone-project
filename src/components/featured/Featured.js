@@ -12,19 +12,19 @@ function Featured() {
  const user = useContext(UserContext)
 
 
-  useEffect(() => {
-    const userName = user.displayName
-    const blogRef = collection(db, "Blogs");
-    const q = query(blogRef, where("createdBy", '==' ,userName));
-    onSnapshot(q, (snapshot) => {
-      const blogs = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setBlogs(blogs);
-      // console.log(userName);
-    });
-  }, []);
+  // useEffect(() => {
+  //   const userName = user.displayName
+  //   const blogRef = collection(db, "Blogs");
+  //   const q = query(blogRef, where("createdBy", '==' ,userName));
+  //   onSnapshot(q, (snapshot) => {
+  //     const blogs = snapshot.docs.map((doc) => ({
+  //       id: doc.id,
+  //       ...doc.data(),
+  //     }));
+  //     setBlogs(blogs);
+  //     // console.log(userName);
+  //   });
+  // }, []);
   // console.log(blogs)
  
   return (

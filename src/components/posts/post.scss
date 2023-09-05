@@ -9,7 +9,7 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
-    // border: solid red;
+    
     margin-bottom: -10px;
 }
 .post-rw-1 div {
@@ -116,9 +116,9 @@
     // font-size: 1.5em;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
+    width:60%;
+    height: 60%;
+    padding: 30px;
     border-radius: 50%;
 }
 .post-menu{
@@ -152,15 +152,22 @@
     padding: 5px;
     color:black;
 }
+.disp-name-cx{
+    // border: solid;
+    width: 50%;
+}
 .disp-name {
     font-size: 1.6em;
     margin-bottom: -4px;
     color: gray;
 }
 .p {
+    display: flex;
     margin-top: -8px;
+    width: 100%;
     color: gray;
-    // padding:0 20px;
+    gap: 10px;
+    align-items: center;
 }
 
 @media screen And (min-width: 180px) And (max-width: 767px) {

@@ -10,6 +10,8 @@ export const dataSlice = createSlice({
     forYou: "",
     recent: "",
     featured: "",
+    loading:'',
+    error:'',
     selected: {
       feed: "",
       bookmark: "",
@@ -140,6 +142,12 @@ export const dataSlice = createSlice({
         state.selectedPersonalPost.published = "";
       }
     },
+    setLoading:(state,action)=>{
+      state.loading=action.payload
+    },
+    setError:(state,action)=>{
+state.error=action.payload
+    },
   },
 });
 export const {
@@ -154,5 +162,7 @@ export const {
   setSideShow,
   setShowSearchBar,
   handlePersonalPostSelected,
+  setLoading,
+  setError,
 } = dataSlice.actions;
 export default dataSlice.reducer;

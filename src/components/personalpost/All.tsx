@@ -17,6 +17,7 @@ import { deleteObject, ref } from "firebase/storage";
 import MyDropdown from "../option/MyDropdown";
 import Paginate from "../Paginate";
 import Popup from "reactjs-popup";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function All() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,9 +28,8 @@ export default function All() {
   const [loading, setLoading] = useState<any>(true);
   const [error, setError] = useState<any>("");
   const [setNumber] = useOutletContext<any>();
-  const [open, setOpen] = useState(false);
-  const closeModal = () => setOpen(false);
   const navigate = useNavigate();
+  const createPostLoading = useSelector((state: any) => state.data.loading);
 
   const handleDelete = async (id: any, imageUrl: any) => {
     try {
@@ -43,20 +43,25 @@ export default function All() {
 
   useEffect(() => {
     if (user) {
-      setUserName(user.displayName);
+      // setUserName(user.displayName);
     }
-    const blogRef = collection(db, "Blogs");
-    const q = query(blogRef, where("createdBy", "==", `${user?.displayName}`));
-    onSnapshot(q, (snapshot) => {
-      const blogs = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      setNumber(blogs.length);
-      setBlogs(blogs);
-      setLoading(false);
-    });
-  }, [user, userName, setNumber]);
+ 
+      const blogRef = collection(db, "Blogs");
+      const q = query(
+        blogRef,
+        where("createdBy", "==", `${user?.displayName}`)
+      );
+      onSnapshot(q, (snapshot) => {
+        const blogs = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setNumber(blogs.length);
+        setBlogs(blogs);
+        setLoading(false);
+      });
+   
+  }, [user, setNumber, createPostLoading]);
 
   const handleEdit = async (id: any, imageUrl: any) => {
     navigate(`/editing/${id}`);
@@ -64,9 +69,13 @@ export default function All() {
 
   const { startIndex, lastIndex, NumberOfPages } = Paginate(blogs, currentPage);
 
-  // if (loading) {
-  //   return <section className="loader"></section>;
-  // }
+  if (loading===true) {
+    return <section className="loader"></section>;
+  }
+  if (createPostLoading===true) {
+    setNumber('')
+    return <section className="loader"></section>;
+  }
 
   return (
     <>
@@ -159,63 +168,35 @@ export default function All() {
                     <p>{blog.views}</p>
                   </div>
                   <div className="person-post-menu">
-                  <span onClick={() => setOpen((o) => !o)}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                      className="w-6 h-6"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                      />
-                    </svg>
-                  </span>
-                  <Popup
-                    open={open}
-                    closeOnDocumentClick
-                    onClose={closeModal}
-                    position='bottom center'
-                    // className="popup"
-                    contentStyle={{
-                      
-                      borderRadius:'5px',
-                      width: "20%",
-                      backgroundColor: "white",
-                      marginRight:'100px',
-                     
-                      
-                    }}
-                  >
+                    <MyDropdown
+                      id={blog.id}
+                      handleDelete={handleDelete}
+                      img={blog.imageUrl}
+                      handleEdit={handleEdit}
+                    />
                     <div
                       style={{
-                        // boxShadow: "0px 2px 2px 1px grey",
-                        padding: "20px",
                         display: "flex",
-                        flexDirection: "column",
+                        alignItems: "center",
+                        gap: "10px",
                       }}
-                      className="popup"
                     >
-                      <button
-                        onClick={() => handleDelete(blog.id, blog.imageUrl)}
-                      >
-                        Delete
-                      </button>
-                      <button
-                        onClick={() => handleEdit(blog.id, blog.imageUrl)}
-                      >
-                        Edit
-                      </button>
+                      {" "}
+                      <p>status </p>
+                      <span
+                        style={{
+                          width: "5px",
+                          height: "5px",
+                          display: "block",
+                          background: "grey",
+                          borderRadius: "50%",
+                        }}
+                      ></span>{" "}
+                      <p>{blog.status}</p>{" "}
                     </div>
-                  </Popup>
-                </div>
+                  </div>
                 </div>
               </section>
-              
             </section>
           ))}
         </section>
