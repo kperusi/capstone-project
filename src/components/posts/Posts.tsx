@@ -82,7 +82,7 @@ export default function Posts(props: any) {
       <section
         className="post-rw-3"
         onClick={() => props.handleNavigate(props.blog)}
-        style={{backgroundImage:`${props.postImage}`}}
+       
       >
         <div className="post-content-cx">
           <h1 className="post-title">
@@ -96,11 +96,13 @@ export default function Posts(props: any) {
         </div>
 
         <div className="post-img-cx">
-          <img
+          {props.postImage&& <img
             src={props.postImage}
             alt={props.postImage ? "postpicture" : ""}
             className="post-img"
-          />
+            
+          />}
+         
         </div>
       </section>
 
