@@ -86,7 +86,6 @@ export default function Posts(props: any) {
       >
         <div className="post-content-cx">
           <h1 className="post-title">
-            {" "}
             <b>{props.title}</b>
           </h1>
           <div

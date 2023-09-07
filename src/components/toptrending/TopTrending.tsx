@@ -59,7 +59,8 @@ export default function TopTrending() {
         blogRef,
         orderBy(`views`, "desc"),
         where("views", ">", 5),
-        limit(5)
+        
+        limit(4)
 
         // orderBy("createdAt", "desc"),
       );
@@ -163,11 +164,12 @@ export default function TopTrending() {
         {loading && <div>loading...</div>}
         {blogs.map((blog: any) => (
           <div className="trending-blog-cx">
-            <img
+            {blog.imageUrl&&  <img
               src={blog.imageUrl}
               alt="a"
               style={{ width: "100%", height: "85px" }}
-            />
+            />}
+          
 
             <h1 className="trending-blog-title"> {blog.title}</h1>
           </div>
